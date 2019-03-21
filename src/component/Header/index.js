@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Icon,  Dropdown, Row, Col, Input } from "antd";
+import { Icon, Dropdown, Row, Col, Input } from "antd";
 import { Link } from "react-router-dom";
-import {CategoryContainer,Header} from "./styles"
+import { CategoryContainer, Header } from "./styles";
 // 登录
 
 const Search = Input.Search;
@@ -43,57 +43,69 @@ const categoryList = [
 ];
 
 class HeaderContainer extends Component {
+  // 搜索数据
+  // TODO: 请求所有的数据，前端用于分页，搜索排序
+  // componentDidMount(){
+
+  // }
 
   render() {
     const category = (
-        <CategoryContainer>
-          <div>图片</div>
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <Row gutter={16}>
-              {categoryList.map(item => (
-                <Col span={8} key={item.categoryId}>
-                  <dl>
-                    <dt>
-                      <h4>{item.categoryTitle}</h4>
-                    </dt>
-                    {item.list.map(good => (
-                      <dd key={good.id}>
-                        <Link to={`/category:${good.id}`}>{good.name}</Link>
-                      </dd>
-                    ))}
-                  </dl>
-                </Col>
-              ))}
-            </Row>
-          </div>
-        </CategoryContainer>
-      );
+      <CategoryContainer>
+        <div>图片</div>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <Row gutter={16}>
+            {categoryList.map(item => (
+              <Col span={8} key={item.categoryId}>
+                <dl>
+                  <dt>
+                    <h4>{item.categoryTitle}</h4>
+                  </dt>
+                  {item.list.map(good => (
+                    <dd key={good.id}>
+                      <Link
+                        to={{
+                          pathname: `/category:${good.id}`,
+                          state: { goodName: good.name }
+                        }}
+                      >
+                        {good.name}
+                      </Link>
+                    </dd>
+                  ))}
+                </dl>
+              </Col>
+            ))}
+          </Row>
+        </div>
+      </CategoryContainer>
+    );
     return (
       <Header>
-            <Row>
-              <Col span={8}>
-                <img scr="" alt="" />
-              </Col>
-              <Col span={8}>
-                <Search
-                  placeholder="input search text"
-                  onSearch={value => this.handleChange(value)}
-                  enterButton
-                  style={{ width: 350 ,margin:'24px 0'}}
-                />
-              </Col>
-              <Col span={8}>
-                <Dropdown overlay={category}>
-                  <a>
-                    分类&nbsp;
-                    <Icon type="down" />
-                  </a>
-                </Dropdown>
+        <Row>
+          <Col span={8}>
+            <img scr="" alt="" />
+          </Col>
+          <Col span={8}>
+            <Search
+              placeholder="input search text"
+              onSearch={value => this.handleSearch(value)}
+              enterButton
+              style={{ width: 350, margin: "24px 0" }}
+            />
+          </Col>
+          <Col span={8}>
+            <Dropdown overlay={category}>
+              <a>
+                分类&nbsp;
+                <Icon type="down" />
+              </a>
+            </Dropdown>
 
-                <Link to="/loginIn">登录</Link>
-                <Link to="/loginUp">注册</Link>
-              </Col>
-              </Row>
+            <Link to="/loginIn">登录</Link>
+            <Link to="/loginUp">注册</Link>
+          </Col>
+        </Row>
       </Header>
     );
   }

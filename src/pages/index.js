@@ -4,7 +4,7 @@ import XiaoYiStyle from "@pages/home";
 import LoginInContainer from "@pages/loginIn";
 import LoginUpContainer from "@pages/loginUp";
 import CategoryContainer from "@pages/category";
-import DetailContainer from "@pages/category";
+import DetailContainer from "@pages/detail";
 
 class XiaoYi extends Component {
   render() {
@@ -16,7 +16,7 @@ class XiaoYi extends Component {
         <Route path="/loginIn" component={LoginInContainer} />
         <Route path="/loginUp" component={LoginUpContainer} />
         <Route path="/category:categoryId" component={CategoryContainer} />
-        <Route path="/detail" component={DetailContainer} />
+        <Route path="/detail:goodId" component={DetailContainer} />
       </Switch>
     </div>
     );
