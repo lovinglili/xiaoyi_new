@@ -44,8 +44,8 @@ class HomeContainer extends Component {
           </Layout.Header>
           <Layout.Content>
             <HomeContainers>
-              <div style={{height:80,border:'1px solid #ccc',width:'60%',margin:'0 auto 24px auto'}}>
-
+              <div style={{height:80,border:'1px solid #eee',width:'60%',margin:'0 auto 24px auto'}}>
+                  
               </div>
               <Row gutter={16}>
                 <Col span={24}>

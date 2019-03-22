@@ -34,7 +34,6 @@ export const XiaoYiStyle = styled.div`
     box-shadow: 0 5px 3px #eee;
     border-bottom: 1px solid #ccc
     }
-  }
 `;
 
 export const BuyContainer = styled.div`
