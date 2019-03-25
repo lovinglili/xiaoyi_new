@@ -9,6 +9,7 @@ const Search = Input.Search;
 const categoryList = [
   {
     categoryTitle: "手机数码",
+    categoryId: 111,
     list: [
       { id: "1", name: "蓝牙耳机" },
       { id: "2", name: "数据线" },
@@ -16,7 +17,6 @@ const categoryList = [
       { id: "4", name: "相机" },
       { id: "5", name: "其他手机数码" }
     ],
-    categoryId: 111
   },
   {
     categoryTitle: "服饰",
@@ -50,6 +50,7 @@ class HeaderContainer extends Component {
   // }
 
   render() {
+    const { type }=this.props;
     const category = (
       <CategoryContainer>
         <div>图片</div>
@@ -80,13 +81,16 @@ class HeaderContainer extends Component {
         </div>
       </CategoryContainer>
     );
+    console.log(type)
     return (
       <Header>
         <Row>
           <Col span={8}>
             <img scr="" alt="" />
           </Col>
-          <Col span={8}>
+          {type==='loginUp'  && <div><Col span={8}>欢迎注册</Col><Col span={8}>已有账号？<Link   to="/loginIn">去登录 ></Link></Col></div>}
+          {type==='loginIn'  && <div><Col span={8}>欢迎登录</Col><Col span={8}><Link to="/loginIn">登录</Link><Link   to="/loginUp">注册</Link></Col></div>}
+          {!type && (  <div><Col span={8}>
             <Search
               placeholder="input search text"
               onSearch={value => this.handleSearch(value)}
@@ -104,7 +108,9 @@ class HeaderContainer extends Component {
 
             <Link to="/loginIn">登录</Link>
             <Link to="/loginUp">注册</Link>
-          </Col>
+          </Col></div> )}
+
+       
         </Row>
       </Header>
     );
