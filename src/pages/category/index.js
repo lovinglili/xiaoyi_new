@@ -60,7 +60,6 @@ class CategoryContainer extends Component {
     sort: true // 从高到低
   };
   componentDidMount() {
-    console.log(this.props);
     const { history } = this.props;
     const {
       location: {

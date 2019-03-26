@@ -81,7 +81,6 @@ class HeaderContainer extends Component {
         </div>
       </CategoryContainer>
     );
-    console.log(type)
     return (
       <Header>
         <Row>

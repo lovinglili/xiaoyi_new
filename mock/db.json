@@ -1,0 +1,13 @@
+{
+  "assign": {
+    "nickName": "d",
+    "password": "d",
+    "remember": true,
+    "aId": "xiaoyi"
+  },
+  "add": {
+    "data": {
+      "isAssign": "true"
+    }
+  }
+}

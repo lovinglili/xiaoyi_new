@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import HeaderContainer from "@c/Header";
-import { Link } from "react-router-dom";
+import { Link,withRouter } from "react-router-dom";
 import connect from "@connect";
 import { LoginIn ,LoginInContent} from "./styles.js";
 import { Layout, Form, Icon, Input, Button, Checkbox, } from "antd";
@@ -15,10 +15,12 @@ class LoginInContainers extends Component {
 
   // 登录的操作,发送到后端请求
   handleSubmit=(e)=>{
+    const {loginIn_actions}=this.props;
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-      console.log(values)        
+        // TODO json-server中的POST请求需要json格式
+        loginIn_actions.fetchLoginIn(JSON.stringify(values))      
       }
     });
   }
@@ -77,4 +79,10 @@ class LoginInContainers extends Component {
 const LoginInContainer = Form.create({})(LoginInContainers);
 
 
-export default LoginInContainer;
+
+export default withRouter(
+  connect(
+    LoginInContainer,
+    [{ name: "loginIn", state: ["loginInData"] }]
+  )
+);

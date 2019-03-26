@@ -1,11 +1,10 @@
 import * as types from './actionTypes'
 import axios from 'axios'
 export default {
-    fetchLoginIn () {
+    fetchLoginIn (values) {
         return {
             type: types.GET_LOGININ_ASYNC,
-            payload: axios.get('/xiaoyi/assign')
-            //  请求连接
+            payload: axios({url:'/xiaoyi/assign', method: 'post', headers: {'Content-Type':'application/json'},data:values})
         }
     }
 }
