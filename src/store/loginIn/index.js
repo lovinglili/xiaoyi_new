@@ -3,7 +3,7 @@ import * as types from './actionTypes'
 
 // import connect from '@connect'
 // 给connect添加可以配置的atcionCreators
-import actionCreators from './actionCreators'
+// import actionCreators from './actionCreators'
 // connect.addActions({
 //     main: actionCreators
 // })
@@ -16,7 +16,7 @@ const reducer = (
 
     switch (action.type) {
        
-        case types.GET_LIST_ASYNC+'_FULFILLED':
+        case types.GET_LOGININ_ASYNC+'_FULFILLED':
 
             new_state.list = action.payload.data.data; break;
 

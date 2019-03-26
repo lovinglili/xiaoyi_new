@@ -1,0 +1,2 @@
+
+export const GET_LOGININ_ASYNC = 'GET_LOGININ_ASYNC'

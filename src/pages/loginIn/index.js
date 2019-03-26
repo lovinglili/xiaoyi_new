@@ -1,11 +1,28 @@
 import React, { Component } from "react";
 import HeaderContainer from "@c/Header";
 import { Link } from "react-router-dom";
+import connect from "@connect";
 import { LoginIn ,LoginInContent} from "./styles.js";
 import { Layout, Form, Icon, Input, Button, Checkbox, } from "antd";
+import createActionLoginIn from "../../store/loginIn/actionCreators";
+
+connect.addActions({
+  loginIn: createActionLoginIn
+});
 
 // 登录
 class LoginInContainers extends Component {
+
+  // 登录的操作,发送到后端请求
+  handleSubmit=(e)=>{
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+      console.log(values)        
+      }
+    });
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -20,10 +37,10 @@ class LoginInContainers extends Component {
 
           <Form onSubmit={this.handleSubmit}>
             <Form.Item>
-              {getFieldDecorator('userName', {
-                rules: [{ required: true, message: 'Please input your username!' }],
+              {getFieldDecorator('nickName', {
+                rules: [{ required: true, message: 'Please input your nickName!' }],
               })(
-                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="nickName" />
               )}
             </Form.Item>
             <Form.Item>
