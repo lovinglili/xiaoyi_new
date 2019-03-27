@@ -1,9 +1,8 @@
 {
   "assign": {
-    "nickName": "d",
-    "password": "d",
-    "remember": true,
-    "aId": "xiaoyi"
+    "nickName": "sdf",
+    "password": "sdf",
+    "remember": false
   },
   "add": {
     "data": {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Icon, Dropdown, Row, Col, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Link,withRouter } from "react-router-dom";
+import connect from "@connect";
 import { CategoryContainer, Header } from "./styles";
 // 登录
 
@@ -49,8 +50,18 @@ class HeaderContainer extends Component {
 
   // }
 
+  // 退出，返回到首页，store的数据清空
+  handleExit=()=>{
+    this.props.history.push({ pathname: '/home'});
+  }
+
+
   render() {
-    const { type }=this.props;
+    const { type,loginIn:{loginInData={}} }=this.props;
+    // 后端这个地方放回的是一个标志，json-server返回了用户的信息
+    const loginDataLen=Object.keys(loginInData).length;
+    console.log(loginDataLen,"loginDataLen")
+    // 判断loginDataLen 的长度是否为空，来显示头部退出
     const category = (
       <CategoryContainer>
         <div>图片</div>
@@ -104,9 +115,11 @@ class HeaderContainer extends Component {
                 <Icon type="down" />
               </a>
             </Dropdown>
-
-            <Link to="/loginIn">登录</Link>
-            <Link to="/loginUp">注册</Link>
+            {loginDataLen ===0  && (<span> <Link to="/loginIn">登录</Link>
+            <Link to="/loginUp">注册</Link></span>)}
+            {loginDataLen !==0  && (<span> <Link to="/loginIn">登录</Link>
+            <a onClick={this.handleExit}>退出</a></span>)}
+           
           </Col></div> )}
 
        
@@ -116,4 +129,9 @@ class HeaderContainer extends Component {
   }
 }
 
-export default HeaderContainer;
+export default withRouter(
+  connect(
+    HeaderContainer,
+    [{ name: "loginIn", state: ["loginInData"] }]
+  )
+);
