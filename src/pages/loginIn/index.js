@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import HeaderContainer from "@c/Header";
-import { Link } from "react-router-dom";
+import { Link,withRouter } from "react-router-dom";
 import connect from "@connect";
 import { LoginIn ,LoginInContent} from "./styles.js";
 import { Layout, Form, Icon, Input, Button, Checkbox, } from "antd";
@@ -13,18 +13,36 @@ connect.addActions({
 // 登录
 class LoginInContainers extends Component {
 
-  // 登录的操作,发送到后端请求
-  handleSubmit=(e)=>{
+  state={
+    rememberValue:true, // 记住密码的标志
+
+  }
+  // 登录的操作,发送到后端请求，rememberValue为true，则将数据存储到localStorage；
+  handleSubmit= (e)=>{
+    const {loginIn_actions}=this.props;
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-      console.log(values)        
+        // TODO json-server中的POST请求需要json格式，后端请求不一定
+         loginIn_actions.fetchLoginIn(JSON.stringify(values),this.callback)     
+           console.log(this.props) 
       }
     });
   }
 
+
+ 
+  // 切换 remember me
+  handleRemeberChange=()=>{
+    const {rememberValue}=this.state;
+    this.setState({
+      rememberValue:!rememberValue
+    })
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
+    const {rememberValue} = this.state;
     return (
       <LoginIn>
         <Layout>
@@ -53,9 +71,9 @@ class LoginInContainers extends Component {
             <Form.Item>
               {getFieldDecorator('remember', {
                 valuePropName: 'checked',
-                initialValue: true,
+                initialValue: rememberValue,
               })(
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox onChange={this.handleRemeberChange}>Remember me</Checkbox>
               )}
               <a className="login-form-forgot" href="">Forgot password</a>
               <Button type="primary" htmlType="submit" className="login-form-button">
@@ -77,4 +95,10 @@ class LoginInContainers extends Component {
 const LoginInContainer = Form.create({})(LoginInContainers);
 
 
-export default LoginInContainer;
+
+export default withRouter(
+  connect(
+    LoginInContainer,
+    [{ name: "loginIn", state: ["loginInData"] }]
+  )
+);

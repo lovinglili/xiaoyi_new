@@ -1,0 +1,12 @@
+{
+  "assign": {
+    "nickName": "sdf",
+    "password": "sdf",
+    "remember": false
+  },
+  "add": {
+    "data": {
+      "isAssign": "true"
+    }
+  }
+}
