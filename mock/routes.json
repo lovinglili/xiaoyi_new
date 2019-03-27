@@ -1,4 +1,3 @@
 {
-    "/xiaoyi/*": "/$1",
-    "/add/:category": "/posts?category=:category"
+    "/xiaoyi/*": "/$1"
 }

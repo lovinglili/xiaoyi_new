@@ -15,8 +15,15 @@ class LoginInContainers extends Component {
 
   state={
     rememberValue:true, // 记住密码的标志
-
+    assignUser:{}
   }
+  componentDidMount(){
+    const rememberUser= JSON.parse(localStorage.getItem("user"));
+    this.setState({
+      assignUser:rememberUser
+    })
+  }
+
   // 登录的操作,发送到后端请求，rememberValue为true，则将数据存储到localStorage；
   handleSubmit= (e)=>{
     const {loginIn_actions}=this.props;
@@ -24,12 +31,18 @@ class LoginInContainers extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // TODO json-server中的POST请求需要json格式，后端请求不一定
-         loginIn_actions.fetchLoginIn(JSON.stringify(values),this.callback)     
-           console.log(this.props) 
+   
+         loginIn_actions.fetchLoginIn(JSON.stringify(values),()=>this.assignSuccess(values))     
       }
     });
   }
 
+assignSuccess=(values)=>{
+  const {rememberValue}=this.state;
+  const storeValue=rememberValue ?  values:{}
+   localStorage.setItem("user",JSON.stringify(storeValue));
+  this.props.history.push({ pathname: '/home'});
+}
 
  
   // 切换 remember me
@@ -42,7 +55,8 @@ class LoginInContainers extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const {rememberValue} = this.state;
+    const {rememberValue,assignUser} = this.state;
+    const {nickName,password}=assignUser;
     return (
       <LoginIn>
         <Layout>
@@ -56,6 +70,7 @@ class LoginInContainers extends Component {
           <Form onSubmit={this.handleSubmit}>
             <Form.Item>
               {getFieldDecorator('nickName', {
+                initialValue:nickName || '',
                 rules: [{ required: true, message: 'Please input your nickName!' }],
               })(
                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="nickName" />
@@ -63,6 +78,7 @@ class LoginInContainers extends Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
+                initialValue:password || '',
                 rules: [{ required: true, message: 'Please input your Password!' }],
               })(
                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />

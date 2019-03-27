@@ -1,12 +1,18 @@
 {
   "assign": {
-    "nickName": "sdf",
-    "password": "sdf",
-    "remember": false
+    "nickName": "czccx",
+    "password": "zxc",
+    "remember": true
   },
   "add": {
     "data": {
       "isAssign": "true"
     }
+  },
+  "quit": {
+    "data": {
+      "isAssign": false
+    },
+    "success": true
   }
 }

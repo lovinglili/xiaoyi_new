@@ -17,14 +17,15 @@ const reducer = (
     switch (action.type) {
 
         case types.GET_LOGININ_ASYNC+'_FULFILLED':{
-            console.log(12)
-            new_state.loginInData = action.payload.data;
+            // TODO:根据真实数据
+            new_state.loginInData = {
+                isAssign: true
+            };
              break;
         }
 
-        case types.LOGININ_OUT:{
-            // TODO接通后端的时候，这个函数去掉
-            new_state.loginInData={}
+        case types.LOGININ_OUT+'_FULFILLED':{
+            new_state.loginInData=action.payload.data.data;
             break;
         }
 
