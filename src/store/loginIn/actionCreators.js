@@ -18,6 +18,25 @@ export default {
         }
     },
 
+        // 注册
+        fetchLoginUp (values,callback) {
+            return {
+                type: types.GET_LOGINUP_ASYNC,
+                payload:new Promise(resolve=>{
+                    const {phoneNumber,nickName,password}=values
+                    const senValue={phoneNumber,nickName,password};
+                    axios({url:'/xiaoyi/add', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(senValue)}).then(response=>{
+                       // TODO:后端会返回success，联调的时候改一下判断条件就好
+                        const {data={}}=response;
+                        if(Object.keys(data).length!==0){
+                            callback();
+                        }
+                        resolve(response);
+                    })
+                }) 
+            }
+        },
+
     // 退出
     loginOut(callback){
         return {
@@ -31,6 +50,14 @@ export default {
                     resolve(response)
                 })
             })
+        }
+    },
+
+    // 保存 nickName
+    storeNickName(values){
+        return {
+            type:types.STORE_NICKNAME,
+            payload:values
         }
     }
 }

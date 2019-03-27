@@ -5,6 +5,7 @@ import LoginInContainer from "@pages/loginIn";
 import LoginUpContainer from "@pages/loginUp";
 import CategoryContainer from "@pages/category";
 import DetailContainer from "@pages/detail";
+import MySelfContainer from "@pages/myself"
 
 class XiaoYi extends Component {
   render() {
@@ -17,6 +18,7 @@ class XiaoYi extends Component {
         <Route path="/loginUp" component={LoginUpContainer} />
         <Route path="/category:categoryId" component={CategoryContainer} />
         <Route path="/detail:goodId" component={DetailContainer} />
+        <Route path="/myself" component={MySelfContainer} />
       </Switch>
     </div>
     );

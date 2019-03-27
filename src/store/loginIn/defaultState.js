@@ -1,4 +1,5 @@
 
 export default {
-    loginInData: {}
+    loginInData: {},
+    userInfo:{}
 }
