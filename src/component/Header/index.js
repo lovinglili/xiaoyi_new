@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Icon, Dropdown, Row, Col, Input } from "antd";
-import { Link,withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import connect from "@connect";
 import { CategoryContainer, Header } from "./styles";
 // 登录
@@ -51,20 +51,21 @@ class HeaderContainer extends Component {
   // }
 
   // 退出，返回到首页，store的数据清空
-  handleExit=()=>{
-    const {loginIn_actions}=this.props;
+  handleExit = () => {
+    const { loginIn_actions } = this.props;
     loginIn_actions.loginOut(this.quitSuccess) // 退出
   }
 
-  quitSuccess=()=>{
-    this.props.history.push({ pathname: '/home'});
+  quitSuccess = () => {
+    this.props.history.push({ pathname: '/home' });
 
   }
 
   render() {
-    const { type,loginIn:{loginInData={}} }=this.props;
+    const { type, loginIn: { loginInData = {}, userInfo = {} }, } = this.props;
     // 后端这个地方放回的是一个标志，json-server返回了用户的信息
-    const {isAssign}=loginInData
+    const { isAssign } = loginInData;
+    const { nickName } = userInfo;
     const category = (
       <CategoryContainer>
         <div>图片</div>
@@ -101,9 +102,9 @@ class HeaderContainer extends Component {
           <Col span={8}>
             <img scr="" alt="" />
           </Col>
-          {type==='loginUp'  && <div><Col span={8}>欢迎注册</Col><Col span={8}>已有账号？<Link   to="/loginIn">去登录 ></Link></Col></div>}
-          {type==='loginIn'  && <div><Col span={8}>欢迎登录</Col><Col span={8}><Link to="/loginIn">登录</Link><Link   to="/loginUp">注册</Link></Col></div>}
-          {!type && (  <div><Col span={8}>
+          {type === 'loginUp' && <div><Col span={8}>欢迎注册</Col><Col span={8}>已有账号？<Link to="/loginIn">去登录 ></Link></Col></div>}
+          {type === 'loginIn' && <div><Col span={8}>欢迎登录</Col><Col span={8}><Link to="/loginIn">登录</Link><Link to="/loginUp">注册</Link></Col></div>}
+          {!type && (<div><Col span={8}>
             <Search
               placeholder="input search text"
               onSearch={value => this.handleSearch(value)}
@@ -111,22 +112,22 @@ class HeaderContainer extends Component {
               style={{ width: 350, margin: "24px 0" }}
             />
           </Col>
-          <Col span={8}>
-            <Dropdown overlay={category}>
-              <a>
-                分类&nbsp;
+            <Col span={8}>
+              <Dropdown overlay={category}>
+                <a>
+                  分类&nbsp;
                 <Icon type="down" />
-              </a>
-            </Dropdown>
-             {/* //TODO，后端会返回标志 判断loginDataLen 的长度是否为空，来显示头部退出 */}
-            {!isAssign && (<span> <Link to="/loginIn">登录</Link>
-            <Link to="/loginUp">注册</Link></span>)}
-            {isAssign  && (<span> <Link to="/loginIn">显示nickname</Link>
-            <a onClick={this.handleExit}>退出</a></span>)}
-           
-          </Col></div> )}
+                </a>
+              </Dropdown>
+              {/* //TODO，后端会返回标志 判断loginDataLen 的长度是否为空，来显示头部退出 */}
+              {!isAssign && (<span> <Link to="/loginIn">登录</Link>
+                <Link to="/loginUp">注册</Link></span>)}
+              {isAssign && (<span> <Link to="/myself">{nickName}</Link>
+                <a onClick={this.handleExit}>退出</a></span>)}
 
-       
+            </Col></div>)}
+
+
         </Row>
       </Header>
     );
