@@ -9,24 +9,59 @@ const Option=Select.Option;
 class LoginUpContainers extends Component {
   // 注册
   state = {
-    current: 0
+    current: 0,
+    loginUpInfo:{}, // 注册过程中的数据
   };
 
   next() {
-    const current = this.state.current + 1;
-    this.setState({ current });
+    const {loginUpInfo}=this.state;
+        // 获取数据成功之后才能到下一步
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        const {agreement}=values;
+        if(agreement){
+          const current = this.state.current + 1;
+          this.setState({ current,loginUpInfo:{...loginUpInfo,
+           ... values
+          } });
+        }
+      }
+    });
+  }
+
+  secondNext(){
+    const {loginUpInfo}=this.state;
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        const {password,confirm}=values;
+        if(password!==confirm){
+          message.error('密码输入错误，请重新输入')
+        }else{
+          const current = this.state.current + 1;
+          this.setState({ current ,loginUpInfo:{...loginUpInfo,...values}});
+        }
+      }
+    });
   }
 
   prev() {
-    const current = this.state.current - 1;
-    this.setState({ current });
+    const {loginUpInfo}=this.state;
+    this.props.form.validateFields((err, values) => {
+
+      const current = this.state.current - 1;
+      this.setState({ current ,loginUpInfo:{
+        ...loginUpInfo,...values
+      }});
+    })
   }
 
   render() {
-    const { current } = this.state;
+    const { current,loginUpInfo } = this.state;
     const { getFieldDecorator } = this.props.form;
+    const {prefix,phoneNumber,agreement,nickName,password,confirm}=loginUpInfo;
+    console.log(this.state.loginUpInfo,"lo")
     const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '86',
+      initialValue: prefix || '86',
     })(
       <Select style={{ width: 70 }}>
         <Option value="86">+86</Option>
@@ -35,37 +70,42 @@ class LoginUpContainers extends Component {
     );
     const formItemLayout = {
       labelCol: {
-        xs: { span: 8 },
-        sm: { span: 8 },
+        xs: { span: 6 },
+        sm: { span: 6 },
       },
       wrapperCol: {
-        xs: { span: 16 },
-        sm: { span: 16 },
+        xs: { span: 14 },
+        sm: { span: 14 },
       },
     };
     const tailFormItemLayout = {
       wrapperCol: {
         xs: {
-          span: 16,
-          offset: 8,
+          span: 12,
+          offset: 6,
         },
         sm: {
-          span: 16,
-          offset: 8,
+          span: 12,
+          offset: 6,
         },
       },
     };
     const steps = [
       {
         title: "验证手机号",
-        content: ()=>(<div>
-          <Form {...formItemLayout}>
+        content: ()=>(
+          <div style={{marginTop:16}}>
+          <Form >
           <Form.Item
               label="Phone Number"
+          {...formItemLayout}
               
             >
-              {getFieldDecorator('phone', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
+              {getFieldDecorator('phoneNumber', {
+                initialValue:phoneNumber || '',
+                rules: [{ required: true,
+                  pattern:/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/,
+                   message: 'Please input your phone number!' }],
               })(
 
                  <Input addonBefore={prefixSelector} style={{ width: '100%' }} /> 
@@ -74,17 +114,30 @@ class LoginUpContainers extends Component {
             <Form.Item {...tailFormItemLayout}>
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
+            initialValue:agreement || false,
+            rules:[{
+              required:true
+            }]
           })(
             <Checkbox>I have read the <a href="">agreement</a></Checkbox>
            )} 
         </Form.Item>
+        <Form.Item {...tailFormItemLayout}>
+        <Button type="primary" onClick={() => this.next()}>
+                    Next
+                  </Button>
+          </Form.Item>
           </Form>
-        </div>)
+          </div>
+        )
       },
       {
         title: "填写账户信息",
-        content:()=>(<div><Form {...formItemLayout}>
+        content:()=>(
+          <div style={{marginTop:16}}>
+        <Form >
          <Form.Item
+         {...formItemLayout}
           label={(
             <span>
               Nickname&nbsp;
@@ -92,7 +145,8 @@ class LoginUpContainers extends Component {
             </span>
           )}
         >
-          {getFieldDecorator('nickname', {
+          {getFieldDecorator('nickName', {
+            initialValue:nickName || '',
             rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
           })(
             <Input />
@@ -100,8 +154,10 @@ class LoginUpContainers extends Component {
         </Form.Item>
            <Form.Item
           label="Password"
+          {...formItemLayout}
         >
           {getFieldDecorator('password', {
+            initialValue:password || '',
             rules: [{
               required: true, message: 'Please input your password!',
             }, {
@@ -112,9 +168,11 @@ class LoginUpContainers extends Component {
           )}
         </Form.Item>
         <Form.Item
+        {...formItemLayout}
           label="Confirm Password"
         >
           {getFieldDecorator('confirm', {
+            initialValue:confirm || '',
             rules: [{
               required: true, message: 'Please confirm your password!',
             }, {
@@ -124,12 +182,21 @@ class LoginUpContainers extends Component {
             <Input type="password" onBlur={this.handleConfirmBlur} />
           )}
         </Form.Item>
-       
+       <Form.Item {...tailFormItemLayout}>
+       <Button type="primary" onClick={() => this.secondNext()}>
+                    Next
+                  </Button>
+       <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
+                    Previous
+                  </Button>
+       </Form.Item>
           </Form> </div>)
       },
       {
         title: "注册成功",
-        content:()=>(<div>success</div>)
+        content:()=>(<div style={{width:'100%',marginTop:'30px',textAlign:'center'}}>
+        <h3 style={{display:'inline-block'}}>注册成功，开启你的省钱之旅！</h3> 
+        </div>)
       }
     ];
     return (
@@ -146,7 +213,7 @@ class LoginUpContainers extends Component {
                 ))}
               </Steps>
               <div className="steps-content">{steps[current].content()}</div>
-              <div className="steps-action">
+              {/* <div className="steps-action">
                 {current < steps.length - 1 && (
                   <Button type="primary" onClick={() => this.next()}>
                     Next
@@ -165,7 +232,7 @@ class LoginUpContainers extends Component {
                     Previous
                   </Button>
                 )}
-              </div>
+              </div> */}
             </div>
           </LoginContent>
         </Layout>
