@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { Detail, DetailTop, DetailBottom, GoodTitle, GoodPrice, BusinessMessage, ProductDetail } from "./styles.js";
-
+import { Link,withRouter } from "react-router-dom";
+import connect from "@connect";
 import { Layout, Card, Col, Row, Pagination, Icon, Menu } from "antd";
 import HeaderContainer from "@c/Header";
 import { Category, ContentCon, DetailCardContainer } from "../category/styles.js";
+import createActionDetail from "../../store/detail/actionCreators";
+
+connect.addActions({
+  detail: createActionDetail
+});
 
 const gridStyle = {
   width: '50%',
@@ -61,7 +67,23 @@ const list = [
 // 登录
 class DetailContainer extends Component {
 
+  componentDidMount(){
+    const {detail_actions, detail}=this.props;
+    detail_actions.getDetail(this.toConsole)
+    // console.log("this.props:", this.props, detail.detailData);
+    // const rememberUser= JSON.parse(localStorage.getItem("user"));
+    // this.setState({
+    //   assignUser:rememberUser
+    // })
+  }
+  toConsole() {
+    console.log(2333);
+  }
+
   render() {
+    const { detail}=this.props;
+    console.log("this.props:", this.props, detail.detailData);
+    let myDetailData = Object.keys(detail.detailData).length !== 0 ? detail.detailData : {};
     return (
       <Detail>
         <Layout.Header>
@@ -77,31 +99,31 @@ class DetailContainer extends Component {
               />
             </Card.Grid>
             <Card.Grid style={gridStyle}>
-            <div class="good-describe">
+            <div className="good-describe">
                 <GoodTitle>
                   <img src="" />
                   【京东智能电视】KKTV  U50F1 康佳  50英寸4K超高清36核HDR 网络电视 人工智能语音 液晶电视 （黑色+银色）
                 </GoodTitle>
                 <GoodPrice>
-                  <div class="sale-price">
-                    <div class="text">售卖价</div>
-                    <div class="price">
+                  <div className="sale-price">
+                    <div className="text">售卖价</div>
+                    <div className="price">
                       <span>￥</span>1400
                   </div>
                   </div>
-                  <div class="production-price">
-                    <div class="text">原价</div>
-                    <div class="price"><span>￥</span>2199</div>
+                  <div className="production-price">
+                    <div className="text">原价</div>
+                    <div className="price"><span>￥</span>2199</div>
                   </div>
-                  <div class="sale-address">
-                    <div class="text">发布地</div>
-                    <div class="price">青岛市 胶州市</div>
+                  <div className="sale-address">
+                    <div className="text">发布地</div>
+                    <div className="price">青岛市 胶州市</div>
                   </div>
-                  <div class="label"><span>包邮</span> <span>商品全新</span> <span>有发票</span></div>
+                  <div className="label"><span>包邮</span> <span>商品全新</span> <span>有发票</span></div>
                 </GoodPrice>
                 <BusinessMessage>
-                  <div class="contact">
-                    <div class="contact-seller"><span class="phone-number">立即购买</span></div>
+                  <div className="contact">
+                    <div className="contact-seller"><span className="phone-number">立即购买</span></div>
                   </div>
                 </BusinessMessage>
               </div>
@@ -109,17 +131,17 @@ class DetailContainer extends Component {
           </Card>
           <Card bordered={false} style={{ width: 300 }}>
             <ProductDetail>
-              <div class="title">
+              <div className="title">
                 <img src="/static/img/title.8dfb8a8.png" width="120" height="27" />
               </div>
-              <div class="con">
+              <div className="con">
                 <p>50吋4K高性价比- U50F1</p>
               </div>
-              <div class="img-info">
-                <div class="commonImg">
-                  <ul class="clearfix">
+              <div className="img-info">
+                <div className="commonImg">
+                  <ul className="clearfix">
                     <li>
-                      <img height="630" width="630" class="bigImg" data-src="//img10.360buyimg.com/n1/s630x630_jfs/t1/23955/34/7576/71317/5c6d15a7E3ceec520/e504960a59a1df3f.jpg" src="//img10.360buyimg.com/n1/s630x630_jfs/t1/23955/34/7576/71317/5c6d15a7E3ceec520/e504960a59a1df3f.jpg" lazy="loaded" />
+                      <img height="630" width="630" className="bigImg" data-src="//img10.360buyimg.com/n1/s630x630_jfs/t1/23955/34/7576/71317/5c6d15a7E3ceec520/e504960a59a1df3f.jpg" src="//img10.360buyimg.com/n1/s630x630_jfs/t1/23955/34/7576/71317/5c6d15a7E3ceec520/e504960a59a1df3f.jpg" lazy="loaded" />
                     </li>
                   </ul>
                 </div>
@@ -132,4 +154,10 @@ class DetailContainer extends Component {
   }
 }
 
-export default DetailContainer;
+// export default DetailContainer;
+export default withRouter(
+  connect(
+    DetailContainer,
+    [{ name: "detail", state: ["detailData"] }]
+  )
+);
