@@ -15,13 +15,17 @@ class LoginInContainers extends Component {
 
   state = {
     rememberValue: true, // 记住密码的标志
-    assignUser: {}
+    assignUser: {
+      nickName:'', password:''
+    }
   }
   componentDidMount() {
     const rememberUser = JSON.parse(localStorage.getItem("user"));
-    this.setState({
-      assignUser: rememberUser
-    })
+    if(!!rememberUser){
+      this.setState({
+        assignUser: rememberUser 
+      })
+    }
   }
 
   // 登录的操作,发送到后端请求，rememberValue为true，则将数据存储到localStorage；
@@ -39,7 +43,7 @@ class LoginInContainers extends Component {
   assignSuccess = (values) => {
     const { rememberValue } = this.state;
     const {loginIn_actions}=this.props;
-    const storeValue = rememberValue ? values : {}
+    const storeValue = rememberValue ? values : {nackName:'',password:''}
     localStorage.setItem("user", JSON.stringify(storeValue));
     loginIn_actions.storeNickName(values);
     this.props.history.push({ pathname: '/home' });
@@ -57,7 +61,7 @@ class LoginInContainers extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { rememberValue, assignUser } = this.state;
-    const { nickName, password } = assignUser;
+    const { nickName, password} = assignUser;
     return (
       <LoginIn>
         <Layout>

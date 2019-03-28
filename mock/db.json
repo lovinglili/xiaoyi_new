@@ -1,7 +1,7 @@
 {
   "assign": {
-    "nickName": "14478",
-    "password": "hgj3ff",
+    "nickName": "sdffd",
+    "password": "dsf2342",
     "remember": true
   },
   "add": {
@@ -15,19 +15,22 @@
     "success": true
   },
   "detail": {
-    "data":{
+    "data": {
       "desc": "冰柜60L-经典白  买来放母乳的一起送了",
-       "goodId":7895,
-        "cityId": 2830,
-        "cityName": "浦东新区",
-         "title": "惠乳冷冻柜办公室小冰箱BD-40/60/106L 冰柜60L-经典白",
-         "status":"0",
-         "price": "1100",
-         "pics": ["img","img"],
-        "position": "上海 浦东新区",
-        "provinceId": "2",
-        "provinceName": "上海"
-   },
-   "success": true
+      "goodId": 7895,
+      "cityId": 2830,
+      "cityName": "浦东新区",
+      "title": "惠乳冷冻柜办公室小冰箱BD-40/60/106L 冰柜60L-经典白",
+      "status": "0",
+      "price": "1100",
+      "pics": [
+        "img",
+        "img"
+      ],
+      "position": "上海 浦东新区",
+      "provinceId": "2",
+      "provinceName": "上海"
+    },
+    "success": true
   }
 }
