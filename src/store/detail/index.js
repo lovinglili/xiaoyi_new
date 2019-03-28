@@ -29,6 +29,18 @@ const reducer = (
             break;
         }
 
+        case types.ADD_ADDRESS_ASYNC+'_FULFILLED':{
+            // TODO:根据真实数据
+            new_state.addressList = {
+                isAssign: true
+            };
+             break;
+        }
+
+        case types.GET_ADDRESS+'_FULFILLED':{
+            new_state.addressList=action.payload.data.data;
+            break;
+        }
 
         default:return previous_state;
     }

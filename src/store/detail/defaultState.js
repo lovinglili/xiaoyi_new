@@ -1,4 +1,5 @@
 
 export default {
-    detailData: {}
+    detailData: {},
+    addressList: []
 }

@@ -80,10 +80,22 @@ class DetailContainer extends Component {
     console.log(2333);
   }
 
+  // 获取该商品的id并跳转到提交订单的页面
+  handleCardClick = id => {
+    //   renderOtherData(path,val){
+    //     this.props.history.push({pathname:"/home/albums/"+path,state:val});
+    //     this.props.unshow();
+    //     this.props.albums_actions.getTypeId(path);
+    //     this.props.albums_actions.getListSound(path,1);
+    // }
+    this.props.history.push({ pathname: `/submitOrder:${id}` });
+  };
+
   render() {
     const { detail}=this.props;
-    console.log("this.props:", this.props, detail.detailData);
+    console.log("this.props:", this.props, detail.detailData, detail.detailData.pics ? detail.detailData.pics[0]: "");
     let myDetailData = Object.keys(detail.detailData).length !== 0 ? detail.detailData : {};
+    let myPics = detail.detailData.pics ? detail.detailData.pics : [];
     return (
       <Detail>
         <Layout.Header>
@@ -93,7 +105,7 @@ class DetailContainer extends Component {
           <Card title="Card Title">
             <Card.Grid style={gridStyle}>
               <img
-                src="https://img10.360buyimg.com/n1/s630x630_jfs/t3175/329/4510007458/55264/d97fae3a/584cea93N78f99c66.jpg"
+                src={myPics[0]}
                 style={{}}
                 alt=""
               />
@@ -102,13 +114,13 @@ class DetailContainer extends Component {
             <div className="good-describe">
                 <GoodTitle>
                   <img src="" />
-                  【京东智能电视】KKTV  U50F1 康佳  50英寸4K超高清36核HDR 网络电视 人工智能语音 液晶电视 （黑色+银色）
+                  {myDetailData.title}
                 </GoodTitle>
                 <GoodPrice>
                   <div className="sale-price">
                     <div className="text">售卖价</div>
                     <div className="price">
-                      <span>￥</span>1400
+                      <span>￥</span>{myDetailData.price}
                   </div>
                   </div>
                   <div className="production-price">
@@ -117,13 +129,22 @@ class DetailContainer extends Component {
                   </div>
                   <div className="sale-address">
                     <div className="text">发布地</div>
-                    <div className="price">青岛市 胶州市</div>
+                    <div className="price">{myDetailData.cityName}</div>
                   </div>
-                  <div className="label"><span>包邮</span> <span>商品全新</span> <span>有发票</span></div>
+                  <div className="label">
+                    <div className="text">描述</div>
+                    <div className="price">{myDetailData.desc}</div>
+                  </div>
                 </GoodPrice>
                 <BusinessMessage>
                   <div className="contact">
-                    <div className="contact-seller"><span className="phone-number">立即购买</span></div>
+                    <div className="contact-seller">
+                      <span className="phone-number"
+                        onClick={() => this.handleCardClick(1)}
+                      >
+                        立即购买
+                      </span>
+                    </div>
                   </div>
                 </BusinessMessage>
               </div>
@@ -132,17 +153,20 @@ class DetailContainer extends Component {
           <Card bordered={false} style={{ width: 300 }}>
             <ProductDetail>
               <div className="title">
-                <img src="/static/img/title.8dfb8a8.png" width="120" height="27" />
+                <img src="https://www.paipai.com/static/img/title.8dfb8a8.png" width="120" height="27" />
               </div>
               <div className="con">
-                <p>50吋4K高性价比- U50F1</p>
+                <p>{myDetailData.desc}</p>
               </div>
               <div className="img-info">
                 <div className="commonImg">
                   <ul className="clearfix">
-                    <li>
-                      <img height="630" width="630" className="bigImg" data-src="//img10.360buyimg.com/n1/s630x630_jfs/t1/23955/34/7576/71317/5c6d15a7E3ceec520/e504960a59a1df3f.jpg" src="//img10.360buyimg.com/n1/s630x630_jfs/t1/23955/34/7576/71317/5c6d15a7E3ceec520/e504960a59a1df3f.jpg" lazy="loaded" />
-                    </li>
+                    {myPics.map((pics, index) => (
+                      <li>
+                        {pics}===={index}
+                        <img height="630" width="630" className="bigImg" src={pics} />
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>

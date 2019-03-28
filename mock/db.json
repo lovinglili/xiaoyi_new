@@ -23,10 +23,47 @@
       "title": "惠乳冷冻柜办公室小冰箱BD-40/60/106L 冰柜60L-经典白",
       "status": "0",
       "price": "1100",
-      "pics": ["img", "img"],
+      "pics": [
+         "https://img10.360buyimg.com/n1/s630x630_jfs/t23455/140/2011235680/255404/52e16e7d/5b6fecddNd5b6c223.jpg",
+         "https://img10.360buyimg.com/n1/s630x630_jfs/t25645/346/436427015/197532/3b3024be/5b6fecddN9d833477.jpg",
+         "https://img10.360buyimg.com/n1/s630x630_jfs/t3175/329/4510007458/55264/d97fae3a/584cea93N78f99c66.jpg"],
       "position": "上海 浦东新区",
       "provinceId": "2",
       "provinceName": "上海"
+    },
+    "success": true
+  },
+  "addressList": {
+    "data":[
+    {
+      "privanceId":12,
+      "privanceName":"北京",
+      "cityId":12,
+      "cityName":"密云区",
+      "more":"xx街道xx小区",
+      "addressId":123
+      }
+    ],
+    "success": true
+  },
+  "orderList": {
+    "data":{
+      "orderId":123,
+      "addressId":123,
+      "time":"xxx",
+      "goodId":12
+     },
+    "success": true
+  },
+  "cities": {
+    "data":{
+      "list":[{
+        "id": 1,
+        "name": "北京",
+        "children":[
+          {"id": 2816, "name": "密云区"}
+        ]
+      }]
     },
     "success": true
   },
