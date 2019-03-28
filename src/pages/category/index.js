@@ -6,53 +6,6 @@ import connect from "@connect";
 import { Category, ContentCon, DetailCardContainer } from "./styles.js";
 
 const { Meta } = Card;
-const list = [
-  {
-    title: "华为手机",
-    goodId: 1,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  },
-  {
-    title: "华为手机",
-    goodId: 2,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  },
-  {
-    title: "华为手机",
-    goodId: 3,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  },
-  {
-    title: "华为手机",
-    goodId: 4,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  },
-  {
-    title: "华为手机",
-    goodId: 5,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  }
-];
 class CategoryContainer extends Component {
   state = {
     current: 1, // 分页的当前页
@@ -60,17 +13,22 @@ class CategoryContainer extends Component {
     sort: true // 从高到低
   };
   componentDidMount() {
-    const { history } = this.props;
+    const { history,header:{listData:{list=[]}} } = this.props;
     const {
       location: {
         state: { goodName }
       }
     } = history;
     // 数据请求 dispatch
+    console.log(list,"s")
     this.setState({
       current: 1,
       total: list.length
     });
+  }
+
+  componentWillReceiveProps(){
+// 判断list不为空的时候就setState,前端分页和搜索；
   }
 
   // 获取该商品的详情并跳转到详情的页面
@@ -93,12 +51,13 @@ class CategoryContainer extends Component {
   };
 
   render() {
-    const { history } = this.props;
+    const { history,header:{listData:{list=[]}} } = this.props;
     const {
       location: {
         state: { goodName }
       }
     } = history;
+    console.log(list,"ca")
     const { current, total, sort } = this.state;
     return (
       <Category>
@@ -108,11 +67,6 @@ class CategoryContainer extends Component {
           </Layout.Header>
           <ContentCon>
             <Card title={goodName} bordered={false}>
-              {/* <ul>
-             <li>综合</li>
-             <li onClick={this.handleSort}>价格&nbsp;{sort ? <Icon type="arrow-up" /> : <Icon type="arrow-down" />}</li>
-             <li>综合</li>
-           </ul> */}
               <Menu defaultSelectedKeys={['1']}>
                 <Menu.Item key='1'>综合</Menu.Item>
                 <Menu.Item key='2' onClick={this.handleSort}>价格&nbsp;{sort ? <Icon type="arrow-up" /> : <Icon type="arrow-down" />}</Menu.Item>
@@ -125,8 +79,8 @@ class CategoryContainer extends Component {
                 pageSize={20}
               />
             </Card>
-            <DetailCardContainer>
-              {list.map(item => (
+            <DetailCardContainer>{
+              list.length!==0 && (list.map(item => (
                 <div
                   style={{ display: "inline-block", marginTop: 24 }}
                   key={item.goodId}
@@ -173,7 +127,9 @@ class CategoryContainer extends Component {
                     />
                   </Card>
                 </div>
-              ))}
+              )))
+            }
+              
             </DetailCardContainer>
           </ContentCon>
         </Layout>
@@ -182,4 +138,7 @@ class CategoryContainer extends Component {
   }
 }
 
-export default withRouter(connect(CategoryContainer));
+export default withRouter(connect(
+  CategoryContainer,
+  [{name:"header",state:["listData"]}]
+));
