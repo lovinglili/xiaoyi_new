@@ -29,7 +29,10 @@ export const ContentCon = styled.div`
       padding: 12px;  
       ul{
         display:inline-block;
-      }     
+      }  
+      ul:last-child{
+        float:right;
+      }   
       ul:first-child {
         list-style:none;
         margin-bottom:0;

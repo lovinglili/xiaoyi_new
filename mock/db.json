@@ -1,7 +1,7 @@
 {
   "assign": {
-    "nickName": "sdffd",
-    "password": "dsf2342",
+    "nickName": "xvxvcxcv",
+    "password": "ert34534",
     "remember": true
   },
   "add": {
@@ -23,7 +23,10 @@
       "title": "惠乳冷冻柜办公室小冰箱BD-40/60/106L 冰柜60L-经典白",
       "status": "0",
       "price": "1100",
-      "pics": ["img", "img"],
+      "pics": [
+        "img",
+        "img"
+      ],
       "position": "上海 浦东新区",
       "provinceId": "2",
       "provinceName": "上海"
@@ -122,27 +125,50 @@
           "nickname": "微微一笑很倾城123",
           "price": "99.00",
           "status": 0,
+          "categoryId": 111,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
           "originalPrice": "1999.00",
-          "pics": ["img", "img"],
-          "goodId":1
-        }, {
+          "pics": [
+            "img",
+            "img"
+          ],
+          "goodId": 1
+        },
+        {
           "title": "华为手机",
           "desc": "全新",
           "nickname": "微微一笑很倾城123",
           "price": "99.00",
           "status": 0,
+          "categoryId": 222,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
           "originalPrice": "1999.00",
-          "pics": ["img", "img"],
-          "goodId":2
-        }, {
+          "pics": [
+            "img",
+            "img"
+          ],
+          "goodId": 2
+        },
+        {
           "title": "华为手机",
           "desc": "全新",
           "nickname": "微微一笑很倾城123",
           "price": "99.00",
           "status": 0,
+          "categoryId": 333,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
           "originalPrice": "1999.00",
-          "pics": ["img", "img"],
-          "goodId":3
+          "pics": [
+            "img",
+            "img"
+          ],
+          "goodId": 3
         }
       ]
     },

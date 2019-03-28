@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Layout, Card, Pagination, Icon, Menu } from "antd";
 import HeaderContainer from "@c/Header";
 import { withRouter } from "react-router-dom";
@@ -6,7 +6,7 @@ import connect from "@connect";
 import { Category, ContentCon, DetailCardContainer } from "./styles.js";
 
 const { Meta } = Card;
-class CategoryContainer extends Component {
+class CategoryContainer extends PureComponent {
   state = {
     current: 1, // 分页的当前页
     total: 0, // 数组的条数
@@ -20,7 +20,6 @@ class CategoryContainer extends Component {
       }
     } = history;
     // 数据请求 dispatch
-    console.log(list,"s")
     this.setState({
       current: 1,
       total: list.length
@@ -57,7 +56,6 @@ class CategoryContainer extends Component {
         state: { goodName }
       }
     } = history;
-    console.log(list,"ca")
     const { current, total, sort } = this.state;
     return (
       <Category>
@@ -70,7 +68,6 @@ class CategoryContainer extends Component {
               <Menu defaultSelectedKeys={['1']}>
                 <Menu.Item key='1'>综合</Menu.Item>
                 <Menu.Item key='2' onClick={this.handleSort}>价格&nbsp;{sort ? <Icon type="arrow-up" /> : <Icon type="arrow-down" />}</Menu.Item>
-                <Menu.Item key='3' >菜单项</Menu.Item>
               </Menu>
               <Pagination
                 simple
