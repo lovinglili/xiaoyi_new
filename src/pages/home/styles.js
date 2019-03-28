@@ -13,7 +13,8 @@ text-align: center;
 `;
 
 export const ContentContainer = styled.div`
-  margin-top: 32px;
+  width:70%;
+  margin:32px auto 0 auto;
   .ant-radio-group.ant-radio-group-outline {
     margin: 16px;
   }
@@ -45,3 +46,16 @@ export const BuyContainer = styled.div`
   }
 `;
 
+export const RedBlock=styled.div`
+height:30px;
+background:red;
+width:10px;
+&:after{
+  content:'${props=>props.title}';
+  display:inline-block;
+  width:80px;
+  font-weigh:400;
+  line-height:30px;
+  margin-left:15px;
+}
+`

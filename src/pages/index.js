@@ -7,6 +7,7 @@ import CategoryContainer from "@pages/category";
 import DetailContainer from "@pages/detail";
 import MySelfContainer from "@pages/myself";
 import SubmitOrderContainer from "@pages/submitOrder";
+import PublishContainer from "@pages/publish";
 
 class XiaoYi extends Component {
   render() {
@@ -21,6 +22,7 @@ class XiaoYi extends Component {
         <Route path="/detail:goodId" component={DetailContainer} />
         <Route path="/myself" component={MySelfContainer} />
         <Route path="/submitOrder:orderId" component={SubmitOrderContainer} />
+        <Route path="/publish" component={PublishContainer} />
       </Switch>
     </div>
     );

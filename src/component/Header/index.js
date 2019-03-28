@@ -38,6 +38,9 @@ class HeaderContainer extends Component {
 
   }
 
+  // 搜索商品  模糊匹配分类名称
+  handleSearch = () => { };
+
   render() {
     const { type, loginIn: { loginInData = {}, userInfo = {} },header:{categoryList=[]}} = this.props;
     // 后端这个地方放回的是一个标志，json-server返回了用户的信息

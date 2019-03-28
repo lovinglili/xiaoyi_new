@@ -44,7 +44,6 @@ const reducer = (
 
         default:return previous_state;
     }
-    console.log('new_state:', new_state);
     return new_state
 }
 

@@ -1,5 +1,7 @@
 
 export default {
-    loginInData: {},
-    userInfo:{}
+    loginInData: {
+        isAssign:false
+    },
+    userInfo: {}
 }

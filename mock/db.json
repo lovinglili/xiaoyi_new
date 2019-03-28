@@ -1,7 +1,7 @@
 {
   "assign": {
-    "nickName": "sdffd",
-    "password": "dsf2342",
+    "nickName": "xvxvcxcv",
+    "password": "ert34534",
     "remember": true
   },
   "add": {
@@ -159,27 +159,50 @@
           "nickname": "微微一笑很倾城123",
           "price": "99.00",
           "status": 0,
+          "categoryId": 111,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
           "originalPrice": "1999.00",
-          "pics": ["img", "img"],
-          "goodId":1
-        }, {
+          "pics": [
+            "img",
+            "img"
+          ],
+          "goodId": 1
+        },
+        {
           "title": "华为手机",
           "desc": "全新",
           "nickname": "微微一笑很倾城123",
           "price": "99.00",
           "status": 0,
+          "categoryId": 222,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
           "originalPrice": "1999.00",
-          "pics": ["img", "img"],
-          "goodId":2
-        }, {
+          "pics": [
+            "img",
+            "img"
+          ],
+          "goodId": 2
+        },
+        {
           "title": "华为手机",
           "desc": "全新",
           "nickname": "微微一笑很倾城123",
           "price": "99.00",
           "status": 0,
+          "categoryId": 333,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
           "originalPrice": "1999.00",
-          "pics": ["img", "img"],
-          "goodId":3
+          "pics": [
+            "img",
+            "img"
+          ],
+          "goodId": 3
         }
       ]
     },
