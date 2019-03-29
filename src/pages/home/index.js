@@ -9,7 +9,8 @@ import {
   ContentContainer,
   XiaoYiStyle,
   BuyContainer,
-  RedBlock
+  RedBlock,
+  ImgWrapper
 } from "./styles.js";
 
 import createAction from "../../store/home/actionCreators";
@@ -64,7 +65,9 @@ class HomeContainer extends Component {
               {item.map((colItem,colIndex) => (
                 <Col span={8} key={colIndex}>
                   <div>
-                    <img></img>
+                    <ImgWrapper >
+                    <img src="https://www.paipai.com/static/img/banner1.57aeb9e.png" alt='' width='100%'></img>
+                    </ImgWrapper>
                     <p style={{marginBottom:0}}>{colItem.title}</p>
                     <p style={{marginBottom:0}}>{colItem.desc}</p>
                     <p style={{marginBottom:0}}><span style={{color:'red',paddingRight:24}}>{colItem.price}</span>
@@ -109,6 +112,7 @@ class HomeContainer extends Component {
                 <Col span={24}>
                   <Carousel autoplay ref={el => (this.slider = el)}>
                     <div key={1}>
+                  
                       <img
                         src="https://www.paipai.com/static/img/banner1.57aeb9e.png"
                         style={{ height: "250px", width: "100%" }}

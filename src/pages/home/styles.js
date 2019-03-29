@@ -50,6 +50,7 @@ export const RedBlock=styled.div`
 height:30px;
 background:red;
 width:10px;
+margin-bottom:8px;
 &:after{
   content:'${props=>props.title}';
   display:inline-block;
@@ -57,5 +58,16 @@ width:10px;
   font-weigh:400;
   line-height:30px;
   margin-left:15px;
+}
+`
+export const ImgWrapper=styled.div`
+width:100%;
+height:100px;
+overflow:hidden;
+img{
+  &:hover{
+    transform: scale(1.1);
+    transition-duration:500ms;
+  }
 }
 `
