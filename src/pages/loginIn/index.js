@@ -43,10 +43,11 @@ class LoginInContainers extends Component {
   assignSuccess = (values) => {
     const { rememberValue } = this.state;
     const {loginIn_actions}=this.props;
-    const storeValue = rememberValue ? values : {nackName:'',password:''}
+    const storeValue = rememberValue ? values : {nackName:'',password:''};
+    console.log(this.props)
     localStorage.setItem("user", JSON.stringify(storeValue));
     loginIn_actions.storeNickName(values);
-    this.props.history.push({ pathname: '/home' });
+    this.props.history.goBack();
   }
 
 

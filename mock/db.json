@@ -1,7 +1,7 @@
 {
   "assign": {
-    "nickName": "11111",
-    "password": "111111",
+    "nickName": "weew",
+    "password": "ewre23",
     "remember": true
   },
   "add": {
@@ -64,7 +64,8 @@
   },
   "addOrder": {
     "addressId": 123,
-    "goodId": "2"
+    "nickName": "weew",
+    "goodId": "5"
   },
   "cities": {
     "data": {
@@ -76,6 +77,20 @@
             {
               "id": 2816,
               "name": "密云区"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "驻马店",
+          "children": [
+            {
+              "id": 586,
+              "name": "驿城区"
+            },
+            {
+              "id": 588,
+              "name": "新区"
             }
           ]
         }
@@ -257,5 +272,20 @@
       ]
     },
     "success": "true"
+  },
+  "publish": {
+    "categoryTitle": "服饰",
+    "categoryId": 222,
+    "id": "7",
+    "name": "牛仔裤",
+    "cityName": "密云区",
+    "provinceName": "北京",
+    "cityId": 2816,
+    "provinceId": 1,
+    "desc": "fdsdf",
+    "originPrice": 1000,
+    "price": 1000,
+    "title": "fssd",
+    "nickName": "weew"
   }
 }

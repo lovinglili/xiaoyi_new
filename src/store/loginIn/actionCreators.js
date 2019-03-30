@@ -59,5 +59,23 @@ export default {
             type:types.STORE_NICKNAME,
             payload:values
         }
-    }
+    },
+
+    // 发布
+    publishGood (values,callback) {
+        return {
+            type: types.POST_PUBLISH_ASYNC,
+            payload:new Promise(resolve=>{
+                axios({url:'/xiaoyi/publish', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(values)}).then(response=>{
+                   // TODO:后端会返回success，联调的时候改一下判断条件就好
+                    const {data={}}=response;
+                    if(Object.keys(data).length!==0){
+                        callback();
+                    }
+                    resolve(response);
+                })
+            }) 
+        }
+    },
+
 }

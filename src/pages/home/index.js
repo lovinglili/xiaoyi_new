@@ -87,6 +87,7 @@ class HomeContainer extends Component {
   // 点击图片进行发布或者登陆
   handleImgClick=()=>{
     const {loginIn:{loginInData:{isAssign}}}=this.props;
+    console.log(this.props,"sdf")
     if(isAssign){
       this.props.history.push({ pathname: '/publish' });
     }else{

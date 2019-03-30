@@ -21,6 +21,9 @@ const reducer = (
             new_state.loginInData = {
                 isAssign: true
             };
+            localStorage.setItem("isAssign", JSON.stringify({
+                isAssign: true
+            }));
              break;
         }
         // 注册
@@ -29,6 +32,10 @@ const reducer = (
             new_state.loginInData = {
                 isAssign: true
             };
+            localStorage.setItem("isAssign", JSON.stringify({
+                isAssign: true
+            }));
+
              break;
         }
 
@@ -39,13 +46,17 @@ const reducer = (
              break;
         }
 
-
+         // 退出
         case types.LOGININ_OUT+'_FULFILLED':{
             new_state.loginInData=action.payload.data.data;
+            localStorage.setItem("isAssign", JSON.stringify(action.payload.data.data));
             break;
         }
 
-
+        case types.POST_PUBLISH_ASYNC+'_FULFILLED':{
+            new_state.publishData=action.payload.data;
+            break;
+        }
         default:return previous_state;
     }
     return new_state

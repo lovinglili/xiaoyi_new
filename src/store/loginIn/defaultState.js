@@ -3,5 +3,8 @@ export default {
     loginInData: {
         isAssign:false
     },
-    userInfo: {}
+    userInfo: {},
+    publishData:{
+
+    }
 }

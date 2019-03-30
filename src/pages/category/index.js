@@ -82,7 +82,7 @@ class CategoryContainer extends PureComponent {
           currentList: listNow,
           pagination: {
             current: 1,
-            pageSize: 1,
+            pageSize: 10,
             total: arr.length
           }
         });
@@ -92,12 +92,6 @@ class CategoryContainer extends PureComponent {
 
   // 获取该商品的详情并跳转到详情的页面
   handleCardClick = id => {
-    //   renderOtherData(path,val){
-    //     this.props.history.push({pathname:"/home/albums/"+path,state:val});
-    //     this.props.unshow();
-    //     this.props.albums_actions.getTypeId(path);
-    //     this.props.albums_actions.getListSound(path,1);
-    // }
     this.props.history.push({ pathname: `/detail:${id}` });
   };
 

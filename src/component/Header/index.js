@@ -19,7 +19,14 @@ class HeaderContainer extends Component {
 
   // 渲染组件的时候就去请求所有的数据
   componentDidMount() {
-    const { header_actions } = this.props;
+    const { header_actions,loginIn_actions } = this.props;
+    const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
+    const rememberMe = JSON.parse(localStorage.getItem("user"));
+    const {isAssign}=isAssigned;
+    if(isAssign){
+      loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe),()=>{})
+      loginIn_actions.storeNickName(rememberMe);
+    }
     header_actions.fetchAllList();
     header_actions.fetchCategoryInfo();
   }
