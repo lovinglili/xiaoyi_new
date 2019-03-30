@@ -68,8 +68,9 @@ const list = [
 class DetailContainer extends Component {
 
   componentDidMount(){
-    const {detail_actions, detail}=this.props;
-    detail_actions.getDetail(this.toConsole)
+    const {detail_actions, detail, match}=this.props;
+    let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/,'') : ''; // 获取路径中的goodId
+    detail_actions.getDetail(goodId, this.toConsole);
     // console.log("this.props:", this.props, detail.detailData);
     // const rememberUser= JSON.parse(localStorage.getItem("user"));
     // this.setState({
@@ -92,8 +93,9 @@ class DetailContainer extends Component {
   };
 
   render() {
-    const { detail}=this.props;
+    const { detail, match}=this.props;
     console.log("this.props:", this.props, detail.detailData, detail.detailData.pics ? detail.detailData.pics[0]: "");
+    let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/,'') : ''; // 获取路径中的goodId
     let myDetailData = Object.keys(detail.detailData).length !== 0 ? detail.detailData : {};
     let myPics = detail.detailData.pics ? detail.detailData.pics : [];
     return (
@@ -102,7 +104,7 @@ class DetailContainer extends Component {
           <HeaderContainer />
         </Layout.Header>
         <DetailTop>
-          <Card title="Card Title">
+          <Card>
             <Card.Grid style={gridStyle}>
               <img
                 src={myPics[0]}
@@ -140,7 +142,7 @@ class DetailContainer extends Component {
                   <div className="contact">
                     <div className="contact-seller">
                       <span className="phone-number"
-                        onClick={() => this.handleCardClick(1)}
+                        onClick={() => this.handleCardClick(goodId)}
                       >
                         立即购买
                       </span>
@@ -162,8 +164,7 @@ class DetailContainer extends Component {
                 <div className="commonImg">
                   <ul className="clearfix">
                     {myPics.map((pics, index) => (
-                      <li>
-                        {pics}===={index}
+                      <li key={index}>
                         <img height="630" width="630" className="bigImg" src={pics} />
                       </li>
                     ))}

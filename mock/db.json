@@ -1,12 +1,12 @@
 {
   "assign": {
-    "nickName": "sdffd",
-    "password": "dsf2342",
+    "nickName": "11111",
+    "password": "111111",
     "remember": true
   },
   "add": {
-    "nickName": "ddd3",
-    "password": "123456"
+    "nickName": "111111",
+    "password": "111111"
   },
   "quit": {
     "data": {
@@ -47,6 +47,12 @@
     ],
     "success": true
   },
+  "address": {
+    "privanceName": "北京",
+    "cityId": 2816,
+    "cityName": "密云区",
+    "more": "xx街道xx小区"
+  },
   "orderList": {
     "data": {
       "orderId": 123,
@@ -55,6 +61,10 @@
       "goodId": 12
     },
     "success": true
+  },
+  "addOrder": {
+    "addressId": 123,
+    "goodId": "2"
   },
   "cities": {
     "data": {

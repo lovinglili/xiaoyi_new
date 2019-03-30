@@ -21,7 +21,7 @@ class XiaoYi extends Component {
         <Route path="/category:categoryId" component={CategoryContainer} />
         <Route path="/detail:goodId" component={DetailContainer} />
         <Route path="/myself" component={MySelfContainer} />
-        <Route path="/submitOrder:orderId" component={SubmitOrderContainer} />
+        <Route path="/submitOrder:goodId" component={SubmitOrderContainer} />
         <Route path="/publish" component={PublishContainer} />
       </Switch>
     </div>

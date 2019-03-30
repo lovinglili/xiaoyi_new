@@ -42,6 +42,23 @@ const reducer = (
             break;
         }
 
+        case types.GET_CITIES+'_FULFILLED':{
+            new_state.citiesList=action.payload.data.data;
+            break;
+        }
+
+        case types.GET_ORDERLIST+'_FULFILLED':{
+            new_state.orderList=action.payload.data.data;
+            break;
+        }
+
+        case types.ADD_ORDER_ASYNC+'_FULFILLED':{
+            // TODO:根据真实数据
+            new_state.orderList = {
+                isAssign: true
+            };
+             break;
+        }
         default:return previous_state;
     }
     return new_state
