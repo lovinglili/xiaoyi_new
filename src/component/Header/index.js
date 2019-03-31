@@ -4,6 +4,8 @@ import { Link, withRouter } from "react-router-dom";
 import connect from "@connect";
 import createActionLoginIn from "../../store/header/actionCreators";
 import { CategoryContainer, Header } from "./styles";
+import {Category,LogoFont} from "@s"
+
 // 登录
 
 connect.addActions({
@@ -22,10 +24,17 @@ class HeaderContainer extends Component {
     const { header_actions,loginIn_actions } = this.props;
     const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
     const rememberMe = JSON.parse(localStorage.getItem("user"));
-    const {isAssign}=isAssigned;
-    if(isAssign){
-      loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe),()=>{})
-      loginIn_actions.storeNickName(rememberMe);
+    const {isAssign,currentTime}=isAssigned;
+    const endTime=new Date().getTime();
+    // 超时时间 三十分钟
+    if(((currentTime+1800000)<endTime) && isAssign){
+      this.handleExit();
+    }
+    else{
+      if(isAssign){
+        loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe),()=>{})
+        loginIn_actions.storeNickName(rememberMe);
+      }
     }
     header_actions.fetchAllList();
     header_actions.fetchCategoryInfo();
@@ -57,16 +66,6 @@ class HeaderContainer extends Component {
     }
   };
 
-  // search狂搜索
-
-  // handleInputSearch=(value)=>{
-  //   const {handleSearch}=this.props;
-  //   if(handleSearch){
-  //     handleSearch(value);
-  //   }else{
-  //     this.props.history.push({ pathname: `/category` ,state: { name: value }});
-  //   }
-  // }
 
   render() {
     const {
@@ -79,7 +78,7 @@ class HeaderContainer extends Component {
     const { nickName } = userInfo;
     const category = (
       <CategoryContainer>
-        <div>图片</div>
+        <div><img src={Category} alt='' style={{marginTop:10,width:'95%',height:'80px'}}></img></div>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           {categoryList.length !== 0 && (
             <Row gutter={16}>
@@ -112,7 +111,7 @@ class HeaderContainer extends Component {
       <Header>
         <Row>
           <Col span={8}>
-            <img scr="" alt="" />
+            <span onClick={()=>{this.props.history.push('\home')}} style={{fontSize:'40px',color:'#1DA57A',cursor:'pointer'}}>小易</span>
           </Col>
           {type === "loginUp" && (
             <div>
@@ -135,7 +134,7 @@ class HeaderContainer extends Component {
             <div>
               <Col span={8}>
                 <Search
-                  placeholder="input search text"
+                  placeholder="搜索感兴趣的物品~"
                   onSearch={value => this.handleHeaderSearch(value)}
                   enterButton
                   style={{ width: 350, margin: "24px 0" }}

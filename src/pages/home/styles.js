@@ -3,10 +3,10 @@ import styled from "styled-components";
 export const HomeContainers = styled.div`
 text-align: center;
   height: 500px;
-  margin: 104px auto;
+  margin: 80px auto;
   .ant-carousel .slick-slide {
     text-align: center;
-    height: 250px;
+    height: 300px;
     line-height: 350px;
     overflow: hidden;
   }

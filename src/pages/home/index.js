@@ -3,6 +3,7 @@ import { Carousel, Radio, Layout, Row, Col, Card } from "antd";
 import connect from "@connect";
 import { withRouter } from "react-router-dom";
 import HeaderContainer from "@c/Header";
+import {Banner1,Banner2} from "@s"
 
 import {
   HomeContainers,
@@ -61,17 +62,17 @@ class HomeContainer extends Component {
         {threeDataList.map((item, index) => (
           <Card style={{ width: "100%", margin: '8px 0 16px 0' }} key={index} hoverable>
             <RedBlock title={item[0].categoryTitle}></RedBlock>
-            <Row>
-              {item.map((colItem,colIndex) => (
+            <Row gutter={16}>
+              {item.map((colItem, colIndex) => (
                 <Col span={8} key={colIndex}>
-                  <div>
+                  <div onClick={()=>{this.props.history.push(`/detail/:${colItem.goodId}`)}}>
                     <ImgWrapper >
-                    <img src="https://www.paipai.com/static/img/banner1.57aeb9e.png" alt='' width='100%'></img>
+                      <img src="https://www.paipai.com/static/img/banner1.57aeb9e.png" alt='' width='100%'></img>
                     </ImgWrapper>
-                    <p style={{marginBottom:0}}>{colItem.title}</p>
-                    <p style={{marginBottom:0}}>{colItem.desc}</p>
-                    <p style={{marginBottom:0}}><span style={{color:'red',paddingRight:24}}>{colItem.price}</span>
-                      <span style={{textDecoration:'line-through'}}>{colItem.originalPrice}</span>
+                    <p style={{ marginBottom: 0 }}>{colItem.title}</p>
+                    <p style={{ marginBottom: 0 }}>{colItem.desc}</p>
+                    <p style={{ marginBottom: 0 }}><span style={{ color: 'red', paddingRight: 24 }}>{colItem.price}</span>
+                      <span style={{ textDecoration: 'line-through' }}>{colItem.originalPrice}</span>
                     </p>
                   </div>
                 </Col>
@@ -85,12 +86,12 @@ class HomeContainer extends Component {
   }
 
   // 点击图片进行发布或者登陆
-  handleImgClick=()=>{
-    const {loginIn:{loginInData:{isAssign}}}=this.props;
-    console.log(this.props,"sdf")
-    if(isAssign){
+  handleImgClick = () => {
+    const { loginIn: { loginInData: { isAssign } } } = this.props;
+    console.log(this.props, "sdf")
+    if (isAssign) {
       this.props.history.push({ pathname: '/publish' });
-    }else{
+    } else {
       this.props.history.push({ pathname: '/loginIn' });
     }
 
@@ -98,6 +99,7 @@ class HomeContainer extends Component {
 
   render() {
     const { mode } = this.state;
+    console.log(Banner1,"Banner1")
     return (
       <XiaoYiStyle>
         <Layout>
@@ -106,50 +108,26 @@ class HomeContainer extends Component {
           </Layout.Header>
           <Layout.Content>
             <HomeContainers>
-              <div style={{ height: 80, border: '1px solid #eee', width: '60%', margin: '0 auto 24px auto' }}>
 
-              </div>
               <Row gutter={16}>
                 <Col span={24}>
                   <Carousel autoplay ref={el => (this.slider = el)}>
                     <div key={1}>
-                  
+
                       <img
-                        src="https://www.paipai.com/static/img/banner1.57aeb9e.png"
-                        style={{ height: "250px", width: "100%" }}
+                        src={Banner1}
+                        style={{ height: "300px", width: "100%" }}
                         alt=""
                       />
                     </div>
                     <div key={2}>
                       <img
-                        src="https://www.paipai.com/static/img/banner2.def6353.png"
-                        style={{ height: "250px", width: "100%" }}
-                        alt=""
-                      />
-                    </div>
-                    <div key={3}>
-                      <img
-                        src="https://www.paipai.com/static/img/banner3.0861f56.png"
-                        style={{ height: "250px", width: "100%" }}
-                        alt=""
-                      />
-                    </div>
-                    <div key={4}>
-                      <img
-                        src="https://www.paipai.com/static/img/banner1.57aeb9e.png"
-                        style={{ height: "250px", width: "100%" }}
+                        src={Banner2}
+                        style={{ height: "300px", width: "100%" }}
                         alt=""
                       />
                     </div>
                   </Carousel>
-                  <div style={{ marginTop: 24 }}>
-                    <img
-                      src="https://www.paipai.com/static/img/title.a1fd4a8.png"
-                      height="61"
-                      width="161"
-                      alt=""
-                    />
-                  </div>
                   <div >
                     <ContentContainer>
                       <Radio.Group
@@ -162,15 +140,18 @@ class HomeContainer extends Component {
                       </Radio.Group>
 
                       {mode === "buy" && <div>
+                      <p  style={{margin:'10px auto',color:"#df9c9c"}}>买好物，花最少的钱买最合适的物品</p>
                         {this.handleAllList()}
                       </div>}
                       {mode === "sold" && (
                         <BuyContainer>
+                      <p style={{margin:'10px auto',color:"#df9c9c"}}>卖闲置，让你的物品物尽其用</p>
+
                           <ul>
                             <li>
                               <a >
                                 <img
-                                onClick={this.handleImgClick}
+                                  onClick={this.handleImgClick}
                                   src="https://www.paipai.com/static/img/entrance1.bcd00fa.png"
                                   alt=""
                                 />
@@ -179,6 +160,7 @@ class HomeContainer extends Component {
                             <li>
                               <a>
                                 <img
+                                  onClick={this.handleImgClick}
                                   src="https://www.paipai.com/static/img/entrance2.a90b59d.png"
                                   alt=""
                                 />
@@ -187,6 +169,7 @@ class HomeContainer extends Component {
                             <li>
                               <a>
                                 <img
+                                  onClick={this.handleImgClick}
                                   src="https://www.paipai.com/static/img/entrance3.1158af2.png"
                                   alt=""
                                 />
@@ -195,6 +178,7 @@ class HomeContainer extends Component {
                             <li>
                               <a>
                                 <img
+                                  onClick={this.handleImgClick}
                                   src="https://www.paipai.com/static/img/entrance4.079adee.png"
                                   alt=""
                                 />
@@ -220,6 +204,6 @@ class HomeContainer extends Component {
 export default withRouter(
   connect(
     HomeContainer,
-    [{ name: "header" },{name:"loginIn"}]
+    [{ name: "header" }, { name: "loginIn" }]
   )
 );

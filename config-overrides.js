@@ -21,7 +21,9 @@ module.exports = override(
     "@pages": resolve("pages"),
     "@u": resolve("util"),
     "@connect":resolve("connect"),
-    "@store":resolve("store")
+    "@store":resolve("store"),
+    "@s": resolve("static")
+
   }),
   addLessLoader({
     javascriptEnabled: true,

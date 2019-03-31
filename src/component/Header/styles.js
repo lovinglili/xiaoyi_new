@@ -7,10 +7,12 @@ export const Header = styled.div`
       display: inline-block;
       padding: 0 16px;
       cursor: pointer;
-      &:hover {
-        color: #1890ff;
-      }
+        &:hover{
+          color:#df9c9c;
+        }
+      
     }
+  }
 `;
 export const CategoryContainer =styled.div`
 background:#fff;
@@ -27,14 +29,14 @@ dd{
   padding:0 6px;
   a{
     &:hover{
-      color:red;
+      color:#df9c9c;
     }
   }
 }
 >div:first-child{
   width:120px;
   margin-right:12px;
-  border-right:1px dashed red;
+  border-right:1px dashed #bbb;
 }
 div:last-child{
   flex:1;
