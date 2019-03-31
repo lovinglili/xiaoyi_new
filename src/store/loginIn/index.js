@@ -51,7 +51,6 @@ const reducer = (
          // 退出
         case types.LOGININ_OUT+'_FULFILLED':{
             new_state.loginInData=action.payload.data.data;
-            localStorage.setItem("isAssign", JSON.stringify({...action.payload.data.data,currentTime:new Date().getTime()}));
             break;
         }
 

@@ -1,7 +1,7 @@
 {
   "assign": {
-    "nickName": "weew",
-    "password": "ewre23",
+    "nickName": "sdffd",
+    "password": "dsf2342",
     "remember": true
   },
   "add": {
@@ -188,7 +188,7 @@
           "title": "华为手机",
           "desc": "全新",
           "nickname": "微微一笑很倾城123",
-          "price": "99.00",
+          "price": "91.00",
           "status": 0,
           "categoryId": 111,
           "categoryTitle": "手机数码",
@@ -196,8 +196,7 @@
           "name": "半身裙",
           "originalPrice": "1999.00",
           "pics": [
-            "img",
-            "img"
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
           ],
           "goodId": 1
         },
@@ -205,7 +204,7 @@
           "title": "华为手机",
           "desc": "全新",
           "nickname": "微微一笑很倾城123",
-          "price": "99.00",
+          "price": "97.00",
           "status": 0,
           "categoryId": 222,
           "categoryTitle": "手机数码",
@@ -213,8 +212,7 @@
           "name": "半身裙",
           "originalPrice": "1999.00",
           "pics": [
-            "img",
-            "img"
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
           ],
           "goodId": 2
         },
@@ -222,7 +220,7 @@
           "title": "华为手机",
           "desc": "全新",
           "nickname": "微微一笑很倾城123",
-          "price": "99.00",
+          "price": "100.00",
           "status": 0,
           "categoryId": 333,
           "categoryTitle": "手机数码",
@@ -230,8 +228,7 @@
           "name": "半身裙",
           "originalPrice": "1999.00",
           "pics": [
-            "img",
-            "img"
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
           ],
           "goodId": 3
         },
@@ -239,7 +236,7 @@
           "title": "华为手机",
           "desc": "全新",
           "nickname": "微微一笑很倾城123",
-          "price": "99.00",
+          "price": "74.00",
           "status": 0,
           "categoryId": 333,
           "categoryTitle": "手机数码",
@@ -247,8 +244,7 @@
           "name": "牛仔裤",
           "originalPrice": "1999.00",
           "pics": [
-            "img",
-            "img"
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
           ],
           "goodId": 4
         },
@@ -264,8 +260,7 @@
           "name": "半身裙",
           "originalPrice": "1999.00",
           "pics": [
-            "img",
-            "img"
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
           ],
           "goodId": 5
         }

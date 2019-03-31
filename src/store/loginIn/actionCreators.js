@@ -45,6 +45,7 @@ export default {
                 axios.get('/xiaoyi/quit').then(response=>{
                     const {data:{success}}=response;
                     if(success){
+                        localStorage.setItem("isAssign", JSON.stringify({  isAssign: false,currentTime:new Date().getTime()}));
                         callback();
                     }
                     resolve(response)

@@ -31,7 +31,6 @@ class PublishContainers extends PureComponent {
         const {loginIn:{userInfo:{nickName}}}=this.props
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
                 const { category: { categoryTitle, categoryId, id, name },
                     city: { cityName, provinceName, cityId, provinceId },
                     desc,
@@ -56,7 +55,6 @@ class PublishContainers extends PureComponent {
 
     // 上传文件
     normFile = (e) => {
-        console.log('Upload event:', e);
         if (Array.isArray(e)) {
             return e;
         }
