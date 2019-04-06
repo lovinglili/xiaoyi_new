@@ -4,7 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import connect from "@connect";
 import createActionLoginIn from "../../store/header/actionCreators";
 import { CategoryContainer, Header } from "./styles";
-import {Category,LogoFont} from "@s"
+import { Category, LogoFont } from "@s";
 
 // 登录
 
@@ -21,19 +21,20 @@ class HeaderContainer extends Component {
 
   // 渲染组件的时候就去请求所有的数据
   componentDidMount() {
-    const { header_actions,loginIn_actions } = this.props;
+    const { header_actions, loginIn_actions } = this.props;
     const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
     const rememberMe = JSON.parse(localStorage.getItem("user"));
-    const {isAssign,currentTime}=isAssigned;
-    const endTime=new Date().getTime();
-    // 超时时间 三十分钟
-    if(((currentTime+1800000)<endTime) && isAssign){
-      this.handleExit();
-    }
-    else{
-      if(isAssign){
-        loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe),()=>{})
-        loginIn_actions.storeNickName(rememberMe);
+    if (isAssigned) {
+      const { isAssign, currentTime } = isAssigned;
+      const endTime = new Date().getTime();
+      // 超时时间 三十分钟
+      if (currentTime + 1800000 < endTime && isAssign) {
+        this.handleExit();
+      } else {
+        if (isAssign) {
+          loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
+          loginIn_actions.storeNickName(rememberMe);
+        }
       }
     }
     header_actions.fetchAllList();
@@ -52,7 +53,7 @@ class HeaderContainer extends Component {
   };
 
   // 分类搜索
-  handleHeaderSearch = (value, id='') => {
+  handleHeaderSearch = (value, id = "") => {
     const { handleSearch } = this.props;
     if (handleSearch) {
       handleSearch(value);
@@ -67,7 +68,6 @@ class HeaderContainer extends Component {
     }
   };
 
-
   render() {
     const {
       type,
@@ -79,7 +79,13 @@ class HeaderContainer extends Component {
     const { nickName } = userInfo;
     const category = (
       <CategoryContainer>
-        <div><img src={Category} alt='' style={{marginTop:10,width:'95%',height:'80px'}}></img></div>
+        <div>
+          <img
+            src={Category}
+            alt=""
+            style={{ marginTop: 10, width: "95%", height: "80px" }}
+          />
+        </div>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           {categoryList.length !== 0 && (
             <Row gutter={16}>
@@ -112,7 +118,14 @@ class HeaderContainer extends Component {
       <Header>
         <Row>
           <Col span={8}>
-            <span onClick={()=>{this.props.history.push('\home')}} style={{fontSize:'40px',color:'#1DA57A',cursor:'pointer'}}>小易</span>
+            <span
+              onClick={() => {
+                this.props.history.push("home");
+              }}
+              style={{ fontSize: "40px", color: "#1DA57A", cursor: "pointer" }}
+            >
+              小易
+            </span>
           </Col>
           {type === "loginUp" && (
             <div>

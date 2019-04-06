@@ -13,7 +13,8 @@ class CategoryContainer extends PureComponent {
       pageSize: 10,
       total: 0
     }, // 分页的参数
-    sort: true, // 从高到低
+    sorts: true, // 从高到低
+    zongHeList:[], // 综合的数据，按照数据库存储的方式
     allList: [], // 所有的数据
     usedList: [], // 存放满足条件的数据
     currentList: [] // 存放当前页的容器列表
@@ -42,7 +43,6 @@ class CategoryContainer extends PureComponent {
   // pagination
   handlePaginationChange = page => {
     const { usedList } = this.state;
-    console.log(usedList)
     const startIndex = (page - 1) * 10;
     const list = usedList.slice(startIndex, startIndex + 10);
     this.setState({
@@ -80,6 +80,7 @@ class CategoryContainer extends PureComponent {
         this.setState({
           usedList: arr,
           currentList: listNow,
+          zongHeList:listNow,
           pagination: {
             current: 1,
             pageSize: 10,
@@ -95,13 +96,40 @@ class CategoryContainer extends PureComponent {
     this.props.history.push({ pathname: `/detail:${id}` });
   };
 
-  // 排序
+  // 综合
+  handleNoSort=()=>{
+    const {zongHeList}=this.state;
+    this.setState({currentList:zongHeList})
+  }
+  // 排序 默认升序
   handleSort = () => {
-    const { sort } = this.state;
+    const { sorts ,currentList} = this.state;
+    if(sorts){ // 降序排列
+      currentList.sort(this.compareUp('price'))
+    }else{
+      currentList.sort(this.compareDown('price'))
+    }
     this.setState({
-      sort: !sort
+      sorts: !sorts,
+      currentList
     });
   };
+
+   compareDown=(property)=>{
+    return function(a,b){
+        var value1 = a[property];
+        var value2 = b[property];
+        return value1 - value2;
+    }
+}
+
+compareUp=(property)=>{
+  return function(a,b){
+      var value1 = a[property];
+      var value2 = b[property];
+      return value2-value1;
+  }
+}
 
   render() {
     const { history } = this.props;
@@ -110,7 +138,7 @@ class CategoryContainer extends PureComponent {
         state: { name }
       }
     } = history;
-    const { pagination, sort, currentList, allList } = this.state;
+    const { pagination, sorts, currentList } = this.state;
     return (
       <Category>
         <Layout>
@@ -120,10 +148,10 @@ class CategoryContainer extends PureComponent {
           <ContentCon>
             <Card title={name} bordered={false}>
               <Menu defaultSelectedKeys={["1"]}>
-                <Menu.Item key="1">综合</Menu.Item>
+                <Menu.Item key="1" onClick={this.handleNoSort}>综合</Menu.Item>
                 <Menu.Item key="2" onClick={this.handleSort}>
                   价格&nbsp;
-                  {sort ? <Icon type="arrow-up" /> : <Icon type="arrow-down" />}
+                  {sorts ? <Icon type="arrow-up" /> : <Icon type="arrow-down" />}
                 </Menu.Item>
               </Menu>
               <Pagination
@@ -183,7 +211,10 @@ class CategoryContainer extends PureComponent {
                   </div>
                 ))}
               {currentList.length === 0 && (
-                <Empty image="https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original" />
+                <div style={{minHeight:'calc(100vh - 213px)'}}>
+
+                  <Empty image="https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original" />
+                </div>
               )}
             </DetailCardContainer>
           </ContentCon>

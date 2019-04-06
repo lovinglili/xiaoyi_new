@@ -65,9 +65,9 @@ class HomeContainer extends Component {
             <Row gutter={16}>
               {item.map((colItem, colIndex) => (
                 <Col span={8} key={colIndex}>
-                  <div onClick={()=>{this.props.history.push(`/detail/:${colItem.goodId}`)}}>
+                  <div onClick={()=>{this.props.history.push(`/detail:${colItem.goodId}`)}}>
                     <ImgWrapper >
-                      <img src="https://www.paipai.com/static/img/banner1.57aeb9e.png" alt='' width='100%'></img>
+                      <img src={colItem.pics[0]} alt='' width='100%'></img>
                     </ImgWrapper>
                     <p style={{ marginBottom: 0 }}>{colItem.title}</p>
                     <p style={{ marginBottom: 0 }}>{colItem.desc}</p>
@@ -88,7 +88,6 @@ class HomeContainer extends Component {
   // 点击图片进行发布或者登陆
   handleImgClick = () => {
     const { loginIn: { loginInData: { isAssign } } } = this.props;
-    console.log(this.props, "sdf")
     if (isAssign) {
       this.props.history.push({ pathname: '/publish' });
     } else {
@@ -99,7 +98,6 @@ class HomeContainer extends Component {
 
   render() {
     const { mode } = this.state;
-    console.log(Banner1,"Banner1")
     return (
       <XiaoYiStyle>
         <Layout>
