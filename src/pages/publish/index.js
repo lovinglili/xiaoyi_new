@@ -9,21 +9,121 @@ const { Option } = Select;
 const { TextArea } = Input;
 class PublishContainers extends PureComponent {
     state = {
-        cities: [], // 城市集合
-        categories: [], // 商品分类集合
+        cities: [{
+            "id": 1,
+            "name": "北京",
+            "children": [
+              {
+                "id": 2816,
+                "name": "密云区"
+              }
+            ]
+          },
+          {
+            "id": 8,
+            "name": "驻马店",
+            "children": [
+              {
+                "id": 586,
+                "name": "驿城区"
+              },
+              {
+                "id": 588,
+                "name": "新区"
+              }
+            ]
+          }], // 城市集合
+        categories: [{
+            "categoryTitle": "手机数码",
+            "categoryId": 111,
+            "list": [
+                {
+                    "id": "1",
+                    "name": "蓝牙耳机"
+                },
+                {
+                    "id": "2",
+                    "name": "数据线"
+                },
+                {
+                    "id": "3",
+                    "name": "手环"
+                },
+                {
+                    "id": "4",
+                    "name": "相机"
+                },
+                {
+                    "id": "5",
+                    "name": "其他手机数码"
+                }
+            ]
+        },
+        {
+            "categoryTitle": "服饰",
+            "list": [
+                {
+                    "id": "6",
+                    "name": "半身裙"
+                },
+                {
+                    "id": "7",
+                    "name": "牛仔裤"
+                },
+                {
+                    "id": "8",
+                    "name": "衬衫"
+                },
+                {
+                    "id": "9",
+                    "name": "外套"
+                },
+                {
+                    "id": "10",
+                    "name": "其他服饰"
+                }
+            ],
+            "categoryId": 222
+        },
+        {
+            "categoryTitle": "美妆",
+            "list": [
+                {
+                    "id": "11",
+                    "name": "洁面用品"
+                },
+                {
+                    "id": "12",
+                    "name": "防晒"
+                },
+                {
+                    "id": "13",
+                    "name": "粉底液"
+                },
+                {
+                    "id": "14",
+                    "name": "香水"
+                },
+                {
+                    "id": "15",
+                    "name": "其他美妆"
+                }
+            ],
+            "categoryId": 333
+        }], // 商品分类集合
     }
-    componentDidMount() {
-        const { detail_actions } = this.props;
-        detail_actions.getCities(() => { });
-    }
+    // componentDidMount() {
+    //     const { detail_actions } = this.props;
+    //     detail_actions.getCities(() => { });
+    // }
 
-    componentWillReceiveProps(nextProps) {
-        const { cities, categories } = this.state;
-        const { detail: { citiesList: { list = [] } }, header: { categoryList } } = nextProps;
-        if (list !== cities || categories !== categoryList) {
-            this.setState({ cities: list, categories: categoryList })
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     const { cities, categories } = this.state;
+    //     const { detail: { citiesList: { list = [] } }, header: { categoryList } } = nextProps;
+    //     if (list !== cities || categories !== categoryList) {
+    //         this.setState({ cities: list, categories: categoryList })
+    //     }
+    // }
 
     // 处理提交的函数
     handleSubmit = (e) => {

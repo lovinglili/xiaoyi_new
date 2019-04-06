@@ -21,11 +21,11 @@ const reducer = (
              break;
         }
 
-        // 获取分类信息
-        case types.GET_CATEGORY_ASYNC+'_FULFILLED':{
-            new_state.categoryList =action.payload.data.data
-             break;
-        }
+        // // 获取分类信息
+        // case types.GET_CATEGORY_ASYNC+'_FULFILLED':{
+        //     new_state.categoryList =action.payload.data.data
+        //      break;
+        // }
        
         default:return previous_state;
     }

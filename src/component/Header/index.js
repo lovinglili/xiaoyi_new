@@ -37,13 +37,14 @@ class HeaderContainer extends Component {
       }
     }
     header_actions.fetchAllList();
-    header_actions.fetchCategoryInfo();
+    // header_actions.fetchCategoryInfo();
   }
 
   // 退出，返回到首页，store的数据清空
   handleExit = () => {
     const { loginIn_actions } = this.props;
-    loginIn_actions.loginOut(this.quitSuccess); // 退出
+    const values=localStorage.getItem('user');
+    loginIn_actions.loginOut(values,this.quitSuccess); // 退出
   };
 
   quitSuccess = () => {

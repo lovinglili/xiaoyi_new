@@ -1,4 +1,5 @@
 import * as types from './actionTypes'
+import { message } from "antd";
 import axios from 'axios'
 export default {
     // 登录
@@ -7,11 +8,12 @@ export default {
             type: types.GET_LOGININ_ASYNC,
             payload:new Promise(resolve=>{
                 axios({url:'/xiaoyi/assign', method: 'post', headers: {'Content-Type':'application/json'},data:values}).then(response=>{
-                   // TODO:后端会返回success，联调的时候改一下判断条件就好
-                    const {data={}}=response;
-                    if(Object.keys(data).length!==0){
-                        callback();
-                    }
+                   const {status,data}=response.data;
+                   if(status===200 && !data.message){
+                       callback();
+                   }else{
+                       message.error(data.message)
+                   }
                     resolve(response);
                 })
             }) 
@@ -26,10 +28,12 @@ export default {
                     const {phoneNumber,nickName,password}=values
                     const senValue={phoneNumber,nickName,password};
                     axios({url:'/xiaoyi/add', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(senValue)}).then(response=>{
-                       // TODO:后端会返回success，联调的时候改一下判断条件就好
-                        const {data={}}=response;
-                        if(Object.keys(data).length!==0){
+                       const {status,data}=response.data;
+                        console.log(data)
+                        if(status===200 && data.message !=="用户已存在"){
                             callback();
+                        }else{
+                            message.error(data.message)
                         }
                         resolve(response);
                     })
@@ -38,13 +42,13 @@ export default {
         },
 
     // 退出
-    loginOut(callback){
+    loginOut(values,callback){
         return {
             type:types.LOGININ_OUT,
             payload:new Promise(resolve=>{
-                axios.get('/xiaoyi/quit').then(response=>{
-                    const {data:{success}}=response;
-                    if(success){
+                axios({url:'/xiaoyi/quit', method: 'post', headers: {'Content-Type':'application/json'},data:values}).then(response=>{
+                    const {status}=response.data;
+                    if(status===200){
                         callback();
                     }
                     resolve(response)

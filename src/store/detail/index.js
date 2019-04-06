@@ -42,10 +42,10 @@ const reducer = (
             break;
         }
 
-        case types.GET_CITIES+'_FULFILLED':{
-            new_state.citiesList=action.payload.data.data;
-            break;
-        }
+        // case types.GET_CITIES+'_FULFILLED':{
+        //     new_state.citiesList=action.payload.data.data;
+        //     break;
+        // }
 
         case types.GET_ORDERLIST+'_FULFILLED':{
             new_state.orderList=action.payload.data.data;

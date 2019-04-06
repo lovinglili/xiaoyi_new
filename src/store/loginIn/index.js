@@ -17,24 +17,18 @@ const reducer = (
     switch (action.type) {
 
         case types.GET_LOGININ_ASYNC+'_FULFILLED':{
-            // TODO:根据真实数据
-            new_state.loginInData = {
-                isAssign: true
-            };
+            new_state.loginInData =action.payload.data.data;
             localStorage.setItem("isAssign", JSON.stringify({
-                isAssign: true,
+                ...action.payload.data.data,
                 currentTime:new Date().getTime()
             }));
              break;
         }
         // 注册
         case types.GET_LOGINUP_ASYNC+'_FULFILLED':{
-            // TODO:根据真实数据
-            new_state.loginInData = {
-                isAssign: true
-            };
+            new_state.loginInData = action.payload.data.data;
             localStorage.setItem("isAssign", JSON.stringify({
-                isAssign: true,
+                ...action.payload.data.data,
                 currentTime:new Date().getTime()
             }));
 

@@ -68,21 +68,21 @@ export default {
        }
    },
    // 获取城市列表 TODO
-   getCities (callback) {
-       return {
-           type:types.GET_CITIES,
-           payload:new Promise(resolve=>{
-               // TODO:
-               axios.get('/xiaoyi/cities').then(response=>{
-                   const {data:{success}}=response;
-                   if(success){
-                       callback();
-                   }
-                   resolve(response)
-               })
-           })
-       }
-   },
+//    getCities (callback) {
+//        return {
+//            type:types.GET_CITIES,
+//            payload:new Promise(resolve=>{
+//                // TODO:
+//                axios.get('/xiaoyi/cities').then(response=>{
+//                    const {data:{success}}=response;
+//                    if(success){
+//                        callback();
+//                    }
+//                    resolve(response)
+//                })
+//            })
+//        }
+//    },
    // 提交订单 TODO
    addOrder (values,callback) {
     return {
