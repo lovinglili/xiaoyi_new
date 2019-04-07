@@ -43,8 +43,7 @@ class LoginUpContainers extends Component {
         if (password !== confirm) {
           message.error('密码输入错误，请重新输入')
         } else {
-          const current = this.state.current + 1;
-          this.setState({ current, loginUpInfo: { ...loginUpInfo, ...values } }, () => {
+          this.setState({loginUpInfo: { ...loginUpInfo, ...values } }, () => {
             // 将注册的信息发送到后端
             loginIn_actions.fetchLoginUp(values, () => this.loginUpSuccess(values))
           });
@@ -56,7 +55,11 @@ class LoginUpContainers extends Component {
   loginUpSuccess = (values) => {
     const {loginIn_actions}=this.props;
     loginIn_actions.storeNickName(values);
-    this.props.history.push({ pathname: '/home' });
+    const current = this.state.current + 1;
+    this.setState({current},()=>{
+      localStorage.setItem('user',JSON.stringify(values))
+      this.props.history.push({ pathname: '/home' });
+    })
   }
 
   prev() {

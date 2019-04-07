@@ -24,27 +24,29 @@ class HeaderContainer extends Component {
     const { header_actions, loginIn_actions } = this.props;
     const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
     const rememberMe = JSON.parse(localStorage.getItem("user"));
-    if (isAssigned) {
-      const { isAssign, currentTime } = isAssigned;
-      const endTime = new Date().getTime();
-      // 超时时间 三十分钟
-      if (currentTime + 1800000 < endTime && isAssign) {
-        this.handleExit();
-      } else {
-        if (isAssign) {
-          loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
-          loginIn_actions.storeNickName(rememberMe);
-        }
-      }
-    }
+    // if (isAssigned) {
+    //   const { isAssign, currentTime } = isAssigned;
+    //   const endTime = new Date().getTime();
+    //   // 超时时间 三十分钟
+    //   console.log(isAssign,"sdf")
+    //   if (currentTime + 1800000 < endTime && isAssign) {
+    //     this.handleExit();
+    //   } else {
+    //     if (isAssign) {
+    //       loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
+    //       loginIn_actions.storeNickName(rememberMe);
+    //     }
+    //   }
+    // }
     header_actions.fetchAllList();
-    header_actions.fetchCategoryInfo();
+    // header_actions.fetchCategoryInfo();
   }
 
   // 退出，返回到首页，store的数据清空
   handleExit = () => {
     const { loginIn_actions } = this.props;
-    loginIn_actions.loginOut(this.quitSuccess); // 退出
+    const values=localStorage.getItem('user');
+    loginIn_actions.loginOut(values,this.quitSuccess); // 退出
   };
 
   quitSuccess = () => {

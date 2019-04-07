@@ -15,56 +15,7 @@ const gridStyle = {
   width: '50%',
   textAlign: 'center',
 };
-const { Meta } = Card;
-const list = [
-  {
-    title: "华为手机",
-    goodId: 1,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  },
-  {
-    title: "华为手机",
-    goodId: 2,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  },
-  {
-    title: "华为手机",
-    goodId: 3,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  },
-  {
-    title: "华为手机",
-    goodId: 4,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  },
-  {
-    title: "华为手机",
-    goodId: 5,
-    desc: "全新",
-    nickname: "微微一笑很倾城123",
-    price: "99.00",
-    originalPrice: "1999.00",
-    pics: ["https://www.paipai.com//static/img/entrance.018e382.png"]
-  }
-];
 
-// 登录
 class DetailContainer extends Component {
 
   componentDidMount(){
@@ -94,7 +45,6 @@ class DetailContainer extends Component {
 
   render() {
     const { detail, match}=this.props;
-    console.log("this.props:", this.props, detail.detailData, detail.detailData.pics ? detail.detailData.pics[0]: "");
     let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/,'') : ''; // 获取路径中的goodId
     let myDetailData = Object.keys(detail.detailData).length !== 0 ? detail.detailData : {};
     let myPics = detail.detailData.pics ? detail.detailData.pics : [];
