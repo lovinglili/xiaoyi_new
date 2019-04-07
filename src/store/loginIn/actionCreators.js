@@ -29,7 +29,6 @@ export default {
                     const senValue={phoneNumber,nickName,password};
                     axios({url:'/xiaoyi/add', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(senValue)}).then(response=>{
                        const {status,data}=response.data;
-                        console.log(data)
                         if(status===200 && data.message !=="用户已存在"){
                             callback();
                         }else{
@@ -71,7 +70,6 @@ export default {
             type: types.POST_PUBLISH_ASYNC,
             payload:new Promise(resolve=>{
                 axios({url:'/xiaoyi/publish', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(values)}).then(response=>{
-                   // TODO:后端会返回success，联调的时候改一下判断条件就好
                     const {data={}}=response;
                     if(Object.keys(data).length!==0){
                         callback();

@@ -2,6 +2,7 @@
 export default {
     detailData: {},
     addressList: [],
+    currentAddress:{},
     citiesList: [ {
         "id": 1,
         "name": "北京",

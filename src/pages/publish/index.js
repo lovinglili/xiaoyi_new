@@ -129,8 +129,7 @@ class PublishContainers extends PureComponent {
     handleSubmit = (e) => {
         e.preventDefault();
         const { loginIn: { userInfo: { nickName } } } = this.props
-        this.props.form.validateFields((err, values) => {
-            console.log(values,"sddsfdsf")
+        this.props.form.validateFields((err, values) =>{
             if (!err) {
                 const { category: { categoryTitle, categoryId, id, name },
                     city: { cityName, provinceName, cityId, provinceId },

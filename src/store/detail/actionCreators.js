@@ -18,30 +18,26 @@ export default {
             })
         }
     },
-     // 增加收货地址 TODO
+     // 增加收货地址 
      addAddress (values,callback) {
         return {
             type: types.ADD_ADDRESS_ASYNC,
             payload:new Promise(resolve=>{
-                const { privanceId, privanceName, cityId, cityName, more } = values;
-                const senValue ={ privanceId, privanceName, cityId, cityName, more };
-                axios({url:'/xiaoyi/address', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(senValue)}).then(response=>{
-                   // TODO:后端会返回success，联调的时候改一下判断条件就好
-                    const {data={}}=response;
-                    if(Object.keys(data).length!==0){
-                        callback();
+                axios({url:'/xiaoyi/address', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(values)}).then(response=>{
+                    const {data}=response.data;
+                    if(data.success){
+                        callback(data.currentAddress);
                     }
                     resolve(response);
                 })
             }) 
         }
     },
-    // 获取收货地址 TODO
+    // 获取收货地址 
     getAddress (nickName, callback) {
         return {
             type:types.GET_ADDRESS,
             payload:new Promise(resolve=>{
-                // TODO:
                 axios.get(`/xiaoyi/addressList?nickName=${nickName}`).then(response=>{
                     const {data:{success}}=response;
                     if(success){
@@ -58,7 +54,7 @@ export default {
            type:types.GET_ORDERLIST,
            payload:new Promise(resolve=>{
                // TODO:
-               axios.get('/xiaoyi/orderList').then(response=>{
+               axios.get(`/xiaoyi/orderList?nickName=${nickName}`).then(response=>{
                    const {data:{success}}=response;
                    if(success){
                        callback();
@@ -68,47 +64,29 @@ export default {
            })
        }
    },
-   // 获取城市列表 TODO
-//    getCities (callback) {
-//        return {
-//            type:types.GET_CITIES,
-//            payload:new Promise(resolve=>{
-//                // TODO:
-//                axios.get('/xiaoyi/cities').then(response=>{
-//                    const {data:{success}}=response;
-//                    if(success){
-//                        callback();
-//                    }
-//                    resolve(response)
-//                })
-//            })
-//        }
-//    },
-   // 提交订单 TODO
-   addOrder (values,callback) {
+
+
+addOrder (values,callback) {
     return {
         type: types.ADD_ORDER_ASYNC,
         payload:new Promise(resolve=>{
-            const {addressId,nickName,goodId}=values
-            const senValue={addressId,nickName,goodId};
-            axios({url:'/xiaoyi/addOrder', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(senValue)}).then(response=>{
-               // TODO:后端会返回success，联调的时候改一下判断条件就好
-                const {data={}}=response;
-                if(Object.keys(data).length!==0){
+            axios({url:'/xiaoyi/addOrder', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(values)}).then(response=>{
+                const {data}=response.data;
+                if(data.success){
                     callback();
                 }
-                resolve(response);
+                // resolve(response);
             })
         }) 
     }
 },
    // 提交订单 TODO购物车
-   addGoods (values,callback) {
-    console.log('values,addOrder/redux中：', values);
-    let result = api.addGoods(values)
-    return {
-     type: types.ADD_ORDER_ASYNC,
-     payload: result.goods
-    }
-   },
+//    addGoods (values,callback) {
+//     console.log('values,addOrder/redux中：', values);
+//     let result = api.addGoods(values)
+//     return {
+//      type: types.ADD_ORDER_ASYNC,
+//      payload: result.goods
+//     }
+//    },
 }

@@ -34,12 +34,6 @@ class DetailContainer extends Component {
 
   // 获取该商品的id并跳转到提交订单的页面
   handleCardClick = id => {
-    //   renderOtherData(path,val){
-    //     this.props.history.push({pathname:"/home/albums/"+path,state:val});
-    //     this.props.unshow();
-    //     this.props.albums_actions.getTypeId(path);
-    //     this.props.albums_actions.getListSound(path,1);
-    // }
     this.props.history.push({ pathname: `/submitOrder:${id}` });
   };
 

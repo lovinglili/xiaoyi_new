@@ -59,7 +59,6 @@ class MySelfContainer extends Component {
         let notSellOrderList =  _.filter(orderList, item => item.status === "0"); // 未卖出
         let soldOrderList =  _.filter(orderList, item => item.status === "1"); // 已卖出
         let soldOutOrderList =  _.filter(orderList, item => item.status === "2"); // 已下架
-        console.log('orderList/this.state.orderList.pics', orderList);
         return(
             <MySelf>
                 <Layout>
