@@ -54,6 +54,7 @@ class MySelfContainer extends Component {
         console.log(key);
     }
     render(){
+        console.log(localStorage.goods,"sdfdsf") 
         let orderList = JSON.parse(localStorage.goods); // 所有订单
         let notSellOrderList =  _.filter(orderList, item => item.status === "0"); // 未卖出
         let soldOrderList =  _.filter(orderList, item => item.status === "1"); // 已卖出

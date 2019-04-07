@@ -175,7 +175,7 @@ compareUp=(property)=>{
                       cover={
                         <img
                           alt="example"
-                          src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                          src={item.pics[0]}
                         />
                       }
                     >
