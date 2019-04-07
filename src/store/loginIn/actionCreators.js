@@ -30,7 +30,7 @@ export default {
                     axios({url:'/xiaoyi/add', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(senValue)}).then(response=>{
                        const {status,data}=response.data;
                         console.log(data)
-                        if(status===200 && data.message !=="用户已存在"){
+                        if(data.success===true){
                             callback();
                         }else{
                             message.error(data.message)

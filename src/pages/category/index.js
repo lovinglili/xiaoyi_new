@@ -173,9 +173,9 @@ compareUp=(property)=>{
                       title={<span>{item.nickName}</span>}
                       style={{ width: 260 }}
                       cover={
-                        <img
+                        <img style={{width: 258,height: 258}}
                           alt="example"
-                          src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                          src={item.pics[0]}
                         />
                       }
                     >
