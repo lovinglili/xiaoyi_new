@@ -14,6 +14,7 @@ connect.addActions({
 const gridStyle = {
   width: '50%',
   textAlign: 'center',
+  overflow: 'hidden'
 };
 
 class DetailContainer extends Component {

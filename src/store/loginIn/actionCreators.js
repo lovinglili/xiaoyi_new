@@ -28,8 +28,10 @@ export default {
                     const {phoneNumber,nickName,password}=values
                     const senValue={phoneNumber,nickName,password};
                     axios({url:'/xiaoyi/add', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(senValue)}).then(response=>{
-                       const {status,data}=response.data;
-                        if(status===200 && data.message !=="用户已存在"){
+                       const {data}=response.data;
+                        // if(status===200 && data.message !=="用户已存在"){
+                        // console.log(data)
+                        if(data.success===true){
                             callback();
                         }else{
                             message.error(data.message)

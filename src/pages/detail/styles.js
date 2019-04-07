@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Detail =  styled.div`
 width:100%;
 height:100%;
-background:red;
 .ant-layout-header {
   background: #fff;
   height: 80px;
@@ -20,7 +19,7 @@ background:red;
 export const DetailTop =  styled.div`
 width:100%;
 height:600px;
-background:green;
+margin-top: 84px;
 `;
 
 export const DetailBottom =  styled.div`
