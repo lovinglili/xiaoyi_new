@@ -6,7 +6,6 @@ export default {
         return {
             type:types.GET_DETAIL,
             payload:new Promise(resolve=>{
-                // TODO:
                 axios.get(`/xiaoyi/detail?goodId=${goodId}`).then(response=>{
                     const {data:{success}}=response;
                     if(success){

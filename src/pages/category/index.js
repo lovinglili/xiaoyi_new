@@ -59,7 +59,7 @@ class CategoryContainer extends PureComponent {
     // 判断list不为空的时候就setState,前端分页和搜索；
     const {
       header: {
-        listData: { list=[] }
+        listData
       },
       history
     } = nextProps;
@@ -69,8 +69,8 @@ class CategoryContainer extends PureComponent {
         state: { name = "" }
       }
     } = history;
-    if (allList !== list) {
-      this.setState({ allList: list }, () => {
+    if (allList !== listData) {
+      this.setState({ allList: listData }, () => {
         const arr = this.state.allList.filter(
           item =>
             item.name.toLocaleUpperCase().indexOf(name.toLocaleUpperCase()) !==
@@ -165,12 +165,12 @@ compareUp=(property)=>{
                 currentList.map(item => (
                   <div
                     style={{ display: "inline-block", marginTop: 24 }}
-                    key={item.goodId}
+                    key={item._id}
                   >
                     <Card
                       hoverable
-                      onClick={() => this.handleCardClick(item.goodId)}
-                      title={<span>{item.nickname}</span>}
+                      onClick={() => this.handleCardClick(item._id)}
+                      title={<span>{item.nickName}</span>}
                       style={{ width: 260 }}
                       cover={
                         <img

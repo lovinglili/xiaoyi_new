@@ -13,26 +13,26 @@ class PublishContainers extends PureComponent {
             "id": 1,
             "name": "北京",
             "children": [
-              {
-                "id": 2816,
-                "name": "密云区"
-              }
+                {
+                    "id": 2816,
+                    "name": "密云区"
+                }
             ]
-          },
-          {
+        },
+        {
             "id": 8,
             "name": "驻马店",
             "children": [
-              {
-                "id": 586,
-                "name": "驿城区"
-              },
-              {
-                "id": 588,
-                "name": "新区"
-              }
+                {
+                    "id": 586,
+                    "name": "驿城区"
+                },
+                {
+                    "id": 588,
+                    "name": "新区"
+                }
             ]
-          }], // 城市集合
+        }], // 城市集合
         categories: [{
             "categoryTitle": "手机数码",
             "categoryId": 111,
@@ -128,8 +128,9 @@ class PublishContainers extends PureComponent {
     // 处理提交的函数
     handleSubmit = (e) => {
         e.preventDefault();
-        const {loginIn:{userInfo:{nickName}}}=this.props
+        const { loginIn: { userInfo: { nickName } } } = this.props
         this.props.form.validateFields((err, values) => {
+            console.log(values,"sddsfdsf")
             if (!err) {
                 const { category: { categoryTitle, categoryId, id, name },
                     city: { cityName, provinceName, cityId, provinceId },
@@ -148,7 +149,7 @@ class PublishContainers extends PureComponent {
                     nickName
                 }
                 const { loginIn_actions } = this.props;
-                loginIn_actions.publishGood(postValue,()=>{this.props.history.push({ pathname: `/myself` })});
+                loginIn_actions.publishGood(postValue, () => { this.props.history.push({ pathname: `/myself` }) });
             }
         });
     };
@@ -161,6 +162,15 @@ class PublishContainers extends PureComponent {
         return e && e.fileList;
     }
 
+    handleInutImage(){
+        var reads = new FileReader();
+        var f = this.files[0];
+        console.log(f,"sfd")
+        reads.readAsDataURL(f);
+        reads.onload = function (e) {
+            document.getElementById('preview').src = this.result;
+        };
+    }
     render() {
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -206,8 +216,7 @@ class PublishContainers extends PureComponent {
                                 <TextArea rows={6} placeholder="详细描述一下商品的新旧程度,使用感受,入手渠道,出售原因吧~，600 字符以内"></TextArea>
                             )}
                         </Form.Item>
-
-                        <Form.Item
+                         <Form.Item
                             label={<span>上传商品图片&nbsp;&nbsp;<Tooltip title="多角度拍摄商品细节，全面展示商品;照片不要过大哦~"><Icon type="exclamation-circle"></Icon></Tooltip></span>}
                             {...formItemLayout}
                         >
@@ -215,17 +224,14 @@ class PublishContainers extends PureComponent {
                                 valuePropName: 'fileList',
                                 getValueFromEvent: this.normFile,
                             })(
-
-
-                                <Upload name="logo" action="/upload.do" listType="picture">
+                                <Upload name="logo"  listType="picture"  action='/xiaoyi/saveImg'>
                                     <div style={{ width: 200, height: 200, border: '1px dashed #bbb', position: 'relative' }}>
                                         <div style={{ width: 6, height: 100, top: 50, left: 97, background: '#999', position: 'absolute' }}></div>
                                         <div style={{ width: 100, height: 6, top: 97, left: 50, position: 'absolute', background: '#999' }}></div>
                                     </div>
-                                    {/* <input type="file" multiple="multiple"></input> */}
-                                </Upload>
-                            )}
-                        </Form.Item>
+                              </Upload> 
+                        )}
+                        </Form.Item> 
                         <Form.Item
                             label="发布地址"
                             {...formItemLayout}
