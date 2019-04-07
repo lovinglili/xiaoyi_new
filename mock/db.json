@@ -49,7 +49,7 @@
   },
   "address": {
     "privanceName": "北京",
-    "cityId": 2816,
+    "cityId": 588,
     "cityName": "密云区",
     "more": "xx街道xx小区"
   },
@@ -63,9 +63,7 @@
     "success": true
   },
   "addOrder": {
-    "addressId": 123,
-    "nickName": "weew",
-    "goodId": "5"
+    "goodId": 7895
   },
   "cities": {
     "data": {

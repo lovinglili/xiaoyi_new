@@ -1,5 +1,7 @@
 import * as types from './actionTypes'
 import axios from 'axios'
+import api from '../../util/api'
+
 export default {
     // 详情
     getDetail (goodId, callback) {
@@ -101,5 +103,13 @@ export default {
         }) 
     }
 },
-
+   // 提交订单 TODO购物车
+   addGoods (values,callback) {
+    console.log('values,addOrder/redux中：', values);
+    let result = api.addGoods(values)
+    return {
+     type: types.ADD_ORDER_ASYNC,
+     payload: result.goods
+    }
+   },
 }

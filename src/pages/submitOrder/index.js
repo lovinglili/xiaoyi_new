@@ -69,12 +69,14 @@ class SubmitOrderContainer extends Component {
     const { loginIn: { userInfo = {} } } = this.props;
     const { nickName } = userInfo; 
     const { detail_actions, detail, match } = this.props;
+    const { detailData } = detail;
     let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/,'') : ''; // 获取路径中的goodId
-    const params = {
-      nickName: nickName,
-      addressId:123,
-      goodId: goodId // '所要购买的商品的id',
-    }
+    // const params = {
+    //   nickName: nickName,
+    //   addressId:123,
+    //   goodId: goodId // '所要购买的商品的id',
+    // }
+    const params = detailData
     detail_actions.addOrder (params, this.toConsole);
   }
   toConsole() {
@@ -116,12 +118,21 @@ class SubmitOrderContainer extends Component {
   }
 
   // 获取该商品的id并跳转到个人中心的页面
-  handleCardClick = () => { 
+  handleCardClick = () => {
+    const { detail, detail_actions, match } = this.props;
+    let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/,'') : ''; // 获取路径中的goodId
+    const { title, price, pics, status } = detail.detailData;
     this.addOrderTo();
+    detail_actions.addGoods({goodId, title, price, pics, status})
+    // localStorage.setItem("goodId", JSON.stringify(goodId));
+    // localStorage.setItem("detail", JSON.stringify(detail));
+    // localStorage.goodId = goodId;
+    // localStorage.detail = detail;
     this.props.history.push({ pathname: `/myself` });
   };
 
   render() {
+    console.log('render中的props：', this.props);
     const { loginIn: { userInfo = {} } } = this.props;
     const { nickName } = userInfo;
     const { detail } = this.props;
@@ -142,14 +153,14 @@ class SubmitOrderContainer extends Component {
             <Card>
               <Card title="收货信息">
                 {(myAddressList === []) ? (
-                  <p>您的收货地址为空，点击 <Button type="primary" onClick={this.showModal}>新增收货地址</Button></p>
+                  <div>您的收货地址为空，点击 <Button type="primary" onClick={this.showModal}>新增收货地址</Button></div>
                  ) : (
-                  <p>
-                    {myAddressList.map(item => (
-                      <p>地址：<span>{item.privanceName}-{item.cityName}-{item.more}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                  <div>
+                    {myAddressList.map( (item, index) => (
+                      <p key="index">地址：<span>{item.privanceName}-{item.cityName}-{item.more}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                     ))}
                     <Button type="primary" onClick={this.showModal}>新增收货地址</Button>
-                  </p>
+                  </div>
                  )}
               </Card>
               <Card

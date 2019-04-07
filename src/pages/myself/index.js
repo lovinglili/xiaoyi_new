@@ -2,11 +2,21 @@ import React, { Component } from "react";
 import { MySelf } from "./styles.js";
 import { Layout,List, Avatar, Tabs, Card, Modal, Button, Cascader, Col, Row, Pagination, Icon, Menu } from "antd";
 import HeaderContainer from "@c/Header";
+import connect from "@connect";
+import { Link, withRouter } from "react-router-dom";
+import createActionDetail from "../../store/detail/actionCreators";
+import createActionLoginIn from "../../store/header/actionCreators";
+import uuid from "uuid/v1";
+import _ from 'lodash';
 
 const TabPane = Tabs.TabPane;
 const {
   Header, Footer, Sider, Content,
 } = Layout;
+connect.addActions({
+    detail: createActionDetail,
+    header: createActionLoginIn
+});
 const data = [
     {
       title: 'Ant Design Title 1',
@@ -22,10 +32,33 @@ const data = [
     },
   ];
 class MySelfContainer extends Component {
+    state = {
+        orderList: []
+    }
+    componentDidMount() {
+        // this.getDetailTo();
+        this.setState({
+            orderList: localStorage.goods,
+        });
+    }
+
+    getDetailTo = () => {
+        const { detail_actions, match } = this.props;
+        let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/,'') : ''; // 获取路径中的goodId
+        detail_actions.getDetail(goodId, this.toConsole);
+    }
+    toConsole() {
+        console.log(2333);
+    }
     callback(key) {
         console.log(key);
     }
     render(){
+        let orderList = JSON.parse(localStorage.goods); // 所有订单
+        let notSellOrderList =  _.filter(orderList, item => item.status === "0"); // 未卖出
+        let soldOrderList =  _.filter(orderList, item => item.status === "1"); // 已卖出
+        let soldOutOrderList =  _.filter(orderList, item => item.status === "2"); // 已下架
+        console.log('orderList/this.state.orderList.pics', orderList);
         return(
             <MySelf>
                 <Layout>
@@ -39,22 +72,68 @@ class MySelfContainer extends Component {
                             <span>昵称：</span>
                         </Card>
                         <Card title="订单">
-                            <Card
-                                title="商品1"
-                            >
-                                <img
-                                    src="https://img10.360buyimg.com/n1/s630x630_jfs/t23455/140/2011235680/255404/52e16e7d/5b6fecddNd5b6c223.jpg"
-                                    style={{ width: 100 }}
-                                    alt=""/>
-                                <span>商品描述</span> 
-                            </Card>
+                            {orderList.length !== 0 &&
+                             orderList.map((item, index) => (
+                                <Card key={uuid()}
+                                    title="商品${item.goodId}"
+                                >
+                                    <img
+                                        src={item.pics[0]}
+                                        style={{ width: 100 }}
+                                        alt=""/>
+                                    <span>{item.title}</span> 
+                                    <button>付款</button>
+                                </Card>
+                             ))}
                         </Card>
                     </Content>
                     <Content>
                         <Tabs defaultActiveKey="1" onChange={this.callback}>
-                            <TabPane tab="已发布" key="1">Content of Tab Pane 1</TabPane>
-                            <TabPane tab="已卖出" key="2">Content of Tab Pane 2</TabPane>
-                            <TabPane tab="已下架" key="3">Content of Tab Pane 3</TabPane>
+                            <TabPane tab="未卖出" key="1">
+                                {notSellOrderList.length !== 0 &&
+                                notSellOrderList.map((item, index) => (
+                                    <Card key={uuid()}
+                                        title="商品${item.goodId}"
+                                    >
+                                        <img
+                                            src={item.pics[0]}
+                                            style={{ width: 100 }}
+                                            alt=""/>
+                                        <span>{item.title}</span> 
+                                        <Button type="primary">下架</Button>
+                                    </Card>
+                                ))} 
+                            </TabPane>
+                            <TabPane tab="已卖出" key="2">
+                                {soldOrderList.length !== 0 &&
+                                soldOrderList.map((item, index) => (
+                                    <Card key={uuid()}
+                                        title="商品${item.goodId}"
+                                    >
+                                        <img
+                                            src={item.pics[0]}
+                                            style={{ width: 100 }}
+                                            alt=""/>
+                                        <span>{item.title}</span> 
+                                        <Button type="primary">付款</Button>
+                                    </Card>
+                                ))}
+                            </TabPane>
+                            <TabPane tab="已下架" key="3">
+                                {soldOutOrderList.length !== 0 &&
+                                soldOutOrderList.map((item, index) => (
+                                    <Card key={uuid()}
+                                        title="商品${item.goodId}"
+                                    >
+                                        <img
+                                            src={item.pics[0]}
+                                            style={{ width: 100 }}
+                                            alt=""/>
+                                        <span>{item.title}</span> 
+                                        <button>付款</button>
+                                    </Card>
+                                ))}
+                            </TabPane>
                         </Tabs>
                     </Content>
                 </Layout>
@@ -63,4 +142,11 @@ class MySelfContainer extends Component {
     }
 }
 
-export default MySelfContainer
+// export default MySelfContainer
+export default withRouter(
+    connect(
+      MySelfContainer,
+      [{ name: "detail", state: ["detailData"] },
+      { name: "loginIn", state: ["loginInData"] }]
+    )
+  );
