@@ -104,6 +104,7 @@ class MySelfContainer extends Component {
                                             style={{ width: 100 }}
                                             alt=""/>
                                         <span>{item.title}</span> 
+                                        <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">编辑</Button>
                                         <Button style={{ float: "right", marginTop: 34 }} type="primary">下架</Button>
                                     </Card>
                                 ))} 
