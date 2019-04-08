@@ -37,9 +37,16 @@ class MySelfContainer extends Component {
     }
     componentDidMount() {
         // this.getDetailTo();
+        this.getOrderListTo();
         this.setState({
             orderList: localStorage.goods,
         });
+    }
+
+    getOrderListTo = () => {
+        const { detail_actions, loginIn } = this.props;
+        let nickName = loginIn.userInfo.nickName;
+        detail_actions.getOrderList(nickName, this.toConsole);
     }
 
     getDetailTo = () => {
@@ -54,15 +61,18 @@ class MySelfContainer extends Component {
         console.log(key);
     }
     render() {
-        const { header } = this.props;
+        const { detail ,header, loginIn } = this.props;
         if (header.listData === {}) return;
-        let orderList = header.listData;
-        console.log('23', this.props, orderList)
-        // let orderList = JSON.parse(localStorage.goods); // 所有订单
-        let notSellOrderList = _.filter(orderList, item => item.status === 0); // 未卖出
-        let soldOrderList = _.filter(orderList, item => item.status === 1); // 已卖出
-        let soldOutOrderList = _.filter(orderList, item => item.status === 2); // 已下架
-        console.log('orderList/this.state.orderList.pics', orderList, soldOrderList, soldOutOrderList);
+        let allList = header.listData;
+        let nowUser = loginIn.userInfo.nickName;
+        let myList = _.filter(allList, item => item.nickName === nowUser);
+        let orderList = detail.orderList;
+        console.log('23', this.props, allList,nowUser, myList, orderList);
+        // let myList = JSON.parse(localStorage.goods); // 所有订单
+        let myNotSellList = _.filter(myList, item => item.status === 0); // 未卖出
+        let mySoldList = _.filter(myList, item => item.status === 1); // 已卖出
+        let mySoldOutList = _.filter(myList, item => item.status === 2); // 已下架
+        console.log('myList/this.state.myList.pics', myList, mySoldList, mySoldOutList);
         return (
             <MySelf>
                 <Layout>
@@ -76,8 +86,8 @@ class MySelfContainer extends Component {
                             <span>昵称：</span>
                         </Card>
                         <Card title="订单">
-                            {orderList.length !== 0 && Array.isArray(orderList) &&
-                                orderList.map((item, index) => (
+                            {myList.length !== 0 && Array.isArray(myList) &&
+                                myList.map((item, index) => (
                                     <Card key={uuid()}
                                         title="商品"
                                     >
@@ -86,8 +96,8 @@ class MySelfContainer extends Component {
                                             style={{ width: 100 }}
                                             alt=""/>
                                         <span>{item.title}</span> 
-                                        <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">编辑</Button>
-                                        <Button style={{ float: "right", marginTop: 34 }} type="primary">下架</Button>
+                                        <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">购买</Button>
+                                        <Button style={{ float: "right", marginTop: 34 }} type="primary">取消</Button>
                                     </Card>
                                 ))}
                         </Card>
@@ -95,8 +105,8 @@ class MySelfContainer extends Component {
                     <Content>
                         <Tabs defaultActiveKey="1" onChange={this.callback}>
                             <TabPane tab="未卖出" key="1">
-                                {notSellOrderList.length !== 0 &&
-                                    notSellOrderList.map((item, index) => (
+                                {myNotSellList.length !== 0 &&
+                                    myNotSellList.map((item, index) => (
                                         <Card key={uuid()}
                                             title="商品"
                                         >
@@ -105,13 +115,14 @@ class MySelfContainer extends Component {
                                                 style={{ width: 100 }}
                                                 alt="" />
                                             <span>{item.title}</span>
+                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">编辑</Button>
                                             <Button style={{ float: "right", marginTop: 34 }} type="primary">下架</Button>
                                         </Card>
                                     ))}
                             </TabPane>
                             <TabPane tab="已卖出" key="2">
-                                {soldOrderList.length !== 0 &&
-                                    soldOrderList.map((item, index) => (
+                                {mySoldList.length !== 0 &&
+                                    mySoldList.map((item, index) => (
                                         <Card key={uuid()}
                                             title="商品"
                                         >
@@ -124,8 +135,8 @@ class MySelfContainer extends Component {
                                     ))}
                             </TabPane>
                             <TabPane tab="已下架" key="3">
-                                {soldOutOrderList.length !== 0 &&
-                                    soldOutOrderList.map((item, index) => (
+                                {mySoldOutList.length !== 0 &&
+                                    mySoldOutList.map((item, index) => (
                                         <Card key={uuid()}
                                             title="商品"
                                         >
