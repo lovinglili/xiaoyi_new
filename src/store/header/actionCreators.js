@@ -14,17 +14,4 @@ export default {
         }
     },
 
-    // // 获取所有的分类信息
-    // fetchCategoryInfo(){
-    //     return {
-    //         type:types.GET_CATEGORY_ASYNC,
-    //         payload:new Promise(resolve=>{
-    //             // TODO：请求连接需要改
-    //             axios.get('/xiaoyi/categoryPage').then(response=>{
-    //                 resolve(response)
-    //             })
-    //         })
-    //     }
-    // },
-
 }

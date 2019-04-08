@@ -65,10 +65,10 @@ class HomeContainer extends Component {
             <Row gutter={16}>
               {item.map((colItem, colIndex) => (
                 <Col span={8} key={colIndex}>
-                  <div onClick={()=>{this.props.history.push(`/detail:${colItem.goodId}`)}}>
-                    {/* <ImgWrapper >
+                  <div onClick={()=>{this.props.history.push(`/detail:${colItem._id}`)}}>
+                    <ImgWrapper >
                       <img src={colItem.pics[0]} alt='' width='100%'></img>
-                    </ImgWrapper> */}
+                    </ImgWrapper>
                     <p style={{ marginBottom: 0 }}>{colItem.title}</p>
                     <p style={{ marginBottom: 0 }}>{colItem.desc}</p>
                     <p style={{ marginBottom: 0 }}><span style={{ color: 'red', paddingRight: 24 }}>{colItem.price}</span>

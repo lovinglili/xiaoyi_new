@@ -29,10 +29,7 @@ const reducer = (
         }
 
         case types.ADD_ADDRESS_ASYNC+'_FULFILLED':{
-            // TODO:根据真实数据
-            new_state.addressList = {
-                isAssign: true
-            };
+            new_state.currentAddress = action.payload.data.data.currentAddress;
              break;
         }
 
@@ -51,13 +48,13 @@ const reducer = (
             break;
         }
 
-        case types.ADD_ORDER_ASYNC+'_FULFILLED':{
-            // TODO:根据真实数据
-            new_state.orderList = {
-                isAssign: true
-            };
-             break;
-        }
+        // case types.ADD_ORDER_ASYNC+'_FULFILLED':{
+        //     // TODO:根据真实数据
+        //     new_state.orderList = {
+        //         isAssign: true
+        //     };
+        //      break;
+        // }
         default:return previous_state;
     }
     return new_state
