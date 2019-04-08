@@ -60,14 +60,24 @@ class MySelfContainer extends Component {
     callback(key) {
         console.log(key);
     }
+
+    // 下架
+    handleNoSold = (id) => {
+        const { detail_actions, header_actions } = this.props;
+        detail_actions.changeGoodStatus(id, 2, () => {
+            header_actions.fetchAllList();
+        });
+
+    }
+
     render() {
-        const { detail ,header, loginIn } = this.props;
+        const { detail, header, loginIn } = this.props;
         if (header.listData === {}) return;
         let allList = header.listData;
         let nowUser = loginIn.userInfo.nickName;
         let myList = _.filter(allList, item => item.nickName === nowUser);
         let orderList = detail.orderList;
-        console.log('23', this.props, allList,nowUser, myList, orderList);
+        console.log('23', this.props, allList, nowUser, myList, orderList);
         // let myList = JSON.parse(localStorage.goods); // 所有订单
         let myNotSellList = _.filter(myList, item => item.status === 0); // 未卖出
         let mySoldList = _.filter(myList, item => item.status === 1); // 已卖出
@@ -94,8 +104,8 @@ class MySelfContainer extends Component {
                                         <img
                                             src={item.pics[0]}
                                             style={{ width: 100 }}
-                                            alt=""/>
-                                        <span>{item.title}</span> 
+                                            alt="" />
+                                        <span>{item.title}</span>
                                         <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">购买</Button>
                                         <Button style={{ float: "right", marginTop: 34 }} type="primary">取消</Button>
                                     </Card>
@@ -116,7 +126,7 @@ class MySelfContainer extends Component {
                                                 alt="" />
                                             <span>{item.title}</span>
                                             <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">编辑</Button>
-                                            <Button style={{ float: "right", marginTop: 34 }} type="primary">下架</Button>
+                                            <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={() => this.handleNoSold(item._id)}>下架</Button>
                                         </Card>
                                     ))}
                             </TabPane>
