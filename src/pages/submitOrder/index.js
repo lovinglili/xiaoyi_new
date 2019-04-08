@@ -131,19 +131,26 @@ class SubmitOrderContainers extends Component {
   }
 
   // 获取该商品的id并跳转到个人中心的页面
-  handleCardClick = () => {
-    //  TODO:没有判断界面是否有信息没填
+  handleCardClick = (detailData) => {
     const { loginIn: { userInfo = {} } ,detail_actions, match} = this.props;
     const { nickName } = userInfo;
     const {currentAddressData:{_id}}=this.state;
+    const {nickName:solderNickName,desc,pics,price,status,title,categoryTitle,categoryId}=detailData
     let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/, '') : ''; // 获取路径中的goodId
     if(!_id || !nickName){
       message.error("请补充信息");
       return;
     }
     const params = {
+      solderNickName, // 卖家的nickName
+      desc,
+      pics,
+      price,
+      title,
+      categoryTitle,categoryId,
       nickName,
       addressId: _id,
+      status,// 该商品的状态
       goodId // '所要购买的商品的id',
     }
     detail_actions.addOrder(params, ()=>{
@@ -162,6 +169,7 @@ class SubmitOrderContainers extends Component {
     const { currentAddressData } = this.state;
     const { more = '', privanceName = '', cityName = '' } = currentAddressData;
     let myDetailData = Object.keys(detail.detailData).length !== 0 ? detail.detailData : {};
+    console.log(myDetailData,"detail")
     let myPics = detail.detailData.pics ? detail.detailData.pics : [];
     // 增加的地址显示出来
     return (
@@ -257,7 +265,7 @@ class SubmitOrderContainers extends Component {
               <div className="contact">
                 <div className="contact-seller">
                   <span className="phone-number"
-                    onClick={() => this.handleCardClick()}
+                    onClick={() => this.handleCardClick(myDetailData)}
                   >
                     提交订单
                   </span>

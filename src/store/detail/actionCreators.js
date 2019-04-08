@@ -1,6 +1,5 @@
 import * as types from './actionTypes'
 import axios from 'axios'
-import api from '../../util/api'
 
 export default {
     // 详情
@@ -48,12 +47,11 @@ export default {
             })
         }
    },
-   // 获取订单 TODO
+   // 获取订单 
    getOrderList (nickName, callback) {
        return {
            type:types.GET_ORDERLIST,
            payload:new Promise(resolve=>{
-               // TODO:
                axios.get(`/xiaoyi/orderList?nickName=${nickName}`).then(response=>{
                    const {data:{success}}=response;
                    if(success){

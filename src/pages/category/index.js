@@ -26,7 +26,7 @@ class CategoryContainer extends PureComponent {
     const { allList } = this.state;
     const arr = allList.filter(
       item =>
-        item.title.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !== -1
+        item.name.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !== -1
     );
     const list = arr.slice(0, 10);
     this.setState({
@@ -73,7 +73,7 @@ class CategoryContainer extends PureComponent {
       this.setState({ allList: listData }, () => {
         const arr = this.state.allList.filter(
           item =>
-            item.title.toLocaleUpperCase().indexOf(name.toLocaleUpperCase()) !==
+            item.name.toLocaleUpperCase().indexOf(name.toLocaleUpperCase()) !==
             -1
         );
         const listNow = arr.slice(0, 10);
