@@ -7,3 +7,4 @@ export const GET_ADDRESS = 'GET_ADDRESS';
 // export const GET_CITIES = 'GET_CITIES';
 export const GET_ORDERLIST = 'GET_ORDERLIST';
 export const ADD_ORDER_ASYNC = 'ADD_ORDER_ASYNC';
+export const REMOVE_GOOD_ASYNC='REMOVE_GOOD_ASYNC'; // 下架商品
