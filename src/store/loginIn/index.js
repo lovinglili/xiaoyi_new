@@ -37,7 +37,6 @@ const reducer = (
 
         // 保存nickName
         case types.STORE_NICKNAME:{
-            // TODO:根据真实数据
             new_state.userInfo = action.payload;
              break;
         }
@@ -45,6 +44,10 @@ const reducer = (
          // 退出
         case types.LOGININ_OUT+'_FULFILLED':{
             new_state.loginInData=action.payload.data.data;
+            localStorage.setItem("isAssign", JSON.stringify({
+                ...action.payload.data.data,
+                currentTime:new Date().getTime()
+            }));
             break;
         }
 

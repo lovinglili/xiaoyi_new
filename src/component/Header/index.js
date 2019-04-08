@@ -24,29 +24,28 @@ class HeaderContainer extends Component {
     const { header_actions, loginIn_actions } = this.props;
     const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
     const rememberMe = JSON.parse(localStorage.getItem("user"));
-    // if (isAssigned) {
-    //   const { isAssign, currentTime } = isAssigned;
-    //   const endTime = new Date().getTime();
-    //   // 超时时间 三十分钟
-    //   console.log(isAssign,"sdf")
-    //   if (currentTime + 1800000 < endTime && isAssign) {
-    //     this.handleExit();
-    //   } else {
-    //     if (isAssign) {
-    //       loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
-    //       loginIn_actions.storeNickName(rememberMe);
-    //     }
-    //   }
-    // }
+    const { isAssign, currentTime } = isAssigned;
+    if (isAssign) {
+      const endTime = new Date().getTime();
+      // 超时时间 三十分钟
+      if (currentTime + 1800000 < endTime && isAssign) {
+        this.handleExit();
+      } else {
+        if (isAssign) {
+          loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
+          loginIn_actions.storeNickName(rememberMe);
+        }
+      }
+    }
     header_actions.fetchAllList();
     // header_actions.fetchCategoryInfo();
   }
 
   // 退出，返回到首页，store的数据清空
   handleExit = () => {
-    const { loginIn_actions } = this.props;
-    const values=localStorage.getItem('user');
-    loginIn_actions.loginOut(values,this.quitSuccess); // 退出
+    const { loginIn_actions,loginIn:{userInfo} } = this.props;
+    console.log(userInfo,"loginInData")
+    loginIn_actions.loginOut(userInfo,this.quitSuccess); // 退出
   };
 
   quitSuccess = () => {
@@ -190,7 +189,7 @@ export default withRouter(
   connect(
     HeaderContainer,
     [
-      { name: "loginIn", state: ["loginInData"] },
+      { name: "loginIn" },
       { name: "header", state: ["categoryList"] }
     ]
   )

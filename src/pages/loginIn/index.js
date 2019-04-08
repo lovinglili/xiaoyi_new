@@ -21,7 +21,8 @@ class LoginInContainers extends Component {
   }
   componentDidMount() {
     const rememberUser = JSON.parse(localStorage.getItem("user"));
-    if(!!rememberUser){
+    const {remember}=rememberUser;
+    if(remember){ // remeber 为true 就说明是保存的
       this.setState({
         assignUser: rememberUser 
       })
@@ -34,17 +35,15 @@ class LoginInContainers extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // TODO json-server中的POST请求需要json格式，后端请求不一定
         loginIn_actions.fetchLoginIn(JSON.stringify(values), () => this.assignSuccess(values))
       }
     });
   }
 
   assignSuccess = (values) => {
-    const { rememberValue } = this.state;
     const {loginIn_actions}=this.props;
-    const storeValue = rememberValue ? values : {nackName:'',password:''};
-    localStorage.setItem("user", JSON.stringify(storeValue));
+    // const storeValue = rememberValue ? values : {nackName:'',password:''};
+    localStorage.setItem("user", JSON.stringify(values));
     loginIn_actions.storeNickName(values);
     this.props.history.goBack();
   }
