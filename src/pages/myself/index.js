@@ -214,7 +214,7 @@ class MySelfContainers extends Component {
                 loginIn_actions.publishGood(postValue, () => { this.props.history.push({ pathname: `/myself` }) });
             }
         });
-    };
+    }
 
     // 上传文件
     normFile = (e) => {
@@ -232,6 +232,7 @@ class MySelfContainers extends Component {
         reads.onload = function (e) {
             document.getElementById('preview').src = this.result;
         };
+    }
     // 下架
     handleNoSold = (id) => {
         const { detail_actions, header_actions } = this.props;
@@ -303,8 +304,8 @@ class MySelfContainers extends Component {
                                             <span>{item.title}</span>
                                             <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} onClick={this.showModal} type="primary">编辑</Button>
                                             <Button style={{ float: "right", marginTop: 34 }} type="primary">下架</Button>
-                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">编辑</Button>
-                                            <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={() => this.handleNoSold(item._id)}>下架</Button>
+                                            {/* <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">编辑</Button>
+                                            <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={() => this.handleNoSold(item._id)}>下架</Button> */}
                                         </Card>
                                     ))}
                             </TabPane>
@@ -344,121 +345,121 @@ class MySelfContainers extends Component {
                         onOk={this.handleOk}
                         onCancel={this.handleCancel}
                         >
-                        <Form style={{width:520}} onSubmit={this.handleSubmit}>
-                            <Form.Item
-                                label="商品标题"
-                                {...formItemLayout}
-                            >
-                                {getFieldDecoraStor('title', {
-                                    rules: [
-                                        {
-                                            required: true,
-                                            pattern: /^.{1,30}$/,
-                                            message: '给你的好物起个名字吧~,30 字符以内'
-                                        },
-                                    ],
-                                })(
-                                    <Input placeholder="给你的好物起个名字吧~,30 字符以内"></Input>
-                                )}
-                            </Form.Item>
-                            <Form.Item
-                                label="描述下你的商品吧"
-                                {...formItemLayout}
-                            >
-                                {getFieldDecorator('desc', {
-                                    rules: [
-                                        {
-                                            required: true,
-                                            pattern: /^.{1,600}$/,
-                                            message: '600 字符以内'
-                                        },
-                                    ],
-                                })(
-                                    <TextArea rows={6} placeholder="详细描述一下商品的新旧程度,使用感受,入手渠道,出售原因吧~，600 字符以内"></TextArea>
-                                )}
-                            </Form.Item>
-                            <Form.Item
-                                label={<span>上传商品图片&nbsp;&nbsp;<Tooltip title="多角度拍摄商品细节，全面展示商品;照片不要过大哦~"><Icon type="exclamation-circle"></Icon></Tooltip></span>}
-                                {...formItemLayout}
-                            >
-                                {getFieldDecorator('pics', {
-                                    valuePropName: 'fileList',
-                                    getValueFromEvent: this.normFile,
-                                })(
-                                    <Upload name="logo"  listType="picture"  action='/xiaoyi/saveImg'>
-                                        <div style={{ width: 200, height: 200, border: '1px dashed #bbb', position: 'relative' }}>
-                                            <div style={{ width: 6, height: 100, top: 50, left: 97, background: '#999', position: 'absolute' }}></div>
-                                            <div style={{ width: 100, height: 6, top: 97, left: 50, position: 'absolute', background: '#999' }}></div>
-                                        </div>
-                                </Upload> 
+                        <Form onSubmit={this.handleSubmit}>
+                        <Form.Item
+                            label="商品标题"
+                            {...formItemLayout}
+                        >
+                            {getFieldDecorator('title', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        pattern: /^.{1,30}$/,
+                                        message: '给你的好物起个名字吧~,30 字符以内'
+                                    },
+                                ],
+                            })(
+                                <Input placeholder="给你的好物起个名字吧~,30 字符以内"></Input>
                             )}
-                            </Form.Item> 
-                            <Form.Item
-                                label="发布地址"
-                                {...formItemLayout}
-                            >
-                                {getFieldDecorator('city', {
-                                    rules: [
-                                        { required: true, message: '请输入你的地址!' },
-                                    ],
-                                })(
-                                    <CitySelect citiesList={this.state.cities} />
-                                )}
-                            </Form.Item>
+                        </Form.Item>
+                        <Form.Item
+                            label="描述下你的商品吧"
+                            {...formItemLayout}
+                        >
+                            {getFieldDecorator('desc', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        pattern: /^.{1,600}$/,
+                                        message: '600 字符以内'
+                                    },
+                                ],
+                            })(
+                                <TextArea rows={6} placeholder="详细描述一下商品的新旧程度,使用感受,入手渠道,出售原因吧~，600 字符以内"></TextArea>
+                            )}
+                        </Form.Item>
+                         <Form.Item
+                            label={<span>上传商品图片&nbsp;&nbsp;<Tooltip title="多角度拍摄商品细节，全面展示商品;照片不要过大哦~"><Icon type="exclamation-circle"></Icon></Tooltip></span>}
+                            {...formItemLayout}
+                        >
+                            {getFieldDecorator('pics', {
+                                valuePropName: 'fileList',
+                                getValueFromEvent: this.normFile,
+                            })(
+                                <Upload name="logo"  listType="picture"  action='/xiaoyi/saveImg'>
+                                    <div style={{ width: 200, height: 200, border: '1px dashed #bbb', position: 'relative' }}>
+                                        <div style={{ width: 6, height: 100, top: 50, left: 97, background: '#999', position: 'absolute' }}></div>
+                                        <div style={{ width: 100, height: 6, top: 97, left: 50, position: 'absolute', background: '#999' }}></div>
+                                    </div>
+                              </Upload> 
+                        )}
+                        </Form.Item> 
+                        <Form.Item
+                            label="发布地址"
+                            {...formItemLayout}
+                        >
+                            {getFieldDecorator('city', {
+                                rules: [
+                                    { required: true, message: '请输入你的地址!' },
+                                ],
+                            })(
+                                <CitySelect citiesList={this.state.cities} />
+                            )}
+                        </Form.Item>
 
-                            <Form.Item
-                                label="售卖价"
-                                {...formItemLayout}
-                            >
-                                {getFieldDecorator('price', {
-                                    initialValue: 1000,
-                                    rules: [
-                                        { required: true, message: '请输入要售卖的价钱!' },
-                                    ],
-                                })(
-                                    <InputNumber
-                                        formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                        parser={value => value.replace(/￥\s?|(,*)/g, '')}
-                                        min={1}
-                                    />
-                                )}
-                            </Form.Item>
-                            <Form.Item
-                                label="原价"
-                                {...formItemLayout}
-                            >
-                                {getFieldDecorator('originPrice', {
-                                    initialValue: 1000,
-                                    rules: [
-                                        { required: true, message: '请输入所售卖的商品原价!' },
-                                    ],
-                                })(
-                                    <InputNumber
-                                        formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                        parser={value => value.replace(/￥\s?|(,*)/g, '')}
-                                        min={1}
-                                    />
-                                )}
-                            </Form.Item>
+                        <Form.Item
+                            label="售卖价"
+                            {...formItemLayout}
+                        >
+                            {getFieldDecorator('price', {
+                                initialValue: 1000,
+                                rules: [
+                                    { required: true, message: '请输入要售卖的价钱!' },
+                                ],
+                            })(
+                                <InputNumber
+                                    formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    parser={value => value.replace(/￥\s?|(,*)/g, '')}
+                                    min={1}
+                                />
+                            )}
+                        </Form.Item>
+                        <Form.Item
+                            label="原价"
+                            {...formItemLayout}
+                        >
+                            {getFieldDecorator('originPrice', {
+                                initialValue: 1000,
+                                rules: [
+                                    { required: true, message: '请输入所售卖的商品原价!' },
+                                ],
+                            })(
+                                <InputNumber
+                                    formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    parser={value => value.replace(/￥\s?|(,*)/g, '')}
+                                    min={1}
+                                />
+                            )}
+                        </Form.Item>
 
-                            <Form.Item
-                                label="商品分类"
-                                {...formItemLayout}
-                            >
-                                {getFieldDecorator('category', {
-                                    rules: [
-                                        { required: true, message: '请给你的商品选个家吧!' },
-                                    ],
-                                })(
-                                    <CategorySelect categoryList={this.state.categories} />
-                                )}
-                            </Form.Item>
-                            <Form.Item
-                                wrapperCol={{ span: 12, offset: 6 }}
-                            >
-                                <Button type="primary" htmlType="submit">确认发布</Button>
-                            </Form.Item>
-                        </Form>
+                        <Form.Item
+                            label="商品分类"
+                            {...formItemLayout}
+                        >
+                            {getFieldDecorator('category', {
+                                rules: [
+                                    { required: true, message: '请给你的商品选个家吧!' },
+                                ],
+                            })(
+                                <CategorySelect categoryList={this.state.categories} />
+                            )}
+                        </Form.Item>
+                        <Form.Item
+                            wrapperCol={{ span: 12, offset: 6 }}
+                        >
+                            <Button type="primary" htmlType="submit">确认发布</Button>
+                        </Form.Item>
+                    </Form>
                     </Modal>
                 </Layout>
             </MySelf>
@@ -466,7 +467,7 @@ class MySelfContainers extends Component {
     }
 }
 
-const MySelfContainer = Form.create({})(MySelfContainers);
+const MySelfContainer = Form.create({})(MySelfContainers)
 class CategorySelect extends React.Component {
 
     handleMainCateChange = info => {
