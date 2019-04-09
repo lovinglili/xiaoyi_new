@@ -47,7 +47,10 @@ const reducer = (
             new_state.orderList=action.payload.data.data;
             break;
         }
-
+        case types.POST_UPDATE_ASYNC+'_FULFILLED':{
+            new_state.updateData=action.payload.data;
+            break;
+        }
         // case types.ADD_ORDER_ASYNC+'_FULFILLED':{
         //     // TODO:根据真实数据
         //     new_state.orderList = {
@@ -55,6 +58,7 @@ const reducer = (
         //     };
         //      break;
         // }
+        
         default:return previous_state;
     }
     return new_state
