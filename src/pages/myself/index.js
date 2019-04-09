@@ -19,11 +19,49 @@ connect.addActions({
     detail: createActionDetail,
     header: createActionLoginIn
 });
-
+const props = {
+    action: '//jsonplaceholder.typicode.com/posts/',
+    onChange({ file, fileList }) {
+      if (file.status !== 'uploading') {
+        console.log(file, fileList);
+      }
+    },
+    defaultFileList: [{
+      uid: '1',
+      name: 'xxx.png',
+      status: 'done',
+      response: 'Server Error 500', // custom error message to show
+      url: 'http://www.baidu.com/xxx.png',
+    }, {
+      uid: '2',
+      name: 'yyy.png',
+      status: 'done',
+      url: 'http://www.baidu.com/yyy.png',
+    }, {
+      uid: '3',
+      name: 'zzz.png',
+      status: 'error',
+      response: 'Server Error 500', // custom error message to show
+      url: 'http://www.baidu.com/zzz.png',
+    }],
+  };
 class MySelfContainers extends Component {
     state = {
         orderList: [],
         visible: false,
+        nowGoods: {}, // 当前编辑的商品
+        defaultFileList: [{
+            uid: '1',
+            name: 'xxx.png',
+            status: 'done',
+            response: 'Server Error 500', // custom error message to show
+            url: 'http://www.baidu.com/xxx.png',
+          }, {
+            uid: '2',
+            name: 'yyy.png',
+            status: 'done',
+            url: 'http://www.baidu.com/yyy.png',
+          }],
         cities: [{
             "id": 1,
             "name": "北京",
@@ -127,17 +165,29 @@ class MySelfContainers extends Component {
             "categoryId": 333
         }], // 商品分类集合
     }
-    showModal = () => {
+    showModal = (id) => {
+        const { detail, header, loginIn } = this.props;
+        if (header.listData === {}) return;
+        let allList = header.listData;
+        let nowUser = loginIn.userInfo.nickName;
+        let myList = _.filter(allList, item => item.nickName === nowUser);
+        let orderList = detail.orderList;
+        // let myList = JSON.parse(localStorage.goods); // 所有订单
+        let myNotSellList = _.filter(myList, item => item.status === 0); // 未卖出
+        let _nowGoods = myNotSellList.find((item) => item.id === id); // 要编辑的商品
+        console.log('showModal/myNotSellList:', myNotSellList, _nowGoods);
         this.setState({
           visible: true,
+          nowGoods: _nowGoods,
         });
       }
     
       handleOk = (e) => {
-        console.log(e);
-        this.setState({
-          visible: false,
-        });
+        console.log('handleOk:', e);
+        this.handleSubmit();
+        // this.setState({
+        //   visible: false,
+        // });
       }
     
       handleCancel = (e) => {
@@ -176,8 +226,10 @@ class MySelfContainers extends Component {
     }
 
     // 处理提交的函数
-    handleSubmit = (e) => {
-        e.preventDefault();
+    // handleSubmit = (e) => {
+        // console.log('handleSubmit:', e);
+        // e.preventDefault();
+    handleSubmit = () => {
         const { loginIn: { userInfo: { nickName } } } = this.props
         this.props.form.validateFields((err, values) =>{
             if (!err) {
@@ -197,11 +249,14 @@ class MySelfContainers extends Component {
                     title,
                     nickName
                 }
-                const { loginIn_actions } = this.props;
-                loginIn_actions.publishGood(postValue, () => { this.props.history.push({ pathname: `/myself` }) });
+                const { detail_actions } = this.props;
+                detail_actions.updateGood(postValue, () => { this.props.history.push({ pathname: `/myself` }) });
+                this.setState({
+                    visible: false,
+                });
             }
         });
-    };
+    }
 
 
     handleInutImage(){
@@ -306,7 +361,7 @@ class MySelfContainers extends Component {
                                                 style={{ width: 100 }}
                                                 alt="" />
                                             <span>{item.title}</span>
-                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} onClick={this.showModal} type="primary">编辑</Button>
+                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} onClick={() => this.showModal(item.id)} type="primary">编辑</Button>
                                             <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={() => this.handleNoSold(item._id)}>下架</Button>
                                         </Card>
                                     ))}
@@ -355,7 +410,7 @@ class MySelfContainers extends Component {
                         onOk={this.handleOk}
                         onCancel={this.handleCancel}
                         >
-                        <Form style={{width:520}} onSubmit={this.handleSubmit}>
+                        <Form onSubmit={this.handleSubmit}>
                             <Form.Item
                                 label="商品标题"
                                 {...formItemLayout}
@@ -368,6 +423,7 @@ class MySelfContainers extends Component {
                                             message: '给你的好物起个名字吧~,30 字符以内'
                                         },
                                     ],
+                                    initialValue: this.state.nowGoods.title, // TODO
                                 })(
                                     <Input placeholder="给你的好物起个名字吧~,30 字符以内"></Input>
                                 )}
@@ -384,6 +440,7 @@ class MySelfContainers extends Component {
                                             message: '600 字符以内'
                                         },
                                     ],
+                                    initialValue: this.state.nowGoods.desc, // TODO
                                 })(
                                     <TextArea rows={6} placeholder="详细描述一下商品的新旧程度,使用感受,入手渠道,出售原因吧~，600 字符以内"></TextArea>
                                 )}
@@ -394,7 +451,7 @@ class MySelfContainers extends Component {
                             >
                                 {getFieldDecorator('pics', {
                                     valuePropName: 'fileList',
-                                    getValueFromEvent: this.normFile,
+                                    getValueFromEvent: this.normFile, // TODO TODO
                                 })(
                                     <Upload name="logo"  listType="picture"  action='/xiaoyi/saveImg'>
                                         <div style={{ width: 200, height: 200, border: '1px dashed #bbb', position: 'relative' }}>
@@ -412,6 +469,7 @@ class MySelfContainers extends Component {
                                     rules: [
                                         { required: true, message: '请输入你的地址!' },
                                     ],
+                                    initialValue: this.state.nowGoods.city, // TODO
                                 })(
                                     <CitySelect citiesList={this.state.cities} />
                                 )}
@@ -422,7 +480,7 @@ class MySelfContainers extends Component {
                                 {...formItemLayout}
                             >
                                 {getFieldDecorator('price', {
-                                    initialValue: 1000,
+                                    initialValue: this.state.nowGoods.price, // TODO
                                     rules: [
                                         { required: true, message: '请输入要售卖的价钱!' },
                                     ],
@@ -439,7 +497,7 @@ class MySelfContainers extends Component {
                                 {...formItemLayout}
                             >
                                 {getFieldDecorator('originPrice', {
-                                    initialValue: 1000,
+                                    initialValue: this.state.nowGoods.originPrice, // TODO
                                     rules: [
                                         { required: true, message: '请输入所售卖的商品原价!' },
                                     ],
@@ -460,15 +518,16 @@ class MySelfContainers extends Component {
                                     rules: [
                                         { required: true, message: '请给你的商品选个家吧!' },
                                     ],
+                                    initialValue: this.state.nowGoods.category, // TODO
                                 })(
                                     <CategorySelect categoryList={this.state.categories} />
                                 )}
                             </Form.Item>
-                            <Form.Item
+                            {/* <Form.Item
                                 wrapperCol={{ span: 12, offset: 6 }}
                             >
                                 <Button type="primary" htmlType="submit">确认发布</Button>
-                            </Form.Item>
+                            </Form.Item> */}
                         </Form>
                     </Modal>
                 </Layout>
@@ -476,7 +535,6 @@ class MySelfContainers extends Component {
         )
     }
 }
-
 
 const MySelfContainer = Form.create({})(MySelfContainers);
 class CategorySelect extends React.Component {

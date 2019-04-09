@@ -37,6 +37,11 @@ const reducer = (
             break;
         }
 
+        case types.POST_UPDATE_ASYNC+'_FULFILLED':{
+            new_state.updateData=action.payload.data;
+            break;
+        }
+        
         default:return previous_state;
     }
     return new_state

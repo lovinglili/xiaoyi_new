@@ -97,7 +97,6 @@ export default {
             })
         }
     },
-
     //  取消订单
     cancelOrder(id, callback) {
         return {
@@ -128,6 +127,22 @@ export default {
                     resolve(response)
                 })
             })
+        }
+    },
+
+    // 编辑更新
+    updateGood (values,callback) {
+        return {
+            type: types.POST_UPDATE_ASYNC,
+            payload:new Promise(resolve=>{
+                axios({url:'/xiaoyi/update', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(values)}).then(response=>{
+                    const {data={}}=response;
+                    if(Object.keys(data).length!==0){
+                        callback();
+                    }
+                    resolve(response);
+                })
+            }) 
         }
     },
 }

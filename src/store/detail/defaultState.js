@@ -27,5 +27,8 @@ export default {
           }
         ]
       }],
-    orderList:{}
+    orderList:{},
+    updateData:{
+
+    }
 }
