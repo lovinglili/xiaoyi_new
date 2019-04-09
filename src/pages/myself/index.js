@@ -21,20 +21,7 @@ connect.addActions({
     detail: createActionDetail,
     header: createActionLoginIn
 });
-const data = [
-    {
-        title: 'Ant Design Title 1',
-    },
-    {
-        title: 'Ant Design Title 2',
-    },
-    {
-        title: 'Ant Design Title 3',
-    },
-    {
-        title: 'Ant Design Title 4',
-    },
-];
+
 class MySelfContainers extends Component {
     state = {
         orderList: [],
@@ -164,7 +151,10 @@ class MySelfContainers extends Component {
       
     componentDidMount() {
         // this.getDetailTo();
-        this.getOrderListTo();
+        setTimeout(()=>{
+
+            this.getOrderListTo();
+        },500)
         this.setState({
             orderList: localStorage.goods,
         });
@@ -232,6 +222,7 @@ class MySelfContainers extends Component {
         reads.onload = function (e) {
             document.getElementById('preview').src = this.result;
         };
+    }
     // 下架
     handleNoSold = (id) => {
         const { detail_actions, header_actions } = this.props;
@@ -248,7 +239,6 @@ class MySelfContainers extends Component {
         let nowUser = loginIn.userInfo.nickName;
         let myList = _.filter(allList, item => item.nickName === nowUser);
         let orderList = detail.orderList;
-        console.log('23', this.props, allList, nowUser, myList, orderList);
         // let myList = JSON.parse(localStorage.goods); // 所有订单
         let myNotSellList = _.filter(myList, item => item.status === 0); // 未卖出
         let mySoldList = _.filter(myList, item => item.status === 1); // 已卖出
@@ -302,8 +292,6 @@ class MySelfContainers extends Component {
                                                 alt="" />
                                             <span>{item.title}</span>
                                             <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} onClick={this.showModal} type="primary">编辑</Button>
-                                            <Button style={{ float: "right", marginTop: 34 }} type="primary">下架</Button>
-                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">编辑</Button>
                                             <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={() => this.handleNoSold(item._id)}>下架</Button>
                                         </Card>
                                     ))}
@@ -349,7 +337,7 @@ class MySelfContainers extends Component {
                                 label="商品标题"
                                 {...formItemLayout}
                             >
-                                {getFieldDecoraStor('title', {
+                                {getFieldDecorator('title', {
                                     rules: [
                                         {
                                             required: true,
@@ -465,6 +453,7 @@ class MySelfContainers extends Component {
         )
     }
 }
+
 
 const MySelfContainer = Form.create({})(MySelfContainers);
 class CategorySelect extends React.Component {
