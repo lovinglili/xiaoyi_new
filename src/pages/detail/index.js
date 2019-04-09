@@ -22,16 +22,9 @@ class DetailContainer extends Component {
   componentDidMount(){
     const {detail_actions, detail, match}=this.props;
     let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/,'') : ''; // 获取路径中的goodId
-    detail_actions.getDetail(goodId, this.toConsole);
-    // console.log("this.props:", this.props, detail.detailData);
-    // const rememberUser= JSON.parse(localStorage.getItem("user"));
-    // this.setState({
-    //   assignUser:rememberUser
-    // })
+    detail_actions.getDetail(goodId,()=>{});
   }
-  toConsole() {
-    console.log(2333);
-  }
+
 
   // 获取该商品的id并跳转到提交订单的页面
   handleCardClick = id => {
@@ -53,7 +46,6 @@ class DetailContainer extends Component {
             <Card.Grid style={gridStyle}>
               <img
                 src={myPics[0]}
-                style={{}}
                 alt=""
               />
             </Card.Grid>

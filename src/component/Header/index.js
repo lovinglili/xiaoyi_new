@@ -21,7 +21,8 @@ class HeaderContainer extends Component {
 
   // 渲染组件的时候就去请求所有的数据
   componentDidMount() {
-    const { header_actions, loginIn_actions } = this.props;
+    const { header_actions, loginIn_actions ,loginIn} = this.props;
+    console.log(this.props,"this.props")
     const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
     const rememberMe = JSON.parse(localStorage.getItem("user"));
     const { isAssign, currentTime } = isAssigned;
@@ -31,7 +32,7 @@ class HeaderContainer extends Component {
       if (currentTime + 1800000 < endTime && isAssign) {
         this.handleExit();
       } else {
-        if (isAssign) {
+        if (isAssign && Object.keys(loginIn.userInfo).length===0) {
           loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
           loginIn_actions.storeNickName(rememberMe);
         }
@@ -44,7 +45,6 @@ class HeaderContainer extends Component {
   // 退出，返回到首页，store的数据清空
   handleExit = () => {
     const { loginIn_actions,loginIn:{userInfo} } = this.props;
-    console.log(userInfo,"loginInData")
     loginIn_actions.loginOut(userInfo,this.quitSuccess); // 退出
   };
 

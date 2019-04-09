@@ -1,5 +1,6 @@
 import * as types from './actionTypes'
 import axios from 'axios'
+import { message } from 'antd';
 
 export default {
     // 详情
@@ -8,7 +9,7 @@ export default {
             type: types.GET_DETAIL,
             payload: new Promise(resolve => {
                 axios.get(`/xiaoyi/detail?goodId=${goodId}`).then(response => {
-                    const { data: { success } } = response;
+                    const { data: { success } } = response.data;
                     if (success) {
                         callback();
                     }
@@ -24,7 +25,7 @@ export default {
             type: types.REMOVE_GOOD_ASYNC,
             payload: new Promise(resolve => {
                 axios.get(`/xiaoyi/changeStatus?id=${id}&status=${status}`).then(response => {
-                    const { data: { success } } = response;
+                    const { data: { success } } = response.data;
                     if (success) {
                         callback();
                     }
@@ -54,9 +55,11 @@ export default {
             type: types.GET_ADDRESS,
             payload: new Promise(resolve => {
                 axios.get(`/xiaoyi/addressList?nickName=${nickName}`).then(response => {
-                    const { data: { success } } = response;
-                    if (success) {
+                    const { data } = response.data;
+                    if (data.length!==0) {
                         callback();
+                    }else{
+                        message.error('当前没有地址信息，请添加~')
                     }
                     resolve(response)
                 })
@@ -69,7 +72,7 @@ export default {
             type: types.GET_ORDERLIST,
             payload: new Promise(resolve => {
                 axios.get(`/xiaoyi/orderList?nickName=${nickName}`).then(response => {
-                    const { data: { success } } = response;
+                    const { data: { success } } = response.data;
                     if (success) {
                         callback();
                     }
@@ -94,13 +97,37 @@ export default {
             })
         }
     },
-    // 提交订单 TODO购物车
-    //    addGoods (values,callback) {
-    //     console.log('values,addOrder/redux中：', values);
-    //     let result = api.addGoods(values)
-    //     return {
-    //      type: types.ADD_ORDER_ASYNC,
-    //      payload: result.goods
-    //     }
-    //    },
+
+    //  取消订单
+    cancelOrder(id, callback) {
+        return {
+            type: types.DELETE_ORDERLIST,
+            payload: new Promise(resolve => {
+                axios.get(`/xiaoyi/deleteOrder?orderId=${id}`).then(response => {
+                    const { data: { success } } = response.data;
+                    if (success) {
+                        callback();
+                    }
+                    resolve(response)
+                })
+            })
+        }
+    },
+
+    // 购买商品成功，改变订单的状态
+    changeOrderStatus(id, status,callback) {
+        return {
+            type: types.CHANGE_ORDER_ASYNC,
+            payload: new Promise(resolve => {
+                axios.get(`/xiaoyi/changeOrderStatus?id=${id}&status=${status}`).then(response => {
+                    const { data: { success } } = response.data;
+                    if (success) {
+                        callback();
+                        message.success('购买成功')
+                    }
+                    resolve(response)
+                })
+            })
+        }
+    },
 }

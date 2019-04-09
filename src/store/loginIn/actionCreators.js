@@ -29,8 +29,6 @@ export default {
                     const senValue={phoneNumber,nickName,password};
                     axios({url:'/xiaoyi/add', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(senValue)}).then(response=>{
                        const {data}=response.data;
-                        // if(status===200 && data.message !=="用户已存在"){
-                        // console.log(data)
                         if(data.success===true){
                             callback();
                         }else{
@@ -48,8 +46,12 @@ export default {
             type:types.LOGININ_OUT,
             payload:new Promise(resolve=>{
                 axios({url:'/xiaoyi/quit', method: 'post', headers: {'Content-Type':'application/json'},data:values}).then(response=>{
-                    const {status}=response.data;
-                    if(status===200){
+                    const {data:{success,isAssign}}=response.data;
+                    if(success){
+                        localStorage.setItem("isAssign", JSON.stringify({
+                            isAssign,
+                            currentTime:new Date().getTime()
+                        }));
                         callback();
                     }
                     resolve(response)
@@ -72,8 +74,9 @@ export default {
             type: types.POST_PUBLISH_ASYNC,
             payload:new Promise(resolve=>{
                 axios({url:'/xiaoyi/publish', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(values)}).then(response=>{
-                    const {data={}}=response;
-                    if(Object.keys(data).length!==0){
+                    const {data:{success}}=response.data;
+                    console.log(success,"success")
+                    if(success){
                         callback();
                     }
                     resolve(response);

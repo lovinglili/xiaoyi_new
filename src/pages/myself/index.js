@@ -4,7 +4,7 @@ import { Form, Layout, Button, Input, Upload, Select, InputNumber, Icon,
      Tooltip,  Avatar, Tabs, Card, Modal} from "antd";
 import HeaderContainer from "@c/Header";
 import connect from "@connect";
-import { Link, withRouter } from "react-router-dom";
+import {withRouter } from "react-router-dom";
 import createActionDetail from "../../store/detail/actionCreators";
 import createActionLoginIn from "../../store/header/actionCreators";
 import uuid from "uuid/v1";
@@ -14,9 +14,7 @@ const { Option } = Select;
 const { TextArea } = Input;
 
 const TabPane = Tabs.TabPane;
-const {
-    Header, Footer, Sider, Content,
-} = Layout;
+const { Header, Content,} = Layout;
 connect.addActions({
     detail: createActionDetail,
     header: createActionLoginIn
@@ -152,7 +150,6 @@ class MySelfContainers extends Component {
     componentDidMount() {
         // this.getDetailTo();
         setTimeout(()=>{
-
             this.getOrderListTo();
         },500)
         this.setState({
@@ -206,13 +203,6 @@ class MySelfContainers extends Component {
         });
     };
 
-    // 上传文件
-    normFile = (e) => {
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e && e.fileList;
-    }
 
     handleInutImage(){
         var reads = new FileReader();
@@ -231,6 +221,26 @@ class MySelfContainers extends Component {
         });
 
     }
+    // 取消订单
+    handleCancelBuy=(id)=>{
+        const {detail_actions}=this.props;
+        detail_actions.cancelOrder(id, () => {
+              this.getOrderListTo();
+        });
+    }
+
+    // 购买商品,购买成功，获取订单列表和商品列表
+    handleBuy=(itemId,orderId)=>{
+        const { detail_actions, header_actions } = this.props;
+        detail_actions.changeGoodStatus(itemId, 1, () => {
+            detail_actions.changeOrderStatus(orderId,1,()=>{
+                this.getOrderListTo();
+                header_actions.fetchAllList();
+            })
+        });
+    }
+
+    // 点击商品，进入商品详情
 
     render() {
         const { detail, header, loginIn } = this.props;
@@ -243,7 +253,6 @@ class MySelfContainers extends Component {
         let myNotSellList = _.filter(myList, item => item.status === 0); // 未卖出
         let mySoldList = _.filter(myList, item => item.status === 1); // 已卖出
         let mySoldOutList = _.filter(myList, item => item.status === 2); // 已下架
-        console.log('myList/this.state.myList.pics', myList, mySoldList, mySoldOutList);
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
             labelCol: { span: 6 },
@@ -263,7 +272,7 @@ class MySelfContainers extends Component {
                         </Card>
                         <Card title="订单">
                             {orderList.length !== 0 && Array.isArray(orderList) &&
-                                orderList.map((item, index) => (
+                                orderList.map((item) => (
                                     <Card key={uuid()}
                                         title="商品"
                                     >
@@ -272,8 +281,10 @@ class MySelfContainers extends Component {
                                             style={{ width: 100 }}
                                             alt="" />
                                         <span>{item.title}</span>
-                                        <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary">购买</Button>
-                                        <Button style={{ float: "right", marginTop: 34 }} type="primary">取消</Button>
+                                        {item.status ===0 && <span>
+                                        <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary" onClick={()=>this.handleBuy(item.goodId,item._id)}>购买</Button>
+                                        <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={()=>this.handleCancelBuy(item._id)}>取消</Button>
+                                        </span>}
                                     </Card>
                                 ))}
                         </Card>
@@ -287,6 +298,10 @@ class MySelfContainers extends Component {
                                             title="商品"
                                         >
                                             <img
+                                            onClick={()=>{
+                                                this.props.history.push({ pathname: `/detail:${item._id}` });
+                                                 
+                                            }}
                                                 src={item.pics[0]}
                                                 style={{ width: 100 }}
                                                 alt="" />
@@ -303,6 +318,10 @@ class MySelfContainers extends Component {
                                             title="商品"
                                         >
                                             <img
+                                              onClick={()=>{
+                                                this.props.history.push({ pathname: `/detail:${item._id}` });
+                                                 
+                                            }}
                                                 src={item.pics[0]}
                                                 style={{ width: 100 }}
                                                 alt="" />
@@ -317,6 +336,10 @@ class MySelfContainers extends Component {
                                             title="商品"
                                         >
                                             <img
+                                              onClick={()=>{
+                                                this.props.history.push({ pathname: `/detail:${item._id}` });
+                                                 
+                                            }}
                                                 src={item.pics[0]}
                                                 style={{ width: 100 }}
                                                 alt="" />
