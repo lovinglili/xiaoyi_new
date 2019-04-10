@@ -166,6 +166,7 @@ class MySelfContainers extends Component {
         }], // 商品分类集合
     }
     showModal = (id) => {
+        console.log('showModal/id:', id);
         const { detail, header, loginIn } = this.props;
         if (header.listData === {}) return;
         let allList = header.listData;
@@ -316,10 +317,10 @@ class MySelfContainers extends Component {
         return (
             <MySelf>
                 <Layout>
-                    <Header>
+                    <Layout.Header>
                         <HeaderContainer />
-                    </Header>
-                    <Content>
+                    </Layout.Header>
+                    <Content style={{marginTop: 100}}>
                         个人中心
                         <Card>
                             <Avatar size={164} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
@@ -450,16 +451,16 @@ class MySelfContainers extends Component {
                                 {...formItemLayout}
                             >
                                 {getFieldDecorator('pics', {
-                                    valuePropName: 'fileList',
-                                    getValueFromEvent: this.normFile, // TODO TODO
-                                })(
-                                    <Upload name="logo"  listType="picture"  action='/xiaoyi/saveImg'>
-                                        <div style={{ width: 200, height: 200, border: '1px dashed #bbb', position: 'relative' }}>
-                                            <div style={{ width: 6, height: 100, top: 50, left: 97, background: '#999', position: 'absolute' }}></div>
-                                            <div style={{ width: 100, height: 6, top: 97, left: 50, position: 'absolute', background: '#999' }}></div>
-                                        </div>
-                                </Upload> 
-                            )}
+                                        valuePropName: 'fileList',
+                                        getValueFromEvent: this.normFile, // TODO TODO
+                                    })(
+                                        <Upload name="logo"  listType="picture"  action='/xiaoyi/saveImg'>
+                                            <div style={{ width: 200, height: 200, border: '1px dashed #bbb', position: 'relative' }}>
+                                                <div style={{ width: 6, height: 100, top: 50, left: 97, background: '#999', position: 'absolute' }}></div>
+                                                <div style={{ width: 100, height: 6, top: 97, left: 50, position: 'absolute', background: '#999' }}></div>
+                                            </div>
+                                    </Upload> 
+                                )}
                             </Form.Item> 
                             <Form.Item
                                 label="发布地址"
@@ -469,9 +470,9 @@ class MySelfContainers extends Component {
                                     rules: [
                                         { required: true, message: '请输入你的地址!' },
                                     ],
-                                    initialValue: this.state.nowGoods.city, // TODO
+                                    // initialValue: this.state.nowGoods.city, // TODO
                                 })(
-                                    <CitySelect citiesList={this.state.cities} />
+                                    <CitySelect nowGoods={this.state.nowGoods} citiesList={this.state.cities} />
                                 )}
                             </Form.Item>
 
@@ -520,7 +521,7 @@ class MySelfContainers extends Component {
                                     ],
                                     initialValue: this.state.nowGoods.category, // TODO
                                 })(
-                                    <CategorySelect categoryList={this.state.categories} />
+                                    <CategorySelect nowGoods={this.state.nowGoods} categoryList={this.state.categories} />
                                 )}
                             </Form.Item>
                             {/* <Form.Item
@@ -538,6 +539,15 @@ class MySelfContainers extends Component {
 
 const MySelfContainer = Form.create({})(MySelfContainers);
 class CategorySelect extends React.Component {
+    componentDidMount() {
+        const { nowGoods } = this.props;
+        if (!('value' in this.props)) {
+            this.setState({ categoryTitle: nowGoods.categoryTitle, categoryId: nowGoods.categoryId });
+            this.setState({ name: nowGoods.name, id: nowGoods.id });
+        }
+        this.triggerChange({ categoryTitle: nowGoods.categoryTitle, categoryId: nowGoods.categoryId });
+        this.triggerChange({ name: nowGoods.name, id: nowGoods.id });
+    }
 
     handleMainCateChange = info => {
         const { key, label } = info
@@ -589,6 +599,7 @@ class CategorySelect extends React.Component {
     render() {
         const state = this.state;
         const { categoryList } = this.props;
+        const { nowGoods } = this.props;
         let children = [];
         const currentCate = categoryList.filter(item => (item.categoryTitle === state.categoryTitle));
         if (currentCate.length !== 0) {
@@ -597,6 +608,7 @@ class CategorySelect extends React.Component {
         return (
             <span>
                 <Select
+                    defaultValue={{ key: nowGoods.categoryTitle }}
                     style={{ width: '46%', marginRight: '3%' }}
                     placeholder='请选择'
                     labelInValue
@@ -610,6 +622,7 @@ class CategorySelect extends React.Component {
                     }
                 </Select>
                 <Select
+                    defaultValue={{ key: nowGoods.name }}
                     style={{ width: '46%', marginRight: '3%' }}
                     placeholder='请选择'
                     labelInValue
@@ -628,6 +641,15 @@ class CategorySelect extends React.Component {
 }
 
 class CitySelect extends React.Component {
+    componentDidMount() {
+        const { nowGoods } = this.props;
+        if (!('value' in this.props)) {
+            this.setState({ provinceName: nowGoods.provinceName, provinceId: nowGoods.provinceId });
+            this.setState({ cityName: nowGoods.cityName, cityId: nowGoods.cityId });
+        }
+        this.triggerChange({ provinceName: nowGoods.provinceName, provinceId: nowGoods.provinceId });
+        this.triggerChange({ cityName: nowGoods.cityName, cityId: nowGoods.cityId });
+    }
 
     handleProvinceChange = info => {
         const { key, label } = info
@@ -678,6 +700,7 @@ class CitySelect extends React.Component {
     render() {
         const state = this.state;
         const { citiesList } = this.props;
+        const { nowGoods } = this.props;
         let children = [];
         const areaList = citiesList.filter(item => (item.name === state.provinceName));
         if (areaList.length !== 0) {
@@ -686,6 +709,7 @@ class CitySelect extends React.Component {
         return (
             <span>
                 <Select
+                    defaultValue={{ key: nowGoods.provinceName }}
                     style={{ width: '30%', marginRight: '3%' }}
                     placeholder='请选择'
                     onChange={this.handleProvinceChange}
@@ -698,6 +722,7 @@ class CitySelect extends React.Component {
                     }
                 </Select>
                 <Select
+                    defaultValue={{ key: nowGoods.cityName }}
                     style={{ width: '30%', marginRight: '3%' }}
                     placeholder='请选择'
                     onChange={this.handleAreaChange}
