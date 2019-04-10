@@ -89,15 +89,14 @@ border: 1px solid #e9e9e9;
   justify-content: flex-start;
   -ms-flex-align: center;
   align-items: center;
-
+  ${ props => props.inputColor || "blue" };
   .contact-seller {
     padding: 6px 16px;
-    background: #ff3434;
+    background: ${ props =>((props.nickName===props.userName || props.status===1) ?' #eee' : '#ff3434')};
     color: #fff;
-    cursor: pointer;
-
+    cursor:'pointer';
     .phone-number {
-      display: inline-block;
+      display: inline-block; 
       vertical-align: middle;
       font-family: jdzh-r;
       line-height: 28px;

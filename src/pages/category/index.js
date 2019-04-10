@@ -22,11 +22,18 @@ class CategoryContainer extends PureComponent {
   componentDidMount() {}
 
   // 搜索
-  handleSearch = value => {
+  handleSearch = (value,type) => {
     const { allList } = this.state;
     const arr = allList.filter(
       item =>
-        item.name.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !== -1
+      { 
+        if(type==='head'){
+          return item.name.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !==-1
+        }
+        if(type==='input'){
+         return item.title.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !==-1
+        }
+   }
     );
     const list = arr.slice(0, 10);
     this.setState({
@@ -66,15 +73,21 @@ class CategoryContainer extends PureComponent {
     const { allList } = this.state;
     const {
       location: {
-        state: { name = "" }
+        state: { name = "" ,type=''}
       }
     } = history;
     if (allList !== listData) {
       this.setState({ allList: listData }, () => {
         const arr = this.state.allList.filter(
           item =>
-            item.name.toLocaleUpperCase().indexOf(name.toLocaleUpperCase()) !==
-            -1
+           { 
+             if(type==='head'){
+               return item.name.toLocaleUpperCase().indexOf(name.toLocaleUpperCase()) !==-1
+             }
+             if(type==='input'){
+              return item.title.toLocaleUpperCase().indexOf(name.toLocaleUpperCase()) !==-1
+             }
+        }
         );
         const listNow = arr.slice(0, 10);
         this.setState({

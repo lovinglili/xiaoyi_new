@@ -53,17 +53,17 @@ class HeaderContainer extends Component {
   };
 
   // 分类搜索
-  handleHeaderSearch = (value, id = "") => {
+  handleHeaderSearch = (value, type,id = "") => {
     const { handleSearch } = this.props;
     if (handleSearch) {
-      handleSearch(value);
+      handleSearch(value,type);
       this.props.history.push({
-        state: { name: value }
+        state: { name: value,type }
       });
     } else {
       this.props.history.push({
         pathname: `/category:${id}`,
-        state: { name: value }
+        state: { name: value,type }
       });
     }
   };
@@ -99,7 +99,7 @@ class HeaderContainer extends Component {
                       <dd key={good.id}>
                         <a
                           onClick={() =>
-                            this.handleHeaderSearch(good.name, good.id)
+                            this.handleHeaderSearch(good.name,'head', good.id)
                           }
                         >
                           {good.name}
@@ -149,7 +149,7 @@ class HeaderContainer extends Component {
               <Col span={8}>
                 <Search
                   placeholder="搜索感兴趣的物品~"
-                  onSearch={value => this.handleHeaderSearch(value)}
+                  onSearch={value => this.handleHeaderSearch(value,'input')}
                   enterButton
                   style={{ width: 350, margin: "24px 0" }}
                 />

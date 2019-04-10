@@ -81,8 +81,8 @@ class SubmitOrderContainers extends Component {
     const { nickName } = userInfo;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { city, more } = values;
-        const params = { ...city, more, nickName };
+        const { city, more ,receiveName,phoneNumber} = values;
+        const params = { ...city,more, receiveName,phoneNumber,nickName };
         // 添加收获地址，成功的时候改变state的状态；
         detail_actions.addAddress(params, (data) => {
           this.setState({
@@ -114,8 +114,11 @@ class SubmitOrderContainers extends Component {
 
   // 选择某项地址
 
-  chooseAddreList=()=>{
+  chooseAddreList=(item)=>{
     // 选择state里面当前的地址信息，
+    this.setState({currentAddressData:{...item}},()=>{
+      this.getAddressListCancel();
+    })
 
   }
 
@@ -168,7 +171,6 @@ class SubmitOrderContainers extends Component {
       wrapperCol: { span: 14 },
     };
     const { loginIn: { userInfo = {} }, detail } = this.props;
-    const { nickName } = userInfo;
     const {addressList}=detail;
     const { currentAddressData } = this.state;
     const { more = '', provinceName = '', cityName = '' ,receiveName=''} = currentAddressData;
@@ -203,22 +205,22 @@ class SubmitOrderContainers extends Component {
               title="收货地址列表"
               width={620}
               visible={this.state.listVisible}
-              // onOk={this.chooseAddreList}
               footer={null}
               onCancel={this.getAddressListCancel}
             >
             {/* addressList */}
             {addressList.map(item=>(
-            <div>
-              <p><span>{item.receiveName}</span><span>{item.phoneNumber}</span></p>
-              <p><span>{item.provinceNam}-{item.cityName}-{item.more}</span></p>
+            <div style={{borderTop:'1px dashed #eee',marginBottom:16}}>
+              <p style={{marginTop:16,marginBottom:8}}><span style={{marginRight:16}}>收货人：{item.receiveName}</span><span>电话：{item.phoneNumber}</span></p>
+              <p>收货地址：<span>{item.provinceName}-{item.cityName}-{item.more}</span></p>
+              <Button type='primary' onClick={()=>this.chooseAddreList(item)}>选择该地址</Button>
             </div>
             ))}
             </Modal>
             <Modal
               title="新增收货地址"
               width={820}
-              visible={this.state.visible}
+              visible={this.state.visible} 
               onOk={this.handleOk}
               onCancel={this.handleCancel}
             >

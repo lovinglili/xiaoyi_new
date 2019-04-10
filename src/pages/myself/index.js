@@ -174,11 +174,12 @@ class MySelfContainers extends Component {
         let orderList = detail.orderList;
         // let myList = JSON.parse(localStorage.goods); // 所有订单
         let myNotSellList = _.filter(myList, item => item.status === 0); // 未卖出
-        let _nowGoods = myNotSellList.find((item) => item.id === id); // 要编辑的商品
+        let _nowGoods = myNotSellList.find((item) => item._id === id); // 要编辑的商品
         console.log('showModal/myNotSellList:', myNotSellList, _nowGoods);
         this.setState({
           visible: true,
           nowGoods: _nowGoods,
+          editGoodId:id
         });
       }
     
@@ -230,7 +231,8 @@ class MySelfContainers extends Component {
         // console.log('handleSubmit:', e);
         // e.preventDefault();
     handleSubmit = () => {
-        const { loginIn: { userInfo: { nickName } } } = this.props
+        const { loginIn: { userInfo: { nickName } }, detail_actions,header_actions } = this.props
+        const {editGoodId}=this.state;
         this.props.form.validateFields((err, values) =>{
             if (!err) {
                 const { category: { categoryTitle, categoryId, id, name },
@@ -247,13 +249,16 @@ class MySelfContainers extends Component {
                     pics,
                     price,
                     title,
-                    nickName
+                    nickName,
+                    _id:editGoodId
                 }
-                const { detail_actions } = this.props;
-                detail_actions.updateGood(postValue, () => { this.props.history.push({ pathname: `/myself` }) });
+                detail_actions.updateGood(postValue, () => { 
+                header_actions.fetchAllList();
                 this.setState({
                     visible: false,
                 });
+                 });
+            
             }
         });
     }
@@ -361,7 +366,7 @@ class MySelfContainers extends Component {
                                                 style={{ width: 100 }}
                                                 alt="" />
                                             <span>{item.title}</span>
-                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} onClick={() => this.showModal(item.id)} type="primary">编辑</Button>
+                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} onClick={() => this.showModal(item._id)} type="primary">编辑</Button>
                                             <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={() => this.handleNoSold(item._id)}>下架</Button>
                                         </Card>
                                     ))}

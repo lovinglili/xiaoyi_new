@@ -32,7 +32,8 @@ class DetailContainer extends Component {
   };
 
   render() {
-    const { detail, match}=this.props;
+    const { loginIn: { userInfo = {} }, detail,match } = this.props;
+    const { nickName } = userInfo;
     let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/,'') : ''; // 获取路径中的goodId
     let myDetailData = Object.keys(detail.detailData).length !== 0 ? detail.detailData : {};
     let myPics = detail.detailData.pics ? detail.detailData.pics : [];
@@ -75,14 +76,17 @@ class DetailContainer extends Component {
                     <div className="price">{myDetailData.desc}</div>
                   </div>
                 </GoodPrice>
-                <BusinessMessage>
+                <BusinessMessage  status={myDetailData.status} nickName={myDetailData.nickName} userName={nickName}>
                   <div className="contact">
                     <div className="contact-seller">
-                      <span className="phone-number"
-                        onClick={() => this.handleCardClick(goodId)}
+                      {(myDetailData.status===1 || myDetailData.nickName===nickName)?( <span className="phone-number"
                       >
                         立即购买
-                      </span>
+                      </span>):( <span className="phone-number"
+                    onClick={() => this.handleCardClick(goodId)}
+                  >
+                    立即购买
+                  </span>)}
                     </div>
                   </div>
                 </BusinessMessage>
@@ -120,6 +124,7 @@ class DetailContainer extends Component {
 export default withRouter(
   connect(
     DetailContainer,
-    [{ name: "detail", state: ["detailData"] }]
+    [{ name: "detail", state: ["detailData"] },{ name: "loginIn" }],
+
   )
 );
