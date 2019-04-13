@@ -20,12 +20,14 @@ class LoginInContainers extends Component {
     }
   }
   componentDidMount() {
-    const rememberUser = JSON.parse(localStorage.getItem("user"));
-    const {remember}=rememberUser;
-    if(remember){ // remeber 为true 就说明是保存的
-      this.setState({
-        assignUser: rememberUser 
-      })
+    if(localStorage['user']){
+      const rememberUser = JSON.parse(localStorage.getItem("user"));
+      const {remember}=rememberUser;
+      if(remember){ // remeber 为true 就说明是保存的
+        this.setState({
+          assignUser: rememberUser 
+        })
+      }
     }
   }
 

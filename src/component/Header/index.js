@@ -23,18 +23,23 @@ class HeaderContainer extends Component {
   componentDidMount() {
     const { header_actions, loginIn_actions ,loginIn} = this.props;
     console.log(this.props,"this.props")
-    const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
-    const rememberMe = JSON.parse(localStorage.getItem("user"));
-    const { isAssign, currentTime } = isAssigned;
-    if (isAssign) {
-      const endTime = new Date().getTime();
-      // 超时时间 三十分钟
-      if (currentTime + 1800000 < endTime && isAssign) {
-        this.handleExit();
-      } else {
-        if (isAssign && Object.keys(loginIn.userInfo).length===0) {
-          loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
-          loginIn_actions.storeNickName(rememberMe);
+    localStorage.setItem('123',123)
+    console.log(localStorage,"local")
+    if(localStorage['isAssign'] && localStorage['user']){
+
+      const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
+      const rememberMe = JSON.parse(localStorage.getItem("user"));
+      const { isAssign, currentTime } = isAssigned;
+      if (isAssign) {
+        const endTime = new Date().getTime();
+        // 超时时间 三十分钟
+        if (currentTime + 1800000 < endTime && isAssign) {
+          this.handleExit();
+        } else {
+          if (isAssign && Object.keys(loginIn.userInfo).length===0) {
+            loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
+            loginIn_actions.storeNickName(rememberMe);
+          }
         }
       }
     }
