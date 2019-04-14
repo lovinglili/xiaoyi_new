@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Steps, Layout, Button, message, Form, Input, Select, Checkbox } from "antd";
 import HeaderContainer from "@c/Header";
+import FooterContainer from "@c/Footer";
 import { withRouter } from "react-router-dom";
 import connect from "@connect";
 import { LoginUp, LoginContent } from "./styles.js";
@@ -263,6 +264,7 @@ class LoginUpContainers extends Component {
               </div> */}
             </div>
           </LoginContent>
+          <FooterContainer/>
         </Layout>
       </LoginUp>
     );

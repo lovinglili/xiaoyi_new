@@ -55,9 +55,10 @@ margin-bottom:8px;
   content:'${props=>props.title}';
   display:inline-block;
   width:80px;
-  font-weigh:400;
+  font-weight:600;
   line-height:30px;
   margin-left:15px;
+  font-size:16px;
 }
 `
 export const ImgWrapper=styled.div`

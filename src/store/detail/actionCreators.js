@@ -136,6 +136,7 @@ export default {
             type: types.POST_UPDATE_ASYNC,
             payload:new Promise(resolve=>{
                 axios({url:'/xiaoyi/update', method: 'post', headers: {'Content-Type':'application/json'},data:JSON.stringify(values)}).then(response=>{
+                   console.log(response,"response")
                     const {data:{success}}=response.data;
                     if(success){
                         callback();

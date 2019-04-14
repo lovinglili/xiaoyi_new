@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { SubmitOrder, BusinessMessage } from "./styles.js";
 import { Link, withRouter } from "react-router-dom";
 import connect from "@connect";
-import { Layout, Card, Modal, Input, Button, Form, Select ,message} from "antd";
+import { Layout, Card, Modal, Input, Button, Form, Select, message } from "antd";
 import HeaderContainer from "@c/Header";
+import FooterContainer from "@c/Footer";
 import createActionDetail from "../../store/detail/actionCreators";
 import createActionLoginIn from "../../store/header/actionCreators";
 
@@ -22,7 +23,7 @@ class SubmitOrderContainers extends Component {
 
   state = {
     visible: false,
-    listVisible:false,
+    listVisible: false,
     text: 'Unselect',
     currentAddressData: {},  // 存储当前渲染的地址
     cities: [{
@@ -64,7 +65,7 @@ class SubmitOrderContainers extends Component {
   getDetailTo = () => {
     const { detail_actions, match } = this.props;
     let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/, '') : ''; // 获取路径中的goodId
-    detail_actions.getDetail(goodId,()=>{});
+    detail_actions.getDetail(goodId, () => { });
   }
 
   // 增加地址的model
@@ -74,15 +75,15 @@ class SubmitOrderContainers extends Component {
     });
   }
 
-// 添加地址成功
+  // 添加地址成功
   handleOk = () => {
     const { detail_actions } = this.props;
     const { loginIn: { userInfo = {} } } = this.props;
     const { nickName } = userInfo;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { city, more ,receiveName,phoneNumber} = values;
-        const params = { ...city,more, receiveName,phoneNumber,nickName };
+        const { city, more, receiveName, phoneNumber } = values;
+        const params = { ...city, more, receiveName, phoneNumber, nickName };
         // 添加收获地址，成功的时候改变state的状态；
         detail_actions.addAddress(params, (data) => {
           this.setState({
@@ -103,20 +104,20 @@ class SubmitOrderContainers extends Component {
   }
 
   // 获取地址列表的弹窗
-  showModalList=()=>{
+  showModalList = () => {
     // 先获取列表的数据，再显示modal框
-    const { detail_actions,loginIn} = this.props;
-    const {userInfo:{nickName} }=loginIn;
-    detail_actions.getAddress(nickName,()=>{
-      this.setState({listVisible:true})
+    const { detail_actions, loginIn } = this.props;
+    const { userInfo: { nickName } } = loginIn;
+    detail_actions.getAddress(nickName, () => {
+      this.setState({ listVisible: true })
     });
   }
 
   // 选择某项地址
 
-  chooseAddreList=(item)=>{
+  chooseAddreList = (item) => {
     // 选择state里面当前的地址信息，
-    this.setState({currentAddressData:{...item}},()=>{
+    this.setState({ currentAddressData: { ...item } }, () => {
       this.getAddressListCancel();
     })
 
@@ -138,12 +139,12 @@ class SubmitOrderContainers extends Component {
 
   // 获取该商品的id并跳转到个人中心的页面
   handleCardClick = (detailData) => {
-    const { loginIn: { userInfo = {} } ,detail_actions, match} = this.props;
+    const { loginIn: { userInfo = {} }, detail_actions, match } = this.props;
     const { nickName } = userInfo;
-    const {currentAddressData:{_id}}=this.state;
-    const {nickName:solderNickName,desc,pics,price,status,title,categoryTitle,categoryId}=detailData
+    const { currentAddressData: { _id } } = this.state;
+    const { nickName: solderNickName, desc, pics, price, status, title, categoryTitle, categoryId } = detailData
     let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/, '') : ''; // 获取路径中的goodId
-    if(!_id || !nickName){
+    if (!_id || !nickName) {
       message.error("请补充信息");
       return;
     }
@@ -153,13 +154,13 @@ class SubmitOrderContainers extends Component {
       pics,
       price,
       title,
-      categoryTitle,categoryId,
+      categoryTitle, categoryId,
       nickName,
       addressId: _id,
       status,// 该商品的状态
       goodId // '所要购买的商品的id',
     }
-    detail_actions.addOrder(params, ()=>{
+    detail_actions.addOrder(params, () => {
       this.props.history.push({ pathname: `/myself` });
     });
   };
@@ -171,9 +172,9 @@ class SubmitOrderContainers extends Component {
       wrapperCol: { span: 14 },
     };
     const { loginIn: { userInfo = {} }, detail } = this.props;
-    const {addressList}=detail;
+    const { addressList } = detail;
     const { currentAddressData } = this.state;
-    const { more = '', provinceName = '', cityName = '' ,receiveName=''} = currentAddressData;
+    const { more = '', provinceName = '', cityName = '', receiveName = '' } = currentAddressData;
     let myDetailData = Object.keys(detail.detailData).length !== 0 ? detail.detailData : {};
     let myPics = detail.detailData.pics ? detail.detailData.pics : [];
     // 增加的地址显示出来
@@ -193,12 +194,23 @@ class SubmitOrderContainers extends Component {
               <Card
                 title="商品信息"
               >
+              <div style={{display:'flex'}}>
                 <img
                   src={myPics[0]}
                   style={{ width: 200 }}
                   alt=""
                 />
-                <span>{myDetailData.title}</span>
+                <div style={{marginLeft:12,marginTop:8}}>
+                <div style={{
+                  fontWeight: "bold", fontSize: 16, width: 620,
+                  whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"
+                }}> {myDetailData.title} </div>
+                <div style={{
+                  color: "#d2c3c3", marginTop: 6, marginBottom: 6, width: 620,
+                  whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden",fontSize:12
+                }}> {myDetailData.desc} </div>
+                </div>
+                </div>
               </Card>
             </Card>
             <Modal
@@ -208,24 +220,26 @@ class SubmitOrderContainers extends Component {
               footer={null}
               onCancel={this.getAddressListCancel}
             >
-            {/* addressList */}
-            {addressList.map(item=>(
-            <div style={{borderTop:'1px dashed #eee',marginBottom:16}}>
-              <p style={{marginTop:16,marginBottom:8}}><span style={{marginRight:16}}>收货人：{item.receiveName}</span><span>电话：{item.phoneNumber}</span></p>
-              <p>收货地址：<span>{item.provinceName}-{item.cityName}-{item.more}</span></p>
-              <Button type='primary' onClick={()=>this.chooseAddreList(item)}>选择该地址</Button>
-            </div>
-            ))}
+              {/* addressList */}
+              {addressList.map(item => (
+                <div style={{ borderTop: '1px dashed #eee', marginBottom: 16 }}>
+                  <p style={{ marginTop: 16, marginBottom: 8 }}><span style={{ marginRight: 16 }}>收货人：{item.receiveName}</span><span>电话：{item.phoneNumber}</span></p>
+                  <p>收货地址：<span>{item.provinceName}-{item.cityName}-{item.more}</span></p>
+                  <Button type='primary' onClick={() => this.chooseAddreList(item)}>选择该地址</Button>
+                </div>
+              ))}
             </Modal>
             <Modal
               title="新增收货地址"
               width={820}
-              visible={this.state.visible} 
+              visible={this.state.visible}
               onOk={this.handleOk}
+              okText='确定'
+              cancelText='取消'
               onCancel={this.handleCancel}
             >
               <Form>
-              <Form.Item
+                <Form.Item
                   label="收件人"
                   {...formItemLayout}
                 >
@@ -241,23 +255,23 @@ class SubmitOrderContainers extends Component {
                     <Input placeholder="请简要输入收件人名称"></Input>
                   )}
                 </Form.Item>
-              <Form.Item
-                label="收货人电话"
-                {...formItemLayout}
+                <Form.Item
+                  label="收货人电话"
+                  {...formItemLayout}
 
-              >
-                {getFieldDecorator('phoneNumber', {
-                  initialValue:'',
-                  rules: [{
-                    required: true,
-                    pattern: /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/,
-                    message: '请输入收货人电话~'
-                  }],
-                })(
+                >
+                  {getFieldDecorator('phoneNumber', {
+                    initialValue: '',
+                    rules: [{
+                      required: true,
+                      pattern: /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/,
+                      message: '请输入收货人电话~'
+                    }],
+                  })(
 
-                  <Input placeholder='请输入收货人电话:' style={{ width: '100%' }} />
-                )}
-              </Form.Item>
+                    <Input placeholder='请输入收货人电话:' style={{ width: '100%' }} />
+                  )}
+                </Form.Item>
                 <Form.Item
                   label="所在地区"
                   {...formItemLayout}
@@ -318,6 +332,7 @@ class SubmitOrderContainers extends Component {
               </div>
             </BusinessMessage>
           </Footer>
+          <FooterContainer />
         </Layout>
       </SubmitOrder>
     );
