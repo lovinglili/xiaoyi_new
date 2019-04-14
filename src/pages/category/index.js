@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import { Layout, Card, Pagination, Icon, Menu, Empty } from "antd";
 import HeaderContainer from "@c/Header";
+import FooterContainer from "@c/Footer";
 import { withRouter } from "react-router-dom";
 import connect from "@connect";
 import { Category, ContentCon, DetailCardContainer } from "./styles.js";
@@ -231,6 +232,7 @@ compareUp=(property)=>{
               )}
             </DetailCardContainer>
           </ContentCon>
+          <FooterContainer/>
         </Layout>
       </Category>
     );

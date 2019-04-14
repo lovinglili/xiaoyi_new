@@ -3,6 +3,7 @@ import { MySelf } from "./styles.js";
 import { Form, Layout, Button, Input, Upload, Select, InputNumber, Icon,
      Tooltip,  Avatar, Tabs, Card, Modal} from "antd";
 import HeaderContainer from "@c/Header";
+import FooterContainer from "@c/Footer";
 import connect from "@connect";
 import {withRouter } from "react-router-dom";
 import createActionDetail from "../../store/detail/actionCreators";
@@ -348,19 +349,14 @@ class MySelfContainers extends Component {
                                     <Card key={uuid()}
                                        
                                     >
-                                        <div style={{ float: "left",  marginRight: 24 }}>
+                                        <div style={{ float: "left",  marginRight: 24, width:100, height: 100 }}>
                                             <img src={item.pics[0]} style={{ width: 100 }} alt="" />
                                         </div>
                                         <div style={{ float: "left" }}>
                                             <div style={{ fontWeight: "bold", fontSize: 14,width: 620,
-                                              whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title}商品描述
-                                              商品描述商品描述商品描述商品商品描述商品描述商品描述商品描述商品商
-                                              品描述商品描述商品描述商品描述商品商品描述商品描述商品描述商品描述
-                                              商品商品描述商品描述商品描述商品描述商品 </div>
-                                            <div style={{ color: "#d2c3c3", marginTop: 5, marginBottom: 5,width: 620,
-                                             whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc}商品描述商品
-                                             描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描
-                                             述商品描述商品描述 </div>
+                                              whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title} </div>
+                                            <div style={{ color: "#d2c3c3", marginTop: 18, marginBottom: 18,width: 620,
+                                             whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc} </div>
                                             <div style={{ color: "red" }}> ￥{item.price} </div>
                                         </div>
                                         {item.status ===0 &&
@@ -378,19 +374,30 @@ class MySelfContainers extends Component {
                                 {myNotSellList.length !== 0 &&
                                     myNotSellList.map((item, index) => (
                                         <Card key={uuid()}
-                                            title="商品"
+                                        
                                         >
-                                            <img
-                                            onClick={()=>{
-                                                this.props.history.push({ pathname: `/detail:${item._id}` });
-                                                 
-                                            }}
+                                            <div style={{ float: "left",  marginRight: 24, width:100, height: 100 }}>
+                                                <img
+                                                onClick={()=>{
+                                                    this.props.history.push({ pathname: `/detail:${item._id}` });
+                                                    
+                                                }}
                                                 src={item.pics[0]}
                                                 style={{ width: 100 }}
                                                 alt="" />
-                                            <span>{item.title}</span>
-                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} onClick={() => this.showModal(item._id)} type="primary">编辑</Button>
-                                            <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={() => this.handleNoSold(item._id)}>下架</Button>
+                                            </div>
+                                            <div style={{ float: "left" }}>
+                                                <div style={{ fontWeight: "bold", fontSize: 14,width: 620,
+                                                whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title}</div>
+                                                <div style={{ color: "#d2c3c3", marginTop: 18, marginBottom: 18,width: 620,
+                                                whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc}</div>
+                                                <div style={{ color: "red" }}> ￥{item.price} </div>
+                                            </div>
+                                            {item.status ===0 &&
+                                            <div>
+                                               <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} onClick={() => this.showModal(item._id)} type="primary">编辑</Button>
+                                               <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={() => this.handleNoSold(item._id)}>下架</Button>
+                                            </div>}
                                         </Card>
                                     ))}
                             </TabPane>
@@ -398,17 +405,25 @@ class MySelfContainers extends Component {
                                 {mySoldList.length !== 0 &&
                                     mySoldList.map((item, index) => (
                                         <Card key={uuid()}
-                                            title="商品"
+                                        
                                         >
-                                            <img
-                                              onClick={()=>{
-                                                this.props.history.push({ pathname: `/detail:${item._id}` });
-                                                 
-                                            }}
-                                                src={item.pics[0]}
-                                                style={{ width: 100 }}
-                                                alt="" />
-                                            <span>{item.title}</span>
+                                            <div style={{ float: "left",  marginRight: 24, width:100, height: 100 }}>
+                                                <img
+                                                onClick={()=>{
+                                                    this.props.history.push({ pathname: `/detail:${item._id}` });
+                                                    
+                                                }}
+                                                    src={item.pics[0]}
+                                                    style={{ width: 100 }}
+                                                    alt="" />
+                                            </div>
+                                            <div style={{ float: "left" }}>
+                                                <div style={{ fontWeight: "bold", fontSize: 14,width: 620,
+                                                whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title} </div>
+                                                <div style={{ color: "#d2c3c3", marginTop: 18, marginBottom: 18,width: 620,
+                                                whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc} </div>
+                                                <div style={{ color: "red" }}> ￥{item.price} </div>
+                                            </div>
                                         </Card>
                                     ))}
                             </TabPane>
@@ -416,17 +431,25 @@ class MySelfContainers extends Component {
                                 {mySoldOutList.length !== 0 &&
                                     mySoldOutList.map((item, index) => (
                                         <Card key={uuid()}
-                                            title="商品"
+                                        
                                         >
-                                            <img
-                                              onClick={()=>{
-                                                this.props.history.push({ pathname: `/detail:${item._id}` });
-                                                 
-                                            }}
-                                                src={item.pics[0]}
-                                                style={{ width: 100 }}
-                                                alt="" />
-                                            <span>{item.title}</span>
+                                            <div style={{ float: "left",  marginRight: 24, width:100, height: 100 }}>
+                                                <img
+                                                onClick={()=>{
+                                                    this.props.history.push({ pathname: `/detail:${item._id}` });
+                                                    
+                                                }}
+                                                    src={item.pics[0]}
+                                                    style={{ width: 100 }}
+                                                    alt="" />
+                                            </div>
+                                            <div style={{ float: "left" }}>
+                                                <div style={{ fontWeight: "bold", fontSize: 14,width: 620,
+                                                whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title} </div>
+                                                <div style={{ color: "#d2c3c3", marginTop: 18, marginBottom: 18,width: 620,
+                                                whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc} </div>
+                                                <div style={{ color: "red" }}> ￥{item.price} </div>
+                                            </div>
                                         </Card>
                                     ))}
                             </TabPane>
@@ -562,6 +585,7 @@ class MySelfContainers extends Component {
                             </Form.Item>
                         </Form>
                     </Modal>
+                    <FooterContainer/>
                 </Layout>
             </MySelf>
         )

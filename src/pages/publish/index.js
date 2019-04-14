@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import { Form, Layout, Button, Input, Upload, Select, InputNumber, Icon, Tooltip } from "antd";
 import HeaderContainer from "@c/Header";
+import FooterContainer from "@c/Footer";
 import { withRouter } from "react-router-dom";
 import connect from "@connect";
 import { Publish, PublichContent } from "./styles.js";
@@ -302,6 +303,7 @@ class PublishContainers extends PureComponent {
                         </Form.Item>
                     </Form>
                 </PublichContent>
+                <FooterContainer/>
             </Layout>
         </Publish>)
     }

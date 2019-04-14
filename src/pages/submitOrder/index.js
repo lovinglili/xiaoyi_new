@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import connect from "@connect";
 import { Layout, Card, Modal, Input, Button, Form, Select ,message} from "antd";
 import HeaderContainer from "@c/Header";
+import FooterContainer from "@c/Footer";
 import createActionDetail from "../../store/detail/actionCreators";
 import createActionLoginIn from "../../store/header/actionCreators";
 
@@ -320,6 +321,7 @@ class SubmitOrderContainers extends Component {
               </div>
             </BusinessMessage>
           </Footer>
+          <FooterContainer/>
         </Layout>
       </SubmitOrder>
     );
