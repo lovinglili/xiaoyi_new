@@ -19,49 +19,53 @@ connect.addActions({
     detail: createActionDetail,
     header: createActionLoginIn
 });
-const props = {
-    action: '//jsonplaceholder.typicode.com/posts/',
-    onChange({ file, fileList }) {
-      if (file.status !== 'uploading') {
-        console.log(file, fileList);
-      }
-    },
-    defaultFileList: [{
-      uid: '1',
-      name: 'xxx.png',
-      status: 'done',
-      response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/xxx.png',
-    }, {
-      uid: '2',
-      name: 'yyy.png',
-      status: 'done',
-      url: 'http://www.baidu.com/yyy.png',
-    }, {
-      uid: '3',
-      name: 'zzz.png',
-      status: 'error',
-      response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/zzz.png',
-    }],
-  };
+// const props = {
+//     // action: '//jsonplaceholder.typicode.com/posts/',
+//     // action: '/xiaoyi/saveImg',
+//     onChange({ file, fileList }) {
+//       if (file.status !== 'uploading') {
+//         console.log('props/onChange:', file, fileList);
+//       }
+//     },
+//     defaultFileList: [{
+//       uid: '1',
+//       name: 'xxx.png',
+//       status: 'done',
+//       response: 'Server Error 500', // custom error message to show
+//       url: 'http://www.baidu.com/xxx.png',
+//     }, {
+//       uid: '2',
+//       name: 'yyy.png',
+//       status: 'done',
+//       url: 'http://www.baidu.com/yyy.png',
+//     }, {
+//       uid: '3',
+//       name: 'zzz.png',
+//       status: 'error',
+//       response: 'Server Error 500', // custom error message to show
+//       url: 'http://www.baidu.com/zzz.png',
+//     }],
+//   };
 class MySelfContainers extends Component {
     state = {
         orderList: [],
         visible: false,
         nowGoods: {}, // 当前编辑的商品
-        defaultFileList: [{
+        defaultFileList: [
+          {
             uid: '1',
-            name: 'xxx.png',
+            name: 'xxx233.png',
             status: 'done',
             response: 'Server Error 500', // custom error message to show
             url: 'http://www.baidu.com/xxx.png',
-          }, {
-            uid: '2',
-            name: 'yyy.png',
-            status: 'done',
-            url: 'http://www.baidu.com/yyy.png',
-          }],
+          },
+        //   {
+        //     uid: '2',
+        //     name: 'yyy233.png',
+        //     status: 'done',
+        //     url: 'http://www.baidu.com/yyy.png',
+        //   }
+        ],
         cities: [{
             "id": 1,
             "name": "北京",
@@ -176,10 +180,12 @@ class MySelfContainers extends Component {
         // let myList = JSON.parse(localStorage.goods); // 所有订单
         let myNotSellList = _.filter(myList, item => item.status === 0); // 未卖出
         let _nowGoods = myNotSellList.find((item) => item._id === id); // 要编辑的商品
+        let _defaultFileList = Object.assign({}, this.state.defaultFileList[0], { url: _nowGoods.pics[0], name: _nowGoods.pics[0].replace(/\/uploads\/logos\//, '') });
         console.log('showModal/myNotSellList:', myNotSellList, _nowGoods);
         this.setState({
           visible: true,
           nowGoods: _nowGoods,
+          defaultFileList: [_defaultFileList],
           editGoodId:id
         });
       }
@@ -254,10 +260,10 @@ class MySelfContainers extends Component {
                     _id:editGoodId
                 }
                 detail_actions.updateGood(postValue, () => { 
-                header_actions.fetchAllList();
-                this.setState({
-                    visible: false,
-                });
+                    header_actions.fetchAllList();
+                    this.setState({
+                        visible: false,
+                    });
                  });
             
             }
@@ -319,6 +325,7 @@ class MySelfContainers extends Component {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 },
         };
+        console.log(' defaultFileList={this.state.defaultFileList}:', this.state.defaultFileList);
         return (
             <MySelf>
                 <Layout>
@@ -429,7 +436,7 @@ class MySelfContainers extends Component {
                                             message: '给你的好物起个名字吧~,30 字符以内'
                                         },
                                     ],
-                                    initialValue: this.state.nowGoods.title, // TODO
+                                    initialValue: this.state.nowGoods.title,
                                 })(
                                     <Input placeholder="给你的好物起个名字吧~,30 字符以内"></Input>
                                 )}
@@ -446,7 +453,7 @@ class MySelfContainers extends Component {
                                             message: '600 字符以内'
                                         },
                                     ],
-                                    initialValue: this.state.nowGoods.desc, // TODO
+                                    initialValue: this.state.nowGoods.desc,
                                 })(
                                     <TextArea rows={6} placeholder="详细描述一下商品的新旧程度,使用感受,入手渠道,出售原因吧~，600 字符以内"></TextArea>
                                 )}
@@ -456,15 +463,23 @@ class MySelfContainers extends Component {
                                 {...formItemLayout}
                             >
                                 {getFieldDecorator('pics', {
-                                        valuePropName: 'fileList',
-                                        getValueFromEvent: this.normFile, // TODO TODO
+                                        // valuePropName: 'fileList',
+                                        // getValueFromEvent: this.normFile, // TODO TODO,
+                                        initialValue: this.state.nowGoods.pics,
                                     })(
-                                        <Upload name="logo"  listType="picture"  action='/xiaoyi/saveImg'>
+                                    <div>
+                                        <Upload defaultFileList={this.state.defaultFileList} name="logo"  listType="picture"  action='/xiaoyi/saveImg'>
                                             <div style={{ width: 200, height: 200, border: '1px dashed #bbb', position: 'relative' }}>
                                                 <div style={{ width: 6, height: 100, top: 50, left: 97, background: '#999', position: 'absolute' }}></div>
                                                 <div style={{ width: 100, height: 6, top: 97, left: 50, position: 'absolute', background: '#999' }}></div>
                                             </div>
-                                    </Upload> 
+                                        </Upload>
+                                        {/* <Upload {...props}>
+                                            <Button>
+                                            <Icon type="upload" /> Upload2333
+                                            </Button>
+                                        </Upload> */}
+                                    </div>
                                 )}
                             </Form.Item> 
                             <Form.Item
@@ -474,8 +489,7 @@ class MySelfContainers extends Component {
                                 {getFieldDecorator('city', {
                                     rules: [
                                         { required: true, message: '请输入你的地址!' },
-                                    ],
-                                    // initialValue: this.state.nowGoods.city, // TODO
+                                    ]
                                 })(
                                     <CitySelect nowGoods={this.state.nowGoods} citiesList={this.state.cities} />
                                 )}
@@ -486,7 +500,7 @@ class MySelfContainers extends Component {
                                 {...formItemLayout}
                             >
                                 {getFieldDecorator('price', {
-                                    initialValue: this.state.nowGoods.price, // TODO
+                                    initialValue: this.state.nowGoods.price,
                                     rules: [
                                         { required: true, message: '请输入要售卖的价钱!' },
                                     ],
@@ -503,7 +517,7 @@ class MySelfContainers extends Component {
                                 {...formItemLayout}
                             >
                                 {getFieldDecorator('originPrice', {
-                                    initialValue: this.state.nowGoods.originPrice, // TODO
+                                    initialValue: this.state.nowGoods.originPrice,
                                     rules: [
                                         { required: true, message: '请输入所售卖的商品原价!' },
                                     ],
@@ -524,7 +538,7 @@ class MySelfContainers extends Component {
                                     rules: [
                                         { required: true, message: '请给你的商品选个家吧!' },
                                     ],
-                                    initialValue: this.state.nowGoods.category, // TODO
+                                    initialValue: this.state.nowGoods.category,
                                 })(
                                     <CategorySelect nowGoods={this.state.nowGoods} categoryList={this.state.categories} />
                                 )}
