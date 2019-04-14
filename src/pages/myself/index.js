@@ -8,6 +8,8 @@ import {withRouter } from "react-router-dom";
 import createActionDetail from "../../store/detail/actionCreators";
 import createActionLoginIn from "../../store/header/actionCreators";
 import uuid from "uuid/v1";
+import {LogoFont} from "@s"
+
 import _ from 'lodash';
 
 const { Option } = Select;
@@ -339,7 +341,7 @@ class MySelfContainers extends Component {
                     <Content style={{marginTop: 100}}>
                         个人中心
                         <Card>
-                            <Avatar size={164} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                            <Avatar size={164} src={LogoFont} />
                             <span>昵称：{nowUser}</span>
                         </Card>
                         <Card title="订单">

@@ -10,7 +10,7 @@ class CategoryContainer extends PureComponent {
   state = {
     pagination: {
       current: 1,
-      pageSize: 10,
+      pageSize:9 ,
       total: 0
     }, // 分页的参数
     sorts: true, // 从高到低
@@ -35,13 +35,13 @@ class CategoryContainer extends PureComponent {
         }
    }
     );
-    const list = arr.slice(0, 10);
+    const list = arr.slice(0, 9);
     this.setState({
       usedList: arr,
       currentList: list,
       pagination: {
         current: 1,
-        pageSize: 10,
+        pageSize: 9,
         total: arr.length
       }
     });
@@ -50,13 +50,13 @@ class CategoryContainer extends PureComponent {
   // pagination
   handlePaginationChange = page => {
     const { usedList } = this.state;
-    const startIndex = (page - 1) * 10;
-    const list = usedList.slice(startIndex, startIndex + 10);
+    const startIndex = (page - 1) * 9;
+    const list = usedList.slice(startIndex, startIndex + 9);
     this.setState({
       currentList: list,
       pagination: {
         current: page,
-        pageSize: 10,
+        pageSize: 9,
         total: usedList.length
       }
     });
@@ -89,14 +89,14 @@ class CategoryContainer extends PureComponent {
              }
         }
         );
-        const listNow = arr.slice(0, 10);
+        const listNow = arr.slice(0, 9);
         this.setState({
           usedList: arr,
           currentList: listNow,
           zongHeList:listNow,
           pagination: {
             current: 1,
-            pageSize: 10,
+            pageSize: 9,
             total: arr.length
           }
         });
@@ -196,7 +196,7 @@ compareUp=(property)=>{
                         title={item.title}
                         description={
                           <div>
-                            <p>{item.desc}</p>
+                            <p style={{fontSize:'12px'}}>{item.desc}</p>
                             <div>
                               <span
                                 style={{
@@ -206,7 +206,7 @@ compareUp=(property)=>{
                                   color: "red"
                                 }}
                               >
-                                {item.price}
+                                ￥{item.price}
                               </span>
                               <span
                                 style={{
@@ -214,7 +214,7 @@ compareUp=(property)=>{
                                   fontWeight: 400
                                 }}
                               >
-                                {item.originalPrice}
+                                ￥{item.originPrice}
                               </span>
                             </div>
                           </div>

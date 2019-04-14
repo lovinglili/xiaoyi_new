@@ -80,9 +80,10 @@ class DetailContainer extends Component {
                   <div className="contact">
                     <div className="contact-seller">
                       {(myDetailData.status===1 || myDetailData.nickName===nickName)?( <span className="phone-number"
-                      >
+                     style={{cursor:'pointer'}} >
                         立即购买
                       </span>):( <span className="phone-number"
+                      style={{cursor:'pointer'}}
                     onClick={() => this.handleCardClick(goodId)}
                   >
                     立即购买

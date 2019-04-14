@@ -70,11 +70,13 @@ class HomeContainer extends Component {
                     <ImgWrapper >
                       <img src={colItem.pics[0]} alt='' width='100%'></img>
                     </ImgWrapper>
-                    <p style={{ marginBottom: 0 }}>{colItem.title}</p>
-                    <p style={{ marginBottom: 0 }}>{colItem.desc}</p>
-                    <p style={{ marginBottom: 0 }}><span style={{ color: 'red', paddingRight: 24 }}>{colItem.price}</span>
-                      <span style={{ textDecoration: 'line-through' }}>{colItem.originalPrice}</span>
+                    <div style={{textAlign:'left'}}>
+                    <p style={{ margin: '8px 0',fontWeight:700,fontSize:14 }}>{colItem.title}</p>
+                    <p style={{ margin: '8px 0',fontSize:12}}>{colItem.desc}</p>
+                    <p style={{margin: '8px 0' }}><span style={{ color: 'red', paddingRight: 16,fontSize:16,fontWeight:600 }}>￥{colItem.price}</span>
+                      <span style={{ textDecoration: 'line-through',fontSize:14 }}>￥{colItem.originPrice}</span>
                     </p>
+                    </div>
                   </div>
                 </Col>
               ))}
