@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import HeaderContainer from "@c/Header";
+import FooterContainer from "@c/Footer";
 import { Link, withRouter } from "react-router-dom";
 import connect from "@connect";
 import { LoginIn, LoginInContent } from "./styles.js";
@@ -111,7 +112,7 @@ class LoginInContainers extends Component {
             </div>
 
           </LoginInContent>
-
+          <FooterContainer/>
         </Layout>
       </LoginIn>
     );

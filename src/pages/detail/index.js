@@ -4,6 +4,7 @@ import { Link,withRouter } from "react-router-dom";
 import connect from "@connect";
 import { Layout, Card, Col, Row, Pagination, Icon, Menu } from "antd";
 import HeaderContainer from "@c/Header";
+import FooterContainer from "@c/Footer";
 import { Category, ContentCon, DetailCardContainer } from "../category/styles.js";
 import createActionDetail from "../../store/detail/actionCreators";
 
@@ -116,6 +117,7 @@ class DetailContainer extends Component {
             </ProductDetail>
           </Card>
         </DetailTop>
+        <FooterContainer/>
       </Detail>
     );
   }

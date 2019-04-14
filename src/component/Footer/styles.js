@@ -1,44 +1,67 @@
 
 import styled from "styled-components";
 
-export const Header = styled.div`
-.ant-col-8 {
-    a {
+export const Footer = styled.div`
+  min-width: 1190px;
+  overflow:hidden;
+  
+  .cf:after, .cf:before {
+    content: "";
+    display: table;
+  }
+
+  .foot-panel {
+    height: 180px;
+    background: #fff;
+    .foot-panel-inner {
+      width: 1190px;
+      padding: 0 30px;
+      margin: 0 auto;
+
+    }
+    
+    .up-left {
+      float: left;
+    }
+    .up-left-slogan {
+      max-width: 530px;
+      margin-top: 70px;
+      font-size: 35px;
+    }
+    .up-right {
+      float: right;
+      text-align: right;
+    }
+  }
+  .foot-bar {
+    background: #2e2e2e;
+  }
+  .foot-bar-inner {
+    width: 1190px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .foot-bar-up {
+    margin: 30px 0 10px;
+
+    span {
       display: inline-block;
-      padding: 0 16px;
-      cursor: pointer;
-        &:hover{
-          color:#df9c9c;
-        }
-      
+      padding: 0 20px;
+      border-right: 1px solid #999;
+      font-size: 12px;
+      color: #999;
+   }
+   span:last-child {
+    border-right: none;
+   }
+  }
+  .foot-bar-down {
+    margin-bottom: 30px;
+    
+    a, span {
+      padding: 0 10px;
+      font-size: 12px;
+      color: #999;
     }
   }
-`;
-export const CategoryContainer =styled.div`
-background:#fff;
-display:flex;
-width:600px;
-padding:12px;
-justify-content:space-between;
-dt{
-  margin-bottom:8px;
-}
-dd{
-  font-size:12px;
-  float:left;
-  padding:0 6px;
-  a{
-    &:hover{
-      color:#df9c9c;
-    }
-  }
-}
->div:first-child{
-  width:120px;
-  margin-right:12px;
-  border-right:1px dashed #bbb;
-}
-div:last-child{
-  flex:1;
-}
 `;
