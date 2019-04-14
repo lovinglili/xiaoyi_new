@@ -325,7 +325,7 @@ class MySelfContainers extends Component {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 },
         };
-        console.log(' defaultFileList={this.state.defaultFileList}:', this.state.defaultFileList);
+        console.log(' defaultFileList={this.state.defaultFileList},orderList:', this.state.defaultFileList, orderList);
         return (
             <MySelf>
                 <Layout>
@@ -342,17 +342,28 @@ class MySelfContainers extends Component {
                             {orderList.length !== 0 && Array.isArray(orderList) &&
                                 orderList.map((item) => (
                                     <Card key={uuid()}
-                                        title="商品"
+                                       
                                     >
-                                        <img
-                                            src={item.pics[0]}
-                                            style={{ width: 100 }}
-                                            alt="" />
-                                        <span>{item.title}</span>
-                                        {item.status ===0 && <span>
-                                        <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary" onClick={()=>this.handleBuy(item.goodId,item._id)}>购买</Button>
-                                        <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={()=>this.handleCancelBuy(item._id)}>取消</Button>
-                                        </span>}
+                                        <div style={{ float: "left",  marginRight: 24 }}>
+                                            <img src={item.pics[0]} style={{ width: 100 }} alt="" />
+                                        </div>
+                                        <div style={{ float: "left" }}>
+                                            <div style={{ fontWeight: "bold", fontSize: 14,width: 620,
+                                              whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title}商品描述
+                                              商品描述商品描述商品描述商品商品描述商品描述商品描述商品描述商品商
+                                              品描述商品描述商品描述商品描述商品商品描述商品描述商品描述商品描述
+                                              商品商品描述商品描述商品描述商品描述商品 </div>
+                                            <div style={{ color: "#d2c3c3", marginTop: 5, marginBottom: 5,width: 620,
+                                             whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc}商品描述商品
+                                             描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描
+                                             述商品描述商品描述 </div>
+                                            <div style={{ color: "red" }}> ￥{item.price} </div>
+                                        </div>
+                                        {item.status ===0 &&
+                                        <div>
+                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary" onClick={()=>this.handleBuy(item.goodId,item._id)}>购买</Button>
+                                            <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={()=>this.handleCancelBuy(item._id)}>取消</Button>
+                                        </div>}
                                     </Card>
                                 ))}
                         </Card>

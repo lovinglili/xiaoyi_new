@@ -3,6 +3,7 @@ import { Carousel, Radio, Layout, Row, Col, Card } from "antd";
 import connect from "@connect";
 import { withRouter } from "react-router-dom";
 import HeaderContainer from "@c/Header";
+import FooterContainer from "@c/Footer";
 import {Banner1,Banner2} from "@s"
 
 import {
@@ -192,6 +193,8 @@ class HomeContainer extends Component {
               </Row>
             </HomeContainers>
           </Layout.Content>
+        
+          <FooterContainer/>
         </Layout>
       </XiaoYiStyle>
     );
