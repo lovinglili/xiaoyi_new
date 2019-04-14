@@ -340,7 +340,6 @@ class MySelfContainers extends Component {
                         <HeaderContainer />
                     </Layout.Header>
                     <Content style={{marginTop: 100}}>
-                        个人中心
                         <Card>
                             <Avatar size={164} src={LogoFont} />
                             <span>昵称：{nowUser}</span>
@@ -355,10 +354,10 @@ class MySelfContainers extends Component {
                                             <img src={item.pics[0]} style={{ width: 100 }} alt="" />
                                         </div>
                                         <div style={{ float: "left" }}>
-                                            <div style={{ fontWeight: "bold", fontSize: 14,width: 620,
+                                            <div style={{ fontWeight: "bold", fontSize: 16,width: 620,
                                               whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title} </div>
-                                            <div style={{ color: "#d2c3c3", marginTop: 18, marginBottom: 18,width: 620,
-                                             whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc} </div>
+                                            <div style={{ color: "#d2c3c3", marginTop: 6, marginBottom:6,width: 620,
+                                             whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden",fontSize:12 }}> {item.desc} </div>
                                             <div style={{ color: "red" }}> ￥{item.price} </div>
                                         </div>
                                         {item.status ===0 &&
@@ -389,9 +388,9 @@ class MySelfContainers extends Component {
                                                 alt="" />
                                             </div>
                                             <div style={{ float: "left" }}>
-                                                <div style={{ fontWeight: "bold", fontSize: 14,width: 620,
+                                                <div style={{ fontWeight: "bold", fontSize: 16,width: 620,
                                                 whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title}</div>
-                                                <div style={{ color: "#d2c3c3", marginTop: 18, marginBottom: 18,width: 620,
+                                                <div style={{ color: "#d2c3c3", marginTop: 6, marginBottom: 6,width: 620,fontSize:12,
                                                 whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc}</div>
                                                 <div style={{ color: "red" }}> ￥{item.price} </div>
                                             </div>
@@ -422,7 +421,7 @@ class MySelfContainers extends Component {
                                             <div style={{ float: "left" }}>
                                                 <div style={{ fontWeight: "bold", fontSize: 14,width: 620,
                                                 whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title} </div>
-                                                <div style={{ color: "#d2c3c3", marginTop: 18, marginBottom: 18,width: 620,
+                                                <div style={{ color: "#d2c3c3", marginTop: 6, marginBottom: 6,width: 620,
                                                 whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc} </div>
                                                 <div style={{ color: "red" }}> ￥{item.price} </div>
                                             </div>
@@ -446,9 +445,9 @@ class MySelfContainers extends Component {
                                                     alt="" />
                                             </div>
                                             <div style={{ float: "left" }}>
-                                                <div style={{ fontWeight: "bold", fontSize: 14,width: 620,
+                                                <div style={{ fontWeight: "bold", fontSize: 16,width: 620,
                                                 whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title} </div>
-                                                <div style={{ color: "#d2c3c3", marginTop: 18, marginBottom: 18,width: 620,
+                                                <div style={{ color: "#d2c3c3", marginTop: 6, marginBottom: 6,width: 620,fonSize:12,
                                                 whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc} </div>
                                                 <div style={{ color: "red" }}> ￥{item.price} </div>
                                             </div>

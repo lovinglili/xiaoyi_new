@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const Footer = styled.div`
   min-width: 1190px;
   overflow:hidden;
+  margin-top:24px;
   
   .cf:after, .cf:before {
     content: "";
@@ -11,7 +12,7 @@ export const Footer = styled.div`
   }
 
   .foot-panel {
-    height: 180px;
+    height: 75px;
     background: #fff;
     .foot-panel-inner {
       width: 1190px;
@@ -25,8 +26,8 @@ export const Footer = styled.div`
     }
     .up-left-slogan {
       max-width: 530px;
-      margin-top: 70px;
-      font-size: 35px;
+      margin-top: 20px;
+      font-size: 20px;
     }
     .up-right {
       float: right;

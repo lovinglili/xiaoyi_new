@@ -117,15 +117,22 @@ class CategoryContainer extends PureComponent {
   }
   // 排序 默认升序
   handleSort = () => {
-    const { sorts ,currentList} = this.state;
+    const { sorts ,usedList} = this.state;
     if(sorts){ // 降序排列
-      currentList.sort(this.compareUp('price'))
+      usedList.sort(this.compareUp('price'))
     }else{
-      currentList.sort(this.compareDown('price'))
+      usedList.sort(this.compareDown('price'))
     }
+    const nowList=usedList.slice(0,9);
     this.setState({
       sorts: !sorts,
-      currentList
+      usedList,
+      currentList:nowList,
+      pagination: {
+        current: 1,
+        pageSize: 9,
+        total: usedList.length
+      }
     });
   };
 
