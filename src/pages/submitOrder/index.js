@@ -222,6 +222,8 @@ class SubmitOrderContainers extends Component {
               width={820}
               visible={this.state.visible} 
               onOk={this.handleOk}
+              okText='确定'
+              cancelText='取消'
               onCancel={this.handleCancel}
             >
               <Form>

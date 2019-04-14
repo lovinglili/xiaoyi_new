@@ -52,9 +52,13 @@ class PublishContainers extends PureComponent {
                 {
                     "id": "4",
                     "name": "相机"
-                },
+                } ,
                 {
                     "id": "5",
+                    "name": "手机"
+                },
+                {
+                    "id": "6",
                     "name": "其他手机数码"
                 }
             ]
