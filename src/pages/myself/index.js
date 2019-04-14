@@ -112,6 +112,10 @@ class MySelfContainers extends Component {
                 },
                 {
                     "id": "5",
+                    "name": "手机"
+                },
+                {
+                    "id": "6",
                     "name": "其他手机数码"
                 }
             ]
@@ -418,9 +422,11 @@ class MySelfContainers extends Component {
                         </Tabs>
                     </Content>
                     <Modal
-                        title="Basic Modal"
+                        title="商品详情"
                         visible={this.state.visible}
                         onOk={this.handleOk}
+                        cancelText='取消'
+                        okText='确定'
                         onCancel={this.handleCancel}
                         >
                         <Form onSubmit={this.handleSubmit}>
@@ -543,11 +549,6 @@ class MySelfContainers extends Component {
                                     <CategorySelect nowGoods={this.state.nowGoods} categoryList={this.state.categories} />
                                 )}
                             </Form.Item>
-                            {/* <Form.Item
-                                wrapperCol={{ span: 12, offset: 6 }}
-                            >
-                                <Button type="primary" htmlType="submit">确认发布</Button>
-                            </Form.Item> */}
                         </Form>
                     </Modal>
                 </Layout>
