@@ -17,7 +17,19 @@ class PublishContainers extends PureComponent {
                 {
                     "id": 2816,
                     "name": "密云区"
-                }
+                },
+                {
+                    "id": 2817,
+                    "name": "昌平区"
+                },
+                {
+                    "id": 2818,
+                    "name": "朝阳区"
+                },
+                {
+                    "id": 2819,
+                    "name": "海淀区"
+                },
             ]
         },
         {
@@ -33,7 +45,36 @@ class PublishContainers extends PureComponent {
                     "name": "新区"
                 }
             ]
-        }], // 城市集合
+        },
+        {
+            "id": 9,
+            "name": "杭州",
+            "children": [
+                {
+                    "id": 580,
+                    "name": "上城区"
+                },
+                {
+                    "id": 581,
+                    "name": "西湖区"
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "name": "洛阳",
+            "children": [
+                {
+                    "id": 50,
+                    "name": "洛龙区"
+                },
+                {
+                    "id": 51,
+                    "name": "滨区"
+                }
+            ]
+        }
+    ], // 城市集合
         categories: [{
             "categoryTitle": "手机数码",
             "categoryId": 111,

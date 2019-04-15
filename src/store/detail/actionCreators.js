@@ -66,6 +66,21 @@ export default {
             })
         }
     },
+    // 删除订单
+    deleteAddress(id,callback){
+        return {
+            type: types.DELETE_ADDRESS,
+            payload: new Promise(resolve => {
+                axios.get(`/xiaoyi/deleteAddress?addressId=${id}`).then(response => {
+                    const { data: { success } } = response.data;
+                    if (success) {
+                        callback();
+                    }
+                    resolve(response)
+                })
+            })
+        }
+    },
     // 获取订单 
     getOrderList(nickName, callback) {
         return {

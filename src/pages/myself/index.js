@@ -22,33 +22,7 @@ connect.addActions({
     detail: createActionDetail,
     header: createActionLoginIn
 });
-// const props = {
-//     // action: '//jsonplaceholder.typicode.com/posts/',
-//     // action: '/xiaoyi/saveImg',
-//     onChange({ file, fileList }) {
-//       if (file.status !== 'uploading') {
-//         console.log('props/onChange:', file, fileList);
-//       }
-//     },
-//     defaultFileList: [{
-//       uid: '1',
-//       name: 'xxx.png',
-//       status: 'done',
-//       response: 'Server Error 500', // custom error message to show
-//       url: 'http://www.baidu.com/xxx.png',
-//     }, {
-//       uid: '2',
-//       name: 'yyy.png',
-//       status: 'done',
-//       url: 'http://www.baidu.com/yyy.png',
-//     }, {
-//       uid: '3',
-//       name: 'zzz.png',
-//       status: 'error',
-//       response: 'Server Error 500', // custom error message to show
-//       url: 'http://www.baidu.com/zzz.png',
-//     }],
-//   };
+
 class MySelfContainers extends Component {
     state = {
         orderList: [],
@@ -76,7 +50,19 @@ class MySelfContainers extends Component {
                 {
                     "id": 2816,
                     "name": "密云区"
-                }
+                },
+                {
+                    "id": 2817,
+                    "name": "昌平区"
+                },
+                {
+                    "id": 2818,
+                    "name": "朝阳区"
+                },
+                {
+                    "id": 2819,
+                    "name": "海淀区"
+                },
             ]
         },
         {
@@ -92,7 +78,36 @@ class MySelfContainers extends Component {
                     "name": "新区"
                 }
             ]
-        }], // 城市集合
+        },
+        {
+            "id": 9,
+            "name": "杭州",
+            "children": [
+                {
+                    "id": 580,
+                    "name": "上城区"
+                },
+                {
+                    "id": 581,
+                    "name": "西湖区"
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "name": "洛阳",
+            "children": [
+                {
+                    "id": 50,
+                    "name": "洛龙区"
+                },
+                {
+                    "id": 51,
+                    "name": "滨区"
+                }
+            ]
+        }
+    ], // 城市集合
         categories: [{
             "categoryTitle": "手机数码",
             "categoryId": 111,
