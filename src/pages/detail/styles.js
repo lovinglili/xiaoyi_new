@@ -92,7 +92,7 @@ border: 1px solid #e9e9e9;
   ${ props => props.inputColor || "blue" };
   .contact-seller {
     padding: 6px 16px;
-    background: ${ props =>((props.nickName===props.userName || props.status===1) ?' #eee' : '#ff3434')};
+    background: ${ props =>((props.nickName===props.userName || props.status!==0) ?' #eee' : '#ff3434')};
     color: #fff;
     cursor:'pointer';
     .phone-number {

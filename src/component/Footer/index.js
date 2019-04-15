@@ -21,7 +21,7 @@ class FooterContainer extends Component {
             <div className="foot-bar-inner">
               <div className="foot-bar-up">
                 <span>小易</span>
-                <span>联系我们:975130528@qq.com</span>
+                <span>联系我们: 975130528@qq.com</span>
               </div> 
               <div className="foot-bar-down">
                 <span>作者联系方式：18438651123</span>

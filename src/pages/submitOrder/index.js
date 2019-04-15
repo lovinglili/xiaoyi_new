@@ -33,7 +33,19 @@ class SubmitOrderContainers extends Component {
         {
           "id": 2816,
           "name": "密云区"
-        }
+        },
+        {
+          "id": 2817,
+          "name": "昌平区"
+        },
+        {
+          "id": 2818,
+          "name": "朝阳区"
+        },
+        {
+          "id": 2819,
+          "name": "海淀区"
+        },
       ]
     },
     {
@@ -49,7 +61,36 @@ class SubmitOrderContainers extends Component {
           "name": "新区"
         }
       ]
-    }], // 城市集合
+    },
+    {
+      "id": 9,
+      "name": "杭州",
+      "children": [
+        {
+          "id": 580,
+          "name": "上城区"
+        },
+        {
+          "id": 581,
+          "name": "西湖区"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "洛阳",
+      "children": [
+        {
+          "id": 50,
+          "name": "洛龙区"
+        },
+        {
+          "id": 51,
+          "name": "滨区"
+        }
+      ]
+    }
+    ], // 城市集合
   }
   componentDidMount() {
     this.getDetailTo();
@@ -137,6 +178,17 @@ class SubmitOrderContainers extends Component {
     });
   }
 
+
+  // 删除选中的地址,刷新列表
+  handleDeleteAddress = (id) => {
+    const { detail_actions, loginIn } = this.props;
+    const { userInfo: { nickName } } = loginIn;
+
+    detail_actions.deleteAddress(id, () => {
+      detail_actions.getAddress(nickName, () => { });
+    });
+  }
+
   // 获取该商品的id并跳转到个人中心的页面
   handleCardClick = (detailData) => {
     const { loginIn: { userInfo = {} }, detail_actions, match } = this.props;
@@ -194,22 +246,22 @@ class SubmitOrderContainers extends Component {
               <Card
                 title="商品信息"
               >
-              <div style={{display:'flex'}}>
-                <img
-                  src={myPics[0]}
-                  style={{ width: 200 }}
-                  alt=""
-                />
-                <div style={{marginLeft:12,marginTop:8}}>
-                <div style={{
-                  fontWeight: "bold", fontSize: 16, width: 620,
-                  whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"
-                }}> {myDetailData.title} </div>
-                <div style={{
-                  color: "#d2c3c3", marginTop: 6, marginBottom: 6, width: 620,
-                  whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden",fontSize:12
-                }}> {myDetailData.desc} </div>
-                </div>
+                <div style={{ display: 'flex' }}>
+                  <img
+                    src={myPics[0]}
+                    style={{ width: 200 }}
+                    alt=""
+                  />
+                  <div style={{ marginLeft: 12, marginTop: 8 }}>
+                    <div style={{
+                      fontWeight: "bold", fontSize: 16, width: 620,
+                      whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"
+                    }}> {myDetailData.title} </div>
+                    <div style={{
+                      color: "#d2c3c3", marginTop: 6, marginBottom: 6, width: 620,
+                      whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", fontSize: 12
+                    }}> {myDetailData.desc} </div>
+                  </div>
                 </div>
               </Card>
             </Card>
@@ -226,6 +278,7 @@ class SubmitOrderContainers extends Component {
                   <p style={{ marginTop: 16, marginBottom: 8 }}><span style={{ marginRight: 16 }}>收货人：{item.receiveName}</span><span>电话：{item.phoneNumber}</span></p>
                   <p>收货地址：<span>{item.provinceName}-{item.cityName}-{item.more}</span></p>
                   <Button type='primary' onClick={() => this.chooseAddreList(item)}>选择该地址</Button>
+                  <Button style={{ marginLeft: 12 }} onClick={() => this.handleDeleteAddress(item._id)}>删除</Button>
                 </div>
               ))}
             </Modal>

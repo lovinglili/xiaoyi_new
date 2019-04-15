@@ -80,7 +80,8 @@ class DetailContainer extends Component {
                 <BusinessMessage  status={myDetailData.status} nickName={myDetailData.nickName} userName={nickName}>
                   <div className="contact">
                     <div className="contact-seller">
-                      {(myDetailData.status===1 || myDetailData.nickName===nickName)?( <span className="phone-number"
+                    {console.log(myDetailData.status,"gggg")}
+                      {(myDetailData.status !==0 || myDetailData.nickName===nickName)?( <span className="phone-number"
                      style={{cursor:'pointer'}} >
                         立即购买
                       </span>):( <span className="phone-number"
