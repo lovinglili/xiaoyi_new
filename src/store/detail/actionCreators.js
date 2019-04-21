@@ -98,6 +98,54 @@ export default {
     },
 
 
+
+    // 获取预售出的列表（被下单）
+    getWillSoldOrderList(solderNickName, callback) {
+        return {
+            type: types.GET_WILLSOLD_ORDERLIST,
+            payload: new Promise(resolve => {
+                axios.get(`/xiaoyi/orderList?solderNickName=${solderNickName}`).then(response => {
+                    const { data: { success } } = response.data;
+                    if (success) {
+                        callback();
+                    }
+                    resolve(response)
+                })
+            })
+        }
+    },
+
+    // 添加交易表
+    addDeal (values,callback){
+        return {
+            type: types.ADD_DEAL_ASYNC,
+            payload: new Promise(resolve => {
+                axios({ url: '/xiaoyi/addDeal', method: 'post', headers: { 'Content-Type': 'application/json' }, data: JSON.stringify(values) }).then(response => {
+                    const { data } = response.data;
+                    if (data.success) {
+                        callback();
+                    }
+                })
+            })
+        }
+    },
+
+    // 改变交易表的状态
+    changeDealStatus(id, status,callback) {
+        return {
+            type: types.CHANGE_ORDER_ASYNC,
+            payload: new Promise(resolve => {
+                axios.get(`/xiaoyi/changeDealStatus?id=${id}&status=${status}`).then(response => {
+                    const { data: { success } } = response.data;
+                    if (success) {
+                        callback();
+                    }
+                    resolve(response)
+                })
+            })
+        }
+    },
+
     addOrder(values, callback) {
         return {
             type: types.ADD_ORDER_ASYNC,
@@ -128,16 +176,16 @@ export default {
         }
     },
 
-    // 购买商品成功，改变订单的状态
+    // 改变订单的状态
     changeOrderStatus(id, status,callback) {
         return {
             type: types.CHANGE_ORDER_ASYNC,
             payload: new Promise(resolve => {
-                axios.get(`/xiaoyi/changeOrderStatus?id=${id}&status=${status}`).then(response => {
+                axios.get(`/xiaoyi/changeOrderStatus?id=${id}&orderStatus=${status}`).then(response => {
                     const { data: { success } } = response.data;
                     if (success) {
                         callback();
-                        message.success('购买成功')
+                        message.success('操作成功')
                     }
                     resolve(response)
                 })

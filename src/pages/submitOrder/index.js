@@ -132,10 +132,8 @@ class SubmitOrderContainers extends Component {
             currentAddressData: data
           });
         });
-
       }
     })
-
   }
 
   handleCancel = () => {
@@ -194,7 +192,7 @@ class SubmitOrderContainers extends Component {
     const { loginIn: { userInfo = {} }, detail_actions, match } = this.props;
     const { nickName } = userInfo;
     const { currentAddressData: { _id } } = this.state;
-    const { nickName: solderNickName, desc, pics, price, status, title, categoryTitle, categoryId } = detailData
+    const { nickName: solderNickName, desc, pics, price, title, categoryTitle, categoryId } = detailData
     let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/, '') : ''; // 获取路径中的goodId
     if (!_id || !nickName) {
       message.error("请补充信息");
@@ -209,11 +207,14 @@ class SubmitOrderContainers extends Component {
       categoryTitle, categoryId,
       nickName,
       addressId: _id,
-      status,// 该商品的状态
-      goodId // '所要购买的商品的id',
+      goodId, // '所要购买的商品的id',
+      orderStatus:0, // 订单状态
     }
+    // 将商品的状态改为 3 ，形成订单的状态。
     detail_actions.addOrder(params, () => {
-      this.props.history.push({ pathname: `/myself` });
+      detail_actions.changeGoodStatus(goodId,3,()=>{
+        this.props.history.push({ pathname: `/myself` });
+    })
     });
   };
 

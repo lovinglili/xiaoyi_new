@@ -36,12 +36,6 @@ class MySelfContainers extends Component {
             response: 'Server Error 500', // custom error message to show
             url: 'http://www.baidu.com/xxx.png',
           },
-        //   {
-        //     uid: '2',
-        //     name: 'yyy233.png',
-        //     status: 'done',
-        //     url: 'http://www.baidu.com/yyy.png',
-        //   }
         ],
         cities: [{
             "id": 1,
@@ -192,7 +186,6 @@ class MySelfContainers extends Component {
         }], // 商品分类集合
     }
     showModal = (id) => {
-        console.log('showModal/id:', id);
         const { detail, header, loginIn } = this.props;
         if (header.listData === {}) return;
         let allList = header.listData;
@@ -203,7 +196,6 @@ class MySelfContainers extends Component {
         let myNotSellList = _.filter(myList, item => item.status === 0); // 未卖出
         let _nowGoods = myNotSellList.find((item) => item._id === id); // 要编辑的商品
         let _defaultFileList = Object.assign({}, this.state.defaultFileList[0], { url: _nowGoods.pics[0], name: _nowGoods.pics[0].replace(/\/uploads\/logos\//, '') });
-        console.log('showModal/myNotSellList:', myNotSellList, _nowGoods);
         this.setState({
           visible: true,
           nowGoods: _nowGoods,
@@ -213,15 +205,10 @@ class MySelfContainers extends Component {
       }
     
       handleOk = (e) => {
-        console.log('handleOk:', e);
         this.handleSubmit();
-        // this.setState({
-        //   visible: false,
-        // });
       }
     
       handleCancel = (e) => {
-        console.log(e);
         this.setState({
           visible: false,
         });
@@ -231,34 +218,34 @@ class MySelfContainers extends Component {
         // this.getDetailTo();
         setTimeout(()=>{
             this.getOrderListTo();
+            this.getWillSolList();
         },500)
         this.setState({
             orderList: localStorage.goods,
         });
     }
 
+    getWillSolList=()=>{
+        const { detail_actions, loginIn } = this.props;
+        let nickName = loginIn.userInfo.nickName;
+        detail_actions.getWillSoldOrderList(nickName, ()=>{});
+        
+    }
+
     getOrderListTo = () => {
         const { detail_actions, loginIn } = this.props;
         let nickName = loginIn.userInfo.nickName;
-        detail_actions.getOrderList(nickName, this.toConsole);
+        detail_actions.getOrderList(nickName, ()=>{});
     }
 
     getDetailTo = () => {
         const { detail_actions, match } = this.props;
         let goodId = match.params.goodId ? (match.params.goodId).replace(/^:/, '') : ''; // 获取路径中的goodId
-        detail_actions.getDetail(goodId, this.toConsole);
+        detail_actions.getDetail(goodId, ()=>{});
     }
-    toConsole() {
-        console.log(2333);
-    }
-    callback(key) {
-        console.log(key);
-    }
+ 
 
     // 处理提交的函数
-    // handleSubmit = (e) => {
-        // console.log('handleSubmit:', e);
-        // e.preventDefault();
     handleSubmit = () => {
         const { loginIn: { userInfo: { nickName } }, detail_actions,header_actions } = this.props
         const {editGoodId}=this.state;
@@ -296,7 +283,6 @@ class MySelfContainers extends Component {
     handleInutImage(){
         var reads = new FileReader();
         var f = this.files[0];
-        console.log(f,"sfd")
         reads.readAsDataURL(f);
         reads.onload = function (e) {
             document.getElementById('preview').src = this.result;
@@ -311,22 +297,52 @@ class MySelfContainers extends Component {
 
     }
     // 取消订单
-    handleCancelBuy=(id)=>{
-        const {detail_actions}=this.props;
-        detail_actions.cancelOrder(id, () => {
-              this.getOrderListTo();
-        });
-    }
-
-    // 购买商品,购买成功，获取订单列表和商品列表
-    handleBuy=(itemId,orderId)=>{
-        const { detail_actions, header_actions } = this.props;
-        detail_actions.changeGoodStatus(itemId, 1, () => {
-            detail_actions.changeOrderStatus(orderId,1,()=>{
+    handleCancelBuy=(itemId,orderId)=>{
+        const {detail_actions,header_actions}=this.props;
+        detail_actions.cancelOrder(orderId, () => {
+            detail_actions.changeGoodStatus(itemId,0,()=>{
                 this.getOrderListTo();
+                this.getWillSolList();
                 header_actions.fetchAllList();
             })
         });
+    }
+
+    // 确认收货
+    handleReceiveGood=(itemId,orderId)=>{
+        const {detail_actions,header_actions}=this.props;
+        detail_actions.changeOrderStatus(orderId,3,() => {
+            detail_actions.changeGoodStatus(itemId,1,()=>{
+                detail_actions.changeDealStatus(orderId,1,()=>{})
+                this.getOrderListTo();
+                this.getWillSolList();
+                header_actions.fetchAllList();
+            })
+        });
+    }
+
+    // 卖家确定订单
+    handleSureOrder=(orderId)=>{
+        const { detail_actions, header_actions } = this.props;
+        detail_actions.changeOrderStatus(orderId,2,()=>{
+            this.getOrderListTo();
+            this.getWillSolList();
+            header_actions.fetchAllList();
+        })
+    }
+
+    // 购买商品,订单状态变成 1
+    handleBuy=(item)=>{
+        const { detail_actions, header_actions } = this.props;
+        // 形成一个交易表，之后进行订单状态的改变
+        const {_id,price,nickName,solderNickName,goodId}=item;
+        const params={orderId:_id,price,buyName:nickName,solderName:solderNickName,status:0};
+        detail_actions.changeOrderStatus(_id,1,()=>{
+            detail_actions.addDeal(params,()=>{});
+            this.getOrderListTo();
+            this.getWillSolList();
+            header_actions.fetchAllList();
+        })
     }
 
     // 点击商品，进入商品详情
@@ -337,7 +353,7 @@ class MySelfContainers extends Component {
         let allList = header.listData;
         let nowUser = loginIn.userInfo.nickName;
         let myList = _.filter(allList, item => item.nickName === nowUser);
-        let orderList = detail.orderList;
+        const {willSolderList,orderList}=detail;
         // let myList = JSON.parse(localStorage.goods); // 所有订单
         let myNotSellList = _.filter(myList, item => item.status === 0); // 未卖出
         let mySoldList = _.filter(myList, item => item.status === 1); // 已卖出
@@ -347,7 +363,6 @@ class MySelfContainers extends Component {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 },
         };
-        console.log(' defaultFileList={this.state.defaultFileList},orderList:', this.state.defaultFileList, orderList);
         return (
             <MySelf>
                 <Layout>
@@ -375,17 +390,25 @@ class MySelfContainers extends Component {
                                              whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden",fontSize:12 }}> {item.desc} </div>
                                             <div style={{ color: "red" }}> ￥{item.price} </div>
                                         </div>
-                                        {item.status ===0 &&
+                                        {item.orderStatus ===0 &&
                                         <div>
-                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary" onClick={()=>this.handleBuy(item.goodId,item._id)}>购买</Button>
-                                            <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={()=>this.handleCancelBuy(item._id)}>取消</Button>
+                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary" onClick={()=>this.handleBuy(item)}>购买</Button>
+                                            <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={()=>this.handleCancelBuy(item.goodId,item._id)}>取消</Button>
+                                        </div>}
+                                        {item.orderStatus ===1 &&
+                                        <div>
+                                           <span>等待卖家同意中~~~</span>
+                                        </div>}
+                                        {item.orderStatus ===2 &&
+                                        <div>
+                                            <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={()=>this.handleReceiveGood(item.goodId,item._id)}>确认收货</Button>                                          
                                         </div>}
                                     </Card>
                                 ))}
                         </Card>
                     </Content>
                     <Content>
-                        <Tabs defaultActiveKey="1" onChange={this.callback}>
+                        <Tabs defaultActiveKey="1" >
                             <TabPane tab="未卖出" key="1">
                                 {myNotSellList.length !== 0 &&
                                     myNotSellList.map((item, index) => (
@@ -468,6 +491,49 @@ class MySelfContainers extends Component {
                                             </div>
                                         </Card>
                                     ))}
+                            </TabPane>
+                            <TabPane tab="预售出" key="4">
+                            {willSolderList.length !== 0 &&
+                                    willSolderList.map((item, index) => {
+                                        if(item.orderStatus!==3){
+                                            return (
+                                                <Card key={uuid()}
+                                        
+                                        >
+                                            <div style={{ float: "left",  marginRight: 24, width:100, height: 100 }}>
+                                                <img
+                                                onClick={()=>{
+                                                    this.props.history.push({ pathname: `/detail:${item._id}` });
+                                                    
+                                                }}
+                                                    src={item.pics[0]}
+                                                    style={{ width: 100 }}
+                                                    alt="" />
+                                            </div>
+                                            <div style={{ float: "left" }}>
+                                                <div style={{ fontWeight: "bold", fontSize: 16,width: 620,
+                                                whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.title} </div>
+                                                <div style={{ color: "#d2c3c3", marginTop: 6, marginBottom: 6,width: 620,fonSize:12,
+                                                whiteSpace: "nowrap",textOverflow:"ellipsis",overflow:"hidden" }}> {item.desc} </div>
+                                                <div style={{ color: "red" }}> ￥{item.price} </div>
+                                            </div>
+                                            {item.orderStatus ===1 &&
+                                        <div>
+                                            <Button style={{ float: "right", marginTop: 34, marginLeft: 10 }} type="primary" onClick={()=>this.handleSureOrder(item._id)}>确定</Button>
+                                            <Button style={{ float: "right", marginTop: 34 }} type="primary" onClick={()=>this.handleCancelBuy(item.goodId,item._id)}>取消</Button>
+                                        </div>}
+                                        {item.orderStatus ===0 &&
+                                        <div>
+                                           <span>有人下单啦~~~</span>
+                                        </div>}
+                                        {item.orderStatus ===2 &&
+                                        <div>
+                                            <span>商品已发货,等待买家收货~~</span>
+                                        </div>}
+                                        </Card>
+                                            )
+                                        }
+                            })}
                             </TabPane>
                         </Tabs>
                     </Content>
@@ -605,7 +671,7 @@ class MySelfContainers extends Component {
                 </Layout>
             </MySelf>
         )
-    }
+    }te
 }
 
 const MySelfContainer = Form.create({})(MySelfContainers);

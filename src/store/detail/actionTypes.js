@@ -2,7 +2,9 @@
 
 export const GET_DETAIL_ASYNC = 'GET_DETAIL_ASYNC';
 export const GET_DETAIL = 'GET_DETAIL'; // 获取商品详情
+export const ADD_DEAL_ASYNC='ADD_DEAL_ASYNC'; // 添加交易表
 export const ADD_ADDRESS_ASYNC = 'ADD_ADDRESS_ASYNC';
+export const  GET_WILLSOLD_ORDERLIST='GET_WILLSOLD_ORDERLIST';
 export const GET_ADDRESS = 'GET_ADDRESS';
 export const DELETE_ADDRESS='DELETE_ADDRESS'; //删除某地址
 export const GET_ORDERLIST = 'GET_ORDERLIST';

@@ -17,15 +17,15 @@ class LoginInContainers extends Component {
   state = {
     rememberValue: true, // 记住密码的标志
     assignUser: {
-      nickName:'', password:''
+      nickName: '', password: ''
     }
   }
   componentDidMount() {
     const rememberUser = JSON.parse(localStorage.getItem("user"));
-    const {remember}=rememberUser;
-    if(remember){ // remeber 为true 就说明是保存的
+    const { remember } = rememberUser;
+    if (remember) { // remeber 为true 就说明是保存的
       this.setState({
-        assignUser: rememberUser 
+        assignUser: rememberUser
       })
     }
   }
@@ -42,7 +42,7 @@ class LoginInContainers extends Component {
   }
 
   assignSuccess = (values) => {
-    const {loginIn_actions}=this.props;
+    const { loginIn_actions } = this.props;
     // const storeValue = rememberValue ? values : {nackName:'',password:''};
     localStorage.setItem("user", JSON.stringify(values));
     loginIn_actions.storeNickName(values);
@@ -61,7 +61,7 @@ class LoginInContainers extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { rememberValue, assignUser } = this.state;
-    const { nickName, password} = assignUser;
+    const { nickName, password } = assignUser;
     return (
       <LoginIn>
         <Layout>
@@ -70,8 +70,6 @@ class LoginInContainers extends Component {
           </Layout.Header>
           <LoginInContent>
             <div style={{ width: "40%", margin: "60px auto 0 auto" }}>
-
-
               <Form onSubmit={this.handleSubmit}>
                 <Form.Item>
                   {getFieldDecorator('nickName', {
@@ -102,17 +100,15 @@ class LoginInContainers extends Component {
                   })(
                     <Checkbox onChange={this.handleRemeberChange}>Remember me</Checkbox>
                   )}
-                  <a className="login-form-forgot" href="">Forgot password</a>
                   <Button type="primary" htmlType="submit" className="login-form-button">
                     Log in
-          </Button>
+                  </Button>
                   Or <Link to="/loginUp">register now!</Link>
                 </Form.Item>
               </Form>
             </div>
-
           </LoginInContent>
-          <FooterContainer/>
+          <FooterContainer />
         </Layout>
       </LoginIn>
     );

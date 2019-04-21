@@ -29,7 +29,13 @@ class DetailContainer extends Component {
 
   // 获取该商品的id并跳转到提交订单的页面
   handleCardClick = id => {
-    this.props.history.push({ pathname: `/submitOrder:${id}` });
+  const { loginIn: { loginInData: { isAssign } } } = this.props;
+  if (isAssign) {
+    this.props.history.push({ pathname:`/submitOrder:${id}`  });
+  } else {
+    this.props.history.push({ pathname: '/loginIn' });
+  }
+    // this.props.history.push({ pathname: `/submitOrder:${id}` });
   };
 
   render() {
@@ -80,7 +86,6 @@ class DetailContainer extends Component {
                 <BusinessMessage  status={myDetailData.status} nickName={myDetailData.nickName} userName={nickName}>
                   <div className="contact">
                     <div className="contact-seller">
-                    {console.log(myDetailData.status,"gggg")}
                       {(myDetailData.status !==0 || myDetailData.nickName===nickName)?( <span className="phone-number"
                      style={{cursor:'pointer'}} >
                         立即购买
