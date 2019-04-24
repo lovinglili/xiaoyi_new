@@ -9,12 +9,12 @@ const reducer = (
 
     switch (action.type) {
 
-        case types.GET_DETAIL_ASYNC+'_FULFILLED':{
-            new_state.detailData = {
-                isAssign: true
-            };
-             break;
-        }
+        // case types.GET_DETAIL_ASYNC+'_FULFILLED':{
+        //     new_state.detailData = {
+        //         isAssign: true
+        //     };
+        //      break;
+        // }
 
         case types.GET_DETAIL+'_FULFILLED':{
             new_state.detailData=action.payload.data.data[0];
@@ -34,6 +34,11 @@ const reducer = (
 
         case types.GET_ORDERLIST+'_FULFILLED':{
             new_state.orderList=action.payload.data.data;
+            break;
+        }
+
+        case types.GET_WILLSOLD_ORDERLIST+'_FULFILLED':{
+            new_state.willSolderList=action.payload.data.data;
             break;
         }
 

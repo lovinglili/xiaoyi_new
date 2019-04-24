@@ -71,5 +71,6 @@ export default {
     orderList:{},
     updateData:{
 
-    }
+    },
+   willSolderList:[],
 }

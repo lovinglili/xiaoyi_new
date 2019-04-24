@@ -90,12 +90,10 @@ class LoginUpContainers extends Component {
     );
     const formItemLayout = {
       labelCol: {
-        xs: { span: 6 },
-        sm: { span: 6 },
+         span: 8 ,
       },
       wrapperCol: {
-        xs: { span: 14 },
-        sm: { span: 14 },
+         span: 14 
       },
     };
     const tailFormItemLayout = {

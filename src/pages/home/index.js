@@ -83,7 +83,6 @@ class HomeContainer extends Component {
             </Row>
           </Card>
         ))}
-
       </div>)
     }
   }
@@ -96,7 +95,6 @@ class HomeContainer extends Component {
     } else {
       this.props.history.push({ pathname: '/loginIn' });
     }
-
   }
 
   render() {
