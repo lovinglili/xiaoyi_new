@@ -22,9 +22,6 @@ class HeaderContainer extends Component {
   // 渲染组件的时候就去请求所有的数据
   componentDidMount() {
     const { header_actions, loginIn_actions ,loginIn} = this.props;
-    console.log(this.props,"this.props")
-    localStorage.setItem('123',123)
-    console.log(localStorage,"local")
     if(localStorage['isAssign'] && localStorage['user']){
 
       const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
@@ -33,7 +30,7 @@ class HeaderContainer extends Component {
       if (isAssign) {
         const endTime = new Date().getTime();
         // 超时时间 三十分钟
-        if (currentTime + 1800000 < endTime && isAssign) {
+        if (currentTime + 3600000 < endTime && isAssign) {
           this.handleExit();
         } else {
           if (isAssign && Object.keys(loginIn.userInfo).length===0) {
