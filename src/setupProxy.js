@@ -1,5 +1,5 @@
 const proxy = require('http-proxy-middleware');
 
 module.exports = function(app) {
-  app.use(proxy('/xiaoyi', { target: 'http://localhost:3003/' }));
+  app.use(proxy('/xiaoyi', { target: 'http://localhost:8809/' }));
 };

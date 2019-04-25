@@ -2,7 +2,7 @@
   "name": "xiaoyi",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3003",
+  "proxy": "http://localhost:8809",
   "dependencies": {
     "antd": "^3.12.4",
     "axios": "^0.18.0",
