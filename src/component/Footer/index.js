@@ -12,7 +12,7 @@ class FooterContainer extends Component {
           <div className="foot-panel">
             <div className="foot-panel-inner cf">
               <div className="up-left">
-                <div className="up-left-slogan">来<span style={{color: "red"}}>小易</span>.买卖商品  闲置可以赚钱花</div>
+                <div className="up-left-slogan">来<span style={{color: "#df9c9c"}}>小易</span>.买卖商品  闲置可以赚钱花</div>
               </div> 
               <div className="up-right"> </div>
             </div>

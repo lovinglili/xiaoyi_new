@@ -134,8 +134,8 @@ class HomeContainer extends Component {
                         value={mode}
                         style={{ marginBottom: 8 }}
                       >
-                        <Radio.Button value="sold">卖</Radio.Button>
-                        <Radio.Button value="buy">买</Radio.Button>
+                        <Radio.Button value="sold">卖闲置</Radio.Button>
+                        <Radio.Button value="buy">买好物</Radio.Button>
                       </Radio.Group>
 
                       {mode === "buy" && <div>
@@ -147,6 +147,24 @@ class HomeContainer extends Component {
                       <p style={{margin:'10px auto',color:"#df9c9c"}}>卖闲置，让你的物品物尽其用</p>
 
                           <ul>
+                          <li>
+                              <a>
+                                <img
+                                  onClick={this.handleImgClick}
+                                  src="https://www.paipai.com/static/img/entrance3.1158af2.png"
+                                  alt=""
+                                />
+                              </a>
+                            </li>
+                            <li>
+                              <a>
+                                <img
+                                  onClick={this.handleImgClick}
+                                  src="https://www.paipai.com/static/img/entrance4.079adee.png"
+                                  alt=""
+                                />
+                              </a>
+                            </li>
                             <li>
                               <a >
                                 <img
@@ -165,24 +183,7 @@ class HomeContainer extends Component {
                                 />
                               </a>
                             </li>
-                            <li>
-                              <a>
-                                <img
-                                  onClick={this.handleImgClick}
-                                  src="https://www.paipai.com/static/img/entrance3.1158af2.png"
-                                  alt=""
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a>
-                                <img
-                                  onClick={this.handleImgClick}
-                                  src="https://www.paipai.com/static/img/entrance4.079adee.png"
-                                  alt=""
-                                />
-                              </a>
-                            </li>
+                           
                           </ul>
                         </BuyContainer>
                       )}

@@ -238,15 +238,15 @@ class PublishContainers extends PureComponent {
                                     {
                                         required: true,
                                         pattern: /^.{1,30}$/,
-                                        message: '给你的好物起个名字吧~,30 字符以内'
+                                        message: '你的物品需要一个 30 字符以内的名字~'
                                     },
                                 ],
                             })(
-                                <Input placeholder="给你的好物起个名字吧~,30 字符以内"></Input>
+                                <Input placeholder="你的好物应该有个好听的名字吧~,30 字符以内"></Input>
                             )}
                         </Form.Item>
                         <Form.Item
-                            label="描述下你的商品吧"
+                            label="商品描述"
                             {...formItemLayout}
                         >
                             {getFieldDecorator('desc', {
@@ -258,7 +258,7 @@ class PublishContainers extends PureComponent {
                                     },
                                 ],
                             })(
-                                <TextArea rows={6} placeholder="详细描述一下商品的新旧程度,使用感受,入手渠道,出售原因吧~，600 字符以内"></TextArea>
+                                <TextArea rows={6} placeholder="可以详细描述一下商品的新旧程度,使用感受,入手渠道,出售原因吧~，600 字符以内"></TextArea>
                             )}
                         </Form.Item>
                          <Form.Item
@@ -283,7 +283,7 @@ class PublishContainers extends PureComponent {
                         >
                             {getFieldDecorator('city', {
                                 rules: [
-                                    { required: true, message: '请输入你的地址!' },
+                                    { required: true, message: '请输入你的地址哦!' },
                                 ],
                             })(
                                 <CitySelect citiesList={this.state.cities} />

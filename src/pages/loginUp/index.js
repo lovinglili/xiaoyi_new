@@ -145,7 +145,7 @@ class LoginUpContainers extends Component {
               </Form.Item>
               <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" onClick={() => this.next()}>
-                  Next
+                  下一步
                   </Button>
               </Form.Item>
             </Form>
@@ -211,10 +211,10 @@ class LoginUpContainers extends Component {
               </Form.Item>
               <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" onClick={() => this.secondNext()}>
-                  Next
+                  下一步
                   </Button>
                 <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-                  Previous
+                  上一步
                   </Button>
               </Form.Item>
             </Form> </div>)
@@ -222,7 +222,7 @@ class LoginUpContainers extends Component {
       {
         title: "注册成功",
         content: () => (<div style={{ width: '100%', marginTop: '30px', textAlign: 'center' }}>
-          <h3 style={{ display: 'inline-block' }}>注册成功，开启你的省钱之旅！</h3>
+          <h3 style={{ display: 'inline-block' }}>注册成功，开始买好物，卖闲置的开心之旅吧！</h3>
         </div>)
       }
     ];

@@ -122,7 +122,7 @@ class HeaderContainer extends Component {
               onClick={() => {
                 this.props.history.push("home");
               }}
-              style={{ fontSize: "40px", color: "#1DA57A", cursor: "pointer" }}
+              style={{ fontSize: "40px", color: "#35b7b2", cursor: "pointer" }}
             >
               小易
             </span>
