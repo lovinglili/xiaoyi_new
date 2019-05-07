@@ -3,17 +3,18 @@ import styled from "styled-components";
 export const HomeContainers = styled.div`
 text-align: center;
   height: 500px;
-  margin: 104px auto;
+  margin: 80px auto;
   .ant-carousel .slick-slide {
     text-align: center;
-    height: 250px;
+    height: 300px;
     line-height: 350px;
     overflow: hidden;
   }
 `;
 
 export const ContentContainer = styled.div`
-  margin-top: 32px;
+  width:70%;
+  margin:32px auto 0 auto;
   .ant-radio-group.ant-radio-group-outline {
     margin: 16px;
   }
@@ -45,3 +46,29 @@ export const BuyContainer = styled.div`
   }
 `;
 
+export const RedBlock=styled.div`
+height:30px;
+background:red;
+width:10px;
+margin-bottom:8px;
+&:after{
+  content:'${props=>props.title}';
+  display:inline-block;
+  width:80px;
+  font-weight:600;
+  line-height:30px;
+  margin-left:15px;
+  font-size:16px;
+}
+`
+export const ImgWrapper=styled.div`
+width:100%;
+height:100px;
+overflow:hidden;
+img{
+  &:hover{
+    transform: scale(1.1);
+    transition-duration:500ms;
+  }
+}
+`

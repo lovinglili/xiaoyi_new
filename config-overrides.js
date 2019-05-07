@@ -21,11 +21,13 @@ module.exports = override(
     "@pages": resolve("pages"),
     "@u": resolve("util"),
     "@connect":resolve("connect"),
-    "@store":resolve("store")
+    "@store":resolve("store"),
+    "@s": resolve("static")
+
   }),
   addLessLoader({
     javascriptEnabled: true,
-    modifyVars: { "@primary-color": "#1DA57A" },
+    modifyVars: { "@primary-color": "#35b7b2" },
    
   })
 );

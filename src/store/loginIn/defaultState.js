@@ -1,4 +1,10 @@
 
 export default {
-    loginInData: {}
+    loginInData: {
+        isAssign:false
+    },
+    userInfo: {},
+    publishData:{
+
+    }
 }

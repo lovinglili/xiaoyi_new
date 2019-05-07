@@ -1,18 +1,284 @@
 {
   "assign": {
-    "nickName": "czccx",
-    "password": "zxc",
+    "nickName": "111111",
+    "password": "111111",
     "remember": true
   },
   "add": {
-    "data": {
-      "isAssign": "true"
-    }
+    "nickName": "111111",
+    "password": "111111"
   },
   "quit": {
     "data": {
       "isAssign": false
     },
     "success": true
+  },
+  "detail": {
+    "data": {
+      "desc": "冰柜60L-经典白  买来放母乳的一起送了",
+      "goodId": 7895,
+      "cityId": 2830,
+      "cityName": "浦东新区",
+      "title": "惠乳冷冻柜办公室小冰箱BD-40/60/106L 冰柜60L-经典白",
+      "status": "0",
+      "price": "1100",
+      "pics": [
+        "https://img10.360buyimg.com/n1/s630x630_jfs/t23455/140/2011235680/255404/52e16e7d/5b6fecddNd5b6c223.jpg",
+        "https://img10.360buyimg.com/n1/s630x630_jfs/t25645/346/436427015/197532/3b3024be/5b6fecddN9d833477.jpg",
+        "https://img10.360buyimg.com/n1/s630x630_jfs/t3175/329/4510007458/55264/d97fae3a/584cea93N78f99c66.jpg"
+      ],
+      "position": "上海 浦东新区",
+      "provinceId": "2",
+      "provinceName": "上海"
+    },
+    "success": true
+  },
+  "addressList": {
+    "data": [
+      {
+        "privanceId": 12,
+        "privanceName": "北京",
+        "cityId": 12,
+        "cityName": "密云区",
+        "more": "xx街道xx小区",
+        "addressId": 123
+      }
+    ],
+    "success": true
+  },
+  "address": {
+    "privanceName": "北京",
+    "cityId": 588,
+    "cityName": "密云区",
+    "more": "xx街道xx小区"
+  },
+  "orderList": {
+    "data": {
+      "orderId": 123,
+      "addressId": 123,
+      "time": "xxx",
+      "goodId": 12
+    },
+    "success": true
+  },
+  "addOrder": {
+    "goodId": 7895
+  },
+  "cities": {
+    "data": {
+      "list": [
+        {
+          "id": 1,
+          "name": "北京",
+          "children": [
+            {
+              "id": 2816,
+              "name": "密云区"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "驻马店",
+          "children": [
+            {
+              "id": 586,
+              "name": "驿城区"
+            },
+            {
+              "id": 588,
+              "name": "新区"
+            }
+          ]
+        }
+      ]
+    },
+    "success": true
+  },
+  "categoryPage": {
+    "data": [
+      {
+        "categoryTitle": "手机数码",
+        "categoryId": 111,
+        "list": [
+          {
+            "id": "1",
+            "name": "蓝牙耳机"
+          },
+          {
+            "id": "2",
+            "name": "数据线"
+          },
+          {
+            "id": "3",
+            "name": "手环"
+          },
+          {
+            "id": "4",
+            "name": "相机"
+          },
+          {
+            "id": "5",
+            "name": "其他手机数码"
+          }
+        ]
+      },
+      {
+        "categoryTitle": "服饰",
+        "list": [
+          {
+            "id": "6",
+            "name": "半身裙"
+          },
+          {
+            "id": "7",
+            "name": "牛仔裤"
+          },
+          {
+            "id": "8",
+            "name": "衬衫"
+          },
+          {
+            "id": "9",
+            "name": "外套"
+          },
+          {
+            "id": "10",
+            "name": "其他服饰"
+          }
+        ],
+        "categoryId": 222
+      },
+      {
+        "categoryTitle": "美妆",
+        "list": [
+          {
+            "id": "11",
+            "name": "洁面用品"
+          },
+          {
+            "id": "12",
+            "name": "防晒"
+          },
+          {
+            "id": "13",
+            "name": "粉底液"
+          },
+          {
+            "id": "14",
+            "name": "香水"
+          },
+          {
+            "id": "15",
+            "name": "其他美妆"
+          }
+        ],
+        "categoryId": 333
+      }
+    ],
+    "success": true
+  },
+  "goodsList": {
+    "data": {
+      "list": [
+        {
+          "title": "华为手机",
+          "desc": "全新",
+          "nickname": "微微一笑很倾城123",
+          "price": "91.00",
+          "status": 0,
+          "categoryId": 111,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
+          "originalPrice": "1999.00",
+          "pics": [
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
+          ],
+          "goodId": 1
+        },
+        {
+          "title": "华为手机",
+          "desc": "全新",
+          "nickname": "微微一笑很倾城123",
+          "price": "97.00",
+          "status": 0,
+          "categoryId": 222,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
+          "originalPrice": "1999.00",
+          "pics": [
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
+          ],
+          "goodId": 2
+        },
+        {
+          "title": "华为手机",
+          "desc": "全新",
+          "nickname": "微微一笑很倾城123",
+          "price": "100.00",
+          "status": 0,
+          "categoryId": 333,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
+          "originalPrice": "1999.00",
+          "pics": [
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
+          ],
+          "goodId": 3
+        },
+        {
+          "title": "华为手机",
+          "desc": "全新",
+          "nickname": "微微一笑很倾城123",
+          "price": "74.00",
+          "status": 0,
+          "categoryId": 333,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "牛仔裤",
+          "originalPrice": "1999.00",
+          "pics": [
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
+          ],
+          "goodId": 4
+        },
+        {
+          "title": "华为手机",
+          "desc": "全新",
+          "nickname": "微微一笑很倾城123",
+          "price": "99.00",
+          "status": 0,
+          "categoryId": 333,
+          "categoryTitle": "手机数码",
+          "id": 1,
+          "name": "半身裙",
+          "originalPrice": "1999.00",
+          "pics": [
+            " https://www.paipai.com/static/img/banner1.57aeb9e.png"
+          ],
+          "goodId": 5
+        }
+      ]
+    },
+    "success": "true"
+  },
+  "publish": {
+    "categoryTitle": "服饰",
+    "categoryId": 222,
+    "id": "7",
+    "name": "牛仔裤",
+    "cityName": "密云区",
+    "provinceName": "北京",
+    "cityId": 2816,
+    "provinceId": 1,
+    "desc": "fdsdf",
+    "originPrice": 1000,
+    "price": 1000,
+    "title": "fssd",
+    "nickName": "weew"
   }
 }

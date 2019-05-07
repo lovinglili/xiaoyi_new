@@ -14,7 +14,7 @@ export const Category = styled.div`
 `;
 
 export const ContentCon = styled.div`
-  padding: 104px;
+  padding: 104px 104px 0 104px;
   width: 1040px;
   margin: 0 auto;
   .ant-card-meta-detail > div:not(:last-child) {
@@ -29,7 +29,10 @@ export const ContentCon = styled.div`
       padding: 12px;  
       ul{
         display:inline-block;
-      }     
+      }  
+      ul:last-child{
+        float:right;
+      }   
       ul:first-child {
         list-style:none;
         margin-bottom:0;

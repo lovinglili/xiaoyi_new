@@ -1,3 +1,4 @@
 {
-    "/xiaoyi/*": "/$1"
+    "/xiaoyi/*": "/$1",
+    "/xiaoyi/details?goodId=goodId": "/details"
 }
