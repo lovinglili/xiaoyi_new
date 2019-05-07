@@ -37,6 +37,7 @@ const reducer = (
 
         // 保存nickName
         case types.STORE_NICKNAME:{
+            console.log(action.payload,'loginIn')
             new_state.userInfo = action.payload;
              break;
         }
