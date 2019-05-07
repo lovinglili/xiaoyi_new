@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 # 小易闲置物品交换平台
   
    create-react-app
-### 主要技术：react ant.design json-server 
+### 主要技术：react    ant.design     json-server 
 ### 启动项目流程
 #### 启动用`npm start` 或 ‘yarn start’
 
