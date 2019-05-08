@@ -60,8 +60,6 @@ export default {
                     const { status, data } = response.data;
                     if (status === 200 && data.success) {
                         callback(data.info[0]);
-                    } else {
-                        message.error(data.message);
                     }
                     resolve(response)
                 })
