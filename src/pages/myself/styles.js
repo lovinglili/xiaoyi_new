@@ -16,3 +16,18 @@ export const MySelf =  styled.div`
     margin: 20px 88px;
 }
 `;
+
+export const PopoverContainer=styled.div`
+width:300px;
+height:86px;
+margin:8px 0;
+.ant-form.ant-form-horizontal{
+    >.ant-row.ant-form-item:nth-child(2){
+        text-align: right;
+        margin-bottom:0 !important;
+    }   
+}
+.ant-input-number{
+    min-width:200px;
+}
+`

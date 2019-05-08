@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { MySelf } from "./styles.js";
+import { MySelf,PopoverContainer } from "./styles.js";
 import {
   Form,
   Layout,
@@ -13,7 +13,8 @@ import {
   Avatar,
   Tabs,
   Card,
-  Modal
+  Modal,
+  Popover
 } from "antd";
 import HeaderContainer from "@c/Header";
 import FooterContainer from "@c/Footer";
@@ -42,6 +43,7 @@ class MySelfContainers extends Component {
     visible: false,
     nowGoods: {}, // 当前编辑的商品
     reduceMoney: 0, // 余额增加或者减少
+    popoverVisible: false ,// 充值气泡是否出现，
     defaultFileList: [
       {
         uid: "1",
@@ -391,7 +393,7 @@ class MySelfContainers extends Component {
   // 购买商品,订单状态变成 1
   handleBuy = item => {
     const { detail_actions, header_actions } = this.props;
-    const { _id, price, nickName, solderNickName, goodId } = item;
+    const { _id } = item;
     // const params={orderId:_id,price,buyName:nickName,solderName:solderNickName,status:0};
     detail_actions.changeOrderStatus(_id, 1, () => {
       this.getOrderListTo();
@@ -400,10 +402,41 @@ class MySelfContainers extends Component {
     });
   };
 
+  //  隐藏充值的气泡
+  hideCopyPopOver() {
+    this.setState({
+      popoverVisible: false
+    });
+    this.props.form.resetFields();
+  }
+
+  handleVisibleChange(popoverVisible) {
+    if(!popoverVisible){
+      this.props.form.resetFields();
+    }
+    this.setState({ popoverVisible});
+  }
+
+  // 更改该用户的余额
+  handleAddMoney=(nowUser)=>{
+    const { validateFields, getFieldsValue } = this.props.form;
+    const { header_actions,loginIn_actions } = this.props;
+    validateFields(["moneyNum"], err => {
+      if (!err) {
+        const values={moneyNum:getFieldsValue(["moneyNum"]).moneyNum,nickName:nowUser};
+        console.log(values)
+       header_actions.addUserMoney(values,(data)=>{
+        loginIn_actions.storeNickName(data)
+       })
+      }
+    });
+   
+  }
   // 点击商品，进入商品详情
 
   render() {
     const { detail, header, loginIn } = this.props;
+    const { popoverVisible} = this.state;
     if (header.listData === {}) return;
     let allList = header.listData;
     let nowUser = loginIn.userInfo.nickName;
@@ -430,9 +463,46 @@ class MySelfContainers extends Component {
               <Avatar size={164} src={LogoFont} />
               <span style={{ padding: "0 16px" }}>昵称：{nowUser}</span>
               <span>余额：{restMoney || 0}</span>
-              <a style={{ paddingLeft: "16px" }} onClick={this.givenMoney}>
+              
+              <Popover
+              content={
+                <PopoverContainer >
+                  <Form>
+                    <Form.Item
+                      label="充值金额"
+                      wrapperCol={{ span: 18 }}
+                      labelCol={{ span: 6 }}
+                    >
+                      {getFieldDecorator("moneyNum", {
+                        rules: [
+                          {
+                            required: true,
+                            message: "请输入充值金额,仅支持数字"
+                          }
+                        ]
+                      })(<InputNumber min={1} max={1000} defaultValue={1}  placeholder="请输入充值金额" />)}
+                    </Form.Item>
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        onClick={()=>this.handleAddMoney(nowUser)}
+                        size="small"
+                      >
+                        保存
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                </PopoverContainer>
+              }
+              trigger="click"
+              visible={popoverVisible}
+
+              onVisibleChange={(visible)=>this.handleVisibleChange(visible)}
+            >
+              <a style={{ paddingLeft: "16px" }} >
                 充值
               </a>
+            </Popover>
             </Card>
             <Card title="订单">
               {orderList.length !== 0 &&
