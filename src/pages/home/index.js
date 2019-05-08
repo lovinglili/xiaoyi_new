@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Carousel, Radio, Layout, Row, Col, Card } from "antd";
+import { Carousel, Radio, Layout, Row, Col, Card, Button, Popover } from "antd";
 import connect from "@connect";
 import { withRouter } from "react-router-dom";
 import HeaderContainer from "@c/Header";
 import FooterContainer from "@c/Footer";
-import {Banner1,Banner2} from "@s"
+import { Banner1, Banner2 } from "@s";
 
 import {
   HomeContainers,
@@ -34,14 +34,15 @@ class HomeContainer extends Component {
     this.setState({ mode });
   };
 
-  onClick = () => { };
+  onClick = () => {};
   componentWillReceiveProps(nextProps) {
-    const { header: { listData} } = nextProps;
+    const {
+      header: { listData }
+    } = nextProps;
     const { allList } = this.state;
     if (allList !== listData) {
-      this.setState({ allList: listData })
+      this.setState({ allList: listData });
     }
-
   }
 
   // 将数据分三类
@@ -51,51 +52,94 @@ class HomeContainer extends Component {
     let threeDataList = [];
     if (allList.length !== 0) {
       allList.forEach(item => {
-        categoryIds.push(item.categoryId)
-      })
+        categoryIds.push(item.categoryId);
+      });
       const noRepeatIds = categoryIds.filter((element, index, self) => {
         return self.indexOf(element) === index;
       });
       noRepeatIds.forEach((idItem, index) => {
-        threeDataList[index] = allList.filter(item => (item.categoryId === idItem)).slice(0, 3)
-      })
-      return (<div>
-        {threeDataList.map((item, index) => (
-          <Card style={{ width: "100%", margin: '8px 0 16px 0' }} key={index} hoverable>
-            <RedBlock title={item[0].categoryTitle}></RedBlock>
-            <Row gutter={16}>
-              {item.map((colItem, colIndex) => (
-                <Col span={8} key={colIndex}>
-                  <div onClick={()=>{this.props.history.push(`/detail:${colItem._id}`)}}>
-                    <ImgWrapper >
-                      <img src={colItem.pics[0]} alt='' width='100%'></img>
-                    </ImgWrapper>
-                    <div style={{textAlign:'left'}}>
-                    <p style={{ margin: '8px 0',fontWeight:700,fontSize:14 }}>{colItem.title}</p>
-                    <p style={{ margin: '8px 0',fontSize:12}}>{colItem.desc}</p>
-                    <p style={{margin: '8px 0' }}><span style={{ color: 'red', paddingRight: 16,fontSize:16,fontWeight:600 }}>￥{colItem.price}</span>
-                      <span style={{ textDecoration: 'line-through',fontSize:14 }}>￥{colItem.originPrice}</span>
-                    </p>
+        threeDataList[index] = allList
+          .filter(item => item.categoryId === idItem)
+          .slice(0, 3);
+      });
+      return (
+        <div>
+          {threeDataList.map((item, index) => (
+            <Card
+              style={{ width: "100%", margin: "8px 0 16px 0" }}
+              key={index}
+              hoverable
+            >
+              <RedBlock title={item[0].categoryTitle} />
+              <Row gutter={16}>
+                {item.map((colItem, colIndex) => (
+                  <Col span={8} key={colIndex}>
+                    <div
+                      onClick={() => {
+                        this.props.history.push(`/detail:${colItem._id}`);
+                      }}
+                    >
+                      <ImgWrapper>
+                        <img src={colItem.pics[0]} alt="" width="100%" />
+                      </ImgWrapper>
+                      <div style={{ textAlign: "left" }}>
+                        <p
+                          style={{
+                            margin: "8px 0",
+                            fontWeight: 700,
+                            fontSize: 14
+                          }}
+                        >
+                          {colItem.title}
+                        </p>
+                        <p style={{ margin: "8px 0", fontSize: 12 }}>
+                          {colItem.desc}
+                        </p>
+                        <p style={{ margin: "8px 0" }}>
+                          <span
+                            style={{
+                              color: "red",
+                              paddingRight: 16,
+                              fontSize: 16,
+                              fontWeight: 600
+                            }}
+                          >
+                            ￥{colItem.price}
+                          </span>
+                          <span
+                            style={{
+                              textDecoration: "line-through",
+                              fontSize: 14
+                            }}
+                          >
+                            ￥{colItem.originPrice}
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </Col>
-              ))}
-            </Row>
-          </Card>
-        ))}
-      </div>)
+                  </Col>
+                ))}
+              </Row>
+            </Card>
+          ))}
+        </div>
+      );
     }
-  }
+  };
 
   // 点击图片进行发布或者登陆
   handleImgClick = () => {
-    const { loginIn: { loginInData: { isAssign } } } = this.props;
+    const {
+      loginIn: {
+        loginInData: { isAssign }
+      }
+    } = this.props;
     if (isAssign) {
-      this.props.history.push({ pathname: '/publish' });
+      this.props.history.push({ pathname: "/publish" });
     } else {
-      this.props.history.push({ pathname: '/loginIn' });
+      this.props.history.push({ pathname: "/loginIn" });
     }
-  }
+  };
 
   render() {
     const { mode } = this.state;
@@ -107,12 +151,10 @@ class HomeContainer extends Component {
           </Layout.Header>
           <Layout.Content>
             <HomeContainers>
-
               <Row gutter={16}>
                 <Col span={24}>
                   <Carousel autoplay ref={el => (this.slider = el)}>
                     <div key={1}>
-
                       <img
                         src={Banner1}
                         style={{ height: "300px", width: "100%" }}
@@ -127,7 +169,7 @@ class HomeContainer extends Component {
                       />
                     </div>
                   </Carousel>
-                  <div >
+                  <div>
                     <ContentContainer>
                       <Radio.Group
                         onChange={this.handleModeChange}
@@ -138,16 +180,22 @@ class HomeContainer extends Component {
                         <Radio.Button value="buy">买好物</Radio.Button>
                       </Radio.Group>
 
-                      {mode === "buy" && <div>
-                      <p  style={{margin:'10px auto',color:"#df9c9c"}}>买好物，花最少的钱买最合适的物品</p>
-                        {this.handleAllList()}
-                      </div>}
+                      {mode === "buy" && (
+                        <div>
+                          <p style={{ margin: "10px auto", color: "#df9c9c" }}>
+                            买好物，花最少的钱买最合适的物品
+                          </p>
+                          {this.handleAllList()}
+                        </div>
+                      )}
                       {mode === "sold" && (
                         <BuyContainer>
-                      <p style={{margin:'10px auto',color:"#df9c9c"}}>卖闲置，让你的物品物尽其用</p>
+                          <p style={{ margin: "10px auto", color: "#df9c9c" }}>
+                            卖闲置，让你的物品物尽其用
+                          </p>
 
                           <ul>
-                          <li>
+                            <li>
                               <a>
                                 <img
                                   onClick={this.handleImgClick}
@@ -166,7 +214,7 @@ class HomeContainer extends Component {
                               </a>
                             </li>
                             <li>
-                              <a >
+                              <a>
                                 <img
                                   onClick={this.handleImgClick}
                                   src="https://www.paipai.com/static/img/entrance1.bcd00fa.png"
@@ -183,19 +231,17 @@ class HomeContainer extends Component {
                                 />
                               </a>
                             </li>
-                           
                           </ul>
                         </BuyContainer>
                       )}
                     </ContentContainer>
                   </div>
-
                 </Col>
               </Row>
             </HomeContainers>
           </Layout.Content>
-        
-          <FooterContainer/>
+
+          <FooterContainer />
         </Layout>
       </XiaoYiStyle>
     );

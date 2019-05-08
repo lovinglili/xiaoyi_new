@@ -21,19 +21,17 @@ class HeaderContainer extends Component {
 
   // 渲染组件的时候就去请求所有的数据
   componentDidMount() {
-    const { header_actions, loginIn_actions ,loginIn} = this.props;
-    if(localStorage['isAssign'] && localStorage['user']){
-
+    const { header_actions, loginIn_actions, loginIn } = this.props;
+    if (localStorage["isAssign"] && localStorage["user"]) {
       const isAssigned = JSON.parse(localStorage.getItem("isAssign"));
       const rememberMe = JSON.parse(localStorage.getItem("user"));
       const { isAssign, currentTime } = isAssigned;
       if (isAssign) {
         const endTime = new Date().getTime();
-        // 超时时间 三十分钟
         if (currentTime + 3600000 < endTime && isAssign) {
           this.handleExit();
         } else {
-          if (isAssign && Object.keys(loginIn.userInfo).length===0) {
+          if (isAssign && Object.keys(loginIn.userInfo).length === 0) {
             loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
             loginIn_actions.storeNickName(rememberMe);
           }
@@ -41,13 +39,15 @@ class HeaderContainer extends Component {
       }
     }
     header_actions.fetchAllList();
-    // header_actions.fetchCategoryInfo();
   }
 
   // 退出，返回到首页，store的数据清空
   handleExit = () => {
-    const { loginIn_actions,loginIn:{userInfo} } = this.props;
-    loginIn_actions.loginOut(userInfo,this.quitSuccess); // 退出
+    const {
+      loginIn_actions,
+      loginIn: { userInfo }
+    } = this.props;
+    loginIn_actions.loginOut(userInfo, this.quitSuccess); // 退出
   };
 
   quitSuccess = () => {
@@ -55,17 +55,17 @@ class HeaderContainer extends Component {
   };
 
   // 分类搜索
-  handleHeaderSearch = (value, type,id = "") => {
+  handleHeaderSearch = (value, type, id = "") => {
     const { handleSearch } = this.props;
     if (handleSearch) {
-      handleSearch(value,type);
+      handleSearch(value, type);
       this.props.history.push({
-        state: { name: value,type }
+        state: { name: value, type }
       });
     } else {
       this.props.history.push({
         pathname: `/category:${id}`,
-        state: { name: value,type }
+        state: { name: value, type }
       });
     }
   };
@@ -101,7 +101,7 @@ class HeaderContainer extends Component {
                       <dd key={good.id}>
                         <a
                           onClick={() =>
-                            this.handleHeaderSearch(good.name,'head', good.id)
+                            this.handleHeaderSearch(good.name, "head", good.id)
                           }
                         >
                           {good.name}
@@ -133,7 +133,10 @@ class HeaderContainer extends Component {
             <div>
               <Col span={8}>欢迎注册</Col>
               <Col span={8}>
-                已有账号？<Link to="/loginIn">去登录 ></Link>
+                <Link to="/loginIn">
+                  <span style={{ color: "#000" }}>已有账号？</span>&nbsp;去登录
+                  >
+                </Link>
               </Col>
             </div>
           )}
@@ -151,7 +154,7 @@ class HeaderContainer extends Component {
               <Col span={8}>
                 <Search
                   placeholder="搜索感兴趣的物品~"
-                  onSearch={value => this.handleHeaderSearch(value,'input')}
+                  onSearch={value => this.handleHeaderSearch(value, "input")}
                   enterButton
                   style={{ width: 350, margin: "24px 0" }}
                 />
@@ -163,17 +166,14 @@ class HeaderContainer extends Component {
                     <Icon type="down" />
                   </a>
                 </Dropdown>
-                {/* //TODO，后端会返回标志 判断loginDataLen 的长度是否为空，来显示头部退出 */}
                 {!isAssign && (
                   <span>
-                    {" "}
                     <Link to="/loginIn">登录</Link>
                     <Link to="/loginUp">注册</Link>
                   </span>
                 )}
                 {isAssign && (
                   <span>
-                    {" "}
                     <Link to="/myself">{nickName}</Link>
                     <a onClick={this.handleExit}>退出</a>
                   </span>
@@ -190,9 +190,6 @@ class HeaderContainer extends Component {
 export default withRouter(
   connect(
     HeaderContainer,
-    [
-      { name: "loginIn" },
-      { name: "header", state: ["categoryList"] }
-    ]
+    [{ name: "loginIn" }, { name: "header", state: ["categoryList"] }]
   )
 );

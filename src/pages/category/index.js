@@ -11,11 +11,11 @@ class CategoryContainer extends PureComponent {
   state = {
     pagination: {
       current: 1,
-      pageSize:9 ,
+      pageSize: 9,
       total: 0
     }, // 分页的参数
     sorts: true, // 从高到低
-    zongHeList:[], // 综合的数据，按照数据库存储的方式
+    zongHeList: [], // 综合的数据，按照数据库存储的方式
     allList: [], // 所有的数据
     usedList: [], // 存放满足条件的数据
     currentList: [] // 存放当前页的容器列表
@@ -23,19 +23,22 @@ class CategoryContainer extends PureComponent {
   componentDidMount() {}
 
   // 搜索
-  handleSearch = (value,type) => {
+  handleSearch = (value, type) => {
     const { allList } = this.state;
-    const arr = allList.filter(
-      item =>
-      { 
-        if(type==='head'){
-          return item.name.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !==-1
-        }
-        if(type==='input'){
-         return item.title.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !==-1
-        }
-   }
-    );
+    const arr = allList.filter(item => {
+      if (type === "head") {
+        return (
+          item.name.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !==
+          -1
+        );
+      }
+      if (type === "input") {
+        return (
+          item.title.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !==
+          -1
+        );
+      }
+    });
     const list = arr.slice(0, 9);
     this.setState({
       usedList: arr,
@@ -66,35 +69,38 @@ class CategoryContainer extends PureComponent {
   componentWillReceiveProps(nextProps) {
     // 判断list不为空的时候就setState,前端分页和搜索；
     const {
-      header: {
-        listData
-      },
+      header: { listData },
       history
     } = nextProps;
     const { allList } = this.state;
     const {
       location: {
-        state: { name = "" ,type=''}
+        state: { name = "", type = "" }
       }
     } = history;
     if (allList !== listData) {
       this.setState({ allList: listData }, () => {
-        const arr = this.state.allList.filter(
-          item =>
-           { 
-             if(type==='head'){
-               return item.name.toLocaleUpperCase().indexOf(name.toLocaleUpperCase()) !==-1
-             }
-             if(type==='input'){
-              return item.title.toLocaleUpperCase().indexOf(name.toLocaleUpperCase()) !==-1
-             }
-        }
-        );
+        const arr = this.state.allList.filter(item => {
+          if (type === "head") {
+            return (
+              item.name
+                .toLocaleUpperCase()
+                .indexOf(name.toLocaleUpperCase()) !== -1
+            );
+          }
+          if (type === "input") {
+            return (
+              item.title
+                .toLocaleUpperCase()
+                .indexOf(name.toLocaleUpperCase()) !== -1
+            );
+          }
+        });
         const listNow = arr.slice(0, 9);
         this.setState({
           usedList: arr,
           currentList: listNow,
-          zongHeList:listNow,
+          zongHeList: listNow,
           pagination: {
             current: 1,
             pageSize: 9,
@@ -111,23 +117,23 @@ class CategoryContainer extends PureComponent {
   };
 
   // 综合
-  handleNoSort=()=>{
-    const {zongHeList}=this.state;
-    this.setState({currentList:zongHeList})
-  }
+  handleNoSort = () => {
+    const { zongHeList } = this.state;
+    this.setState({ currentList: zongHeList });
+  };
   // 排序 默认升序
   handleSort = () => {
-    const { sorts ,usedList} = this.state;
-    if(sorts){ // 降序排列
-      usedList.sort(this.compareUp('price'))
-    }else{
-      usedList.sort(this.compareDown('price'))
+    const { sorts, usedList } = this.state;
+    if (sorts) {
+      usedList.sort(this.compareUp("price"));
+    } else {
+      usedList.sort(this.compareDown("price"));
     }
-    const nowList=usedList.slice(0,9);
+    const nowList = usedList.slice(0, 9);
     this.setState({
       sorts: !sorts,
       usedList,
-      currentList:nowList,
+      currentList: nowList,
       pagination: {
         current: 1,
         pageSize: 9,
@@ -136,21 +142,21 @@ class CategoryContainer extends PureComponent {
     });
   };
 
-   compareDown=(property)=>{
-    return function(a,b){
-        var value1 = a[property];
-        var value2 = b[property];
-        return value1 - value2;
-    }
-}
-
-compareUp=(property)=>{
-  return function(a,b){
+  compareDown = property => {
+    return function(a, b) {
       var value1 = a[property];
       var value2 = b[property];
-      return value2-value1;
-  }
-}
+      return value1 - value2;
+    };
+  };
+
+  compareUp = property => {
+    return function(a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value2 - value1;
+    };
+  };
 
   render() {
     const { history } = this.props;
@@ -169,15 +175,21 @@ compareUp=(property)=>{
           <ContentCon>
             <Card title={name} bordered={false}>
               <Menu defaultSelectedKeys={["1"]}>
-                <Menu.Item key="1" onClick={this.handleNoSort}>综合</Menu.Item>
+                <Menu.Item key="1" onClick={this.handleNoSort}>
+                  综合
+                </Menu.Item>
                 <Menu.Item key="2" onClick={this.handleSort}>
                   价格&nbsp;
-                  {sorts ? <Icon type="arrow-up" /> : <Icon type="arrow-down" />}
+                  {sorts ? (
+                    <Icon type="arrow-up" />
+                  ) : (
+                    <Icon type="arrow-down" />
+                  )}
                 </Menu.Item>
               </Menu>
               <Pagination
                 simple
-                { ...pagination }
+                {...pagination}
                 onChange={this.handlePaginationChange}
               />
             </Card>
@@ -194,7 +206,8 @@ compareUp=(property)=>{
                       title={<span>{item.nickName}</span>}
                       style={{ width: 260 }}
                       cover={
-                        <img style={{width: 258,height: 258}}
+                        <img
+                          style={{ width: 258, height: 258 }}
                           alt="example"
                           src={item.pics[0]}
                         />
@@ -204,7 +217,7 @@ compareUp=(property)=>{
                         title={item.title}
                         description={
                           <div>
-                            <p style={{fontSize:'12px'}}>{item.desc}</p>
+                            <p style={{ fontSize: "12px" }}>{item.desc}</p>
                             <div>
                               <span
                                 style={{
@@ -232,14 +245,13 @@ compareUp=(property)=>{
                   </div>
                 ))}
               {currentList.length === 0 && (
-                <div style={{minHeight:'calc(100vh - 213px)'}}>
-
+                <div style={{ minHeight: "calc(100vh - 213px)" }}>
                   <Empty image="https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original" />
                 </div>
               )}
             </DetailCardContainer>
           </ContentCon>
-          <FooterContainer/>
+          <FooterContainer />
         </Layout>
       </Category>
     );
