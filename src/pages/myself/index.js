@@ -427,6 +427,7 @@ class MySelfContainers extends Component {
         console.log(values)
        header_actions.addUserMoney(values,(data)=>{
         loginIn_actions.storeNickName(data)
+        this.hideCopyPopOver()
        })
       }
     });

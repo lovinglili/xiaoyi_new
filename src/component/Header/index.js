@@ -32,8 +32,10 @@ class HeaderContainer extends Component {
           this.handleExit();
         } else {
           if (isAssign && Object.keys(loginIn.userInfo).length === 0) {
-            loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), () => {});
-            loginIn_actions.storeNickName(rememberMe);
+            loginIn_actions.fetchLoginIn(JSON.stringify(rememberMe), (data) => {
+
+              loginIn_actions.storeNickName(data);
+            });
           }
         }
       }

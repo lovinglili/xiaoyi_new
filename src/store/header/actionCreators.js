@@ -36,7 +36,7 @@ export default {
     },
 
     // 改变卖家余额
-    changeSoldererMoney(params) {
+    changeSolderMoney(params) {
         return {
             type: types.CHANGE_SOLDER_MONEY,
             payload: new Promise(resolve => {
