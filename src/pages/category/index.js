@@ -217,7 +217,7 @@ class CategoryContainer extends PureComponent {
                         title={item.title}
                         description={
                           <div>
-                            <p style={{ fontSize: "12px" }}>{item.desc}</p>
+                            <p style={{ fontSize: "12px" , overflow:'hidden',whiteSpace:'nowrap',textOverflow:'ellipsis'}}>{item.desc}</p>
                             <div>
                               <span
                                 style={{
