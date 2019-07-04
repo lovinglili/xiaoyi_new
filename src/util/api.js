@@ -1,7 +1,7 @@
 
 // 模拟后端， localStorage模拟数据库
 import _ from 'lodash'
-
+//测试
 const api = {
     // 添加商品到购物车数据库
     addGoods ({goodId, title, price, pics, status}) {
